@@ -2,6 +2,38 @@
 
 一个本地、单用户的日历记忆 Agent。前端使用原生 JavaScript，后端使用 FastAPI、SQLite、FTS5 与 sqlite-vec。主规格见 [重构规格](docs/AGENT_MEMORY_REFACTOR_SPEC_ZH.md)，实现范围、验证证据和限制见 [验收记录](docs/REFACTOR_DELIVERY.md)。
 
+## macOS 一键启动
+
+在 macOS 上先创建虚拟环境并安装基础依赖：
+
+```sh
+python3 -m venv .venv-calendar
+.venv-calendar/bin/python -m pip install -r requirements-calendar.txt
+./mmm
+```
+
+如需在任意目录使用 `mmm`（或 `MMM`），在 `~/.zshrc` 中加入以下内容，
+将路径替换为自己的项目绝对路径，然后执行 `source ~/.zshrc`：
+
+```sh
+mmm() { "/绝对路径/MMM/mmm" "$@"; }
+MMM() { mmm "$@"; }
+```
+
+服务就绪后自动打开浏览器。
+每次启动自动选择随机空闲端口，浏览器打开对应地址。按 `Ctrl+C` 停止服务。
+使用 `--port` 可固定端口；该端口已有 MMM 服务时会打开现有页面。
+
+```sh
+mmm
+mmm --port 8766  # 指定端口
+mmm --no-open    # 只启动服务
+```
+
+项目内也可直接运行 `./mmm`。需要 `.venv-calendar/bin/python`
+及 `requirements-calendar.txt` 中的基础依赖。AI 对话需另行配置
+`.env` 中的供应商 Key；语义检索模型按原有 Embedding 配置安装。
+
 ## 启动
 
 ```powershell

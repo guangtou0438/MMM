@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+MMM_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$MMM_ROOT"
+if [ ! -x "$MMM_ROOT/.venv-calendar/bin/python" ]; then
+    echo '缺少虚拟环境，请先安装 requirements-calendar.txt。' >&2
+    exit 1
+fi
+exec "$MMM_ROOT/.venv-calendar/bin/python" "$MMM_ROOT/scripts/launch_macos.py" "$@"
