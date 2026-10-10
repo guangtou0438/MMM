@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "MMM · 实际代码架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1200,
+      700
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "命令行入口",
+      "sublabel": "cli.py:652",
+      "pos": [
+        35,
+        300
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Agent 编排",
+      "sublabel": "agent.py:94",
+      "pos": [
+        340,
+        300
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "SQLite 存储",
+      "sublabel": "store.py:24",
+      "pos": [
+        660,
+        300
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "backend",
+      "label": "模型适配",
+      "sublabel": "llm.py:71",
+      "pos": [
+        340,
+        80
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "remote",
+      "type": "external",
+      "label": "外部模型服务",
+      "sublabel": "llm.py:186",
+      "pos": [
+        660,
+        80
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "retrieve",
+      "type": "backend",
+      "label": "检索评分",
+      "sublabel": "memory/scoring.py:85",
+      "pos": [
+        35,
+        520
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "semantic",
+      "type": "backend",
+      "label": "困难模式聚合",
+      "sublabel": "memory/semantic.py:202",
+      "pos": [
+        340,
+        520
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "compress",
+      "type": "backend",
+      "label": "压缩路由",
+      "sublabel": "memory/compress.py:93",
+      "pos": [
+        660,
+        520
+      ],
+      "size": [
+        180,
+        76
+      ]
+    },
+    {
+      "id": "eval",
+      "type": "backend",
+      "label": "对照评测",
+      "sublabel": "eval/driver.py:93",
+      "pos": [
+        975,
+        300
+      ],
+      "size": [
+        180,
+        76
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-agent",
+      "from": "cli",
+      "to": "agent",
+      "label": "调用"
+    },
+    {
+      "id": "agent-store",
+      "from": "agent",
+      "to": "store",
+      "label": "读写"
+    },
+    {
+      "id": "agent-llm",
+      "from": "agent",
+      "to": "llm",
+      "label": "生成 / 向量"
+    },
+    {
+      "id": "llm-remote",
+      "from": "llm",
+      "to": "remote",
+      "label": "API 请求"
+    },
+    {
+      "id": "agent-retrieve",
+      "from": "agent",
+      "to": "retrieve",
+      "label": "检索"
+    },
+    {
+      "id": "agent-semantic",
+      "from": "agent",
+      "to": "semantic",
+      "label": "完成后聚合",
+      "labelAt": [
+        430,
+        448
+      ]
+    },
+    {
+      "id": "agent-compress",
+      "from": "agent",
+      "to": "compress",
+      "label": "维护扫描"
+    },
+    {
+      "id": "eval-store",
+      "from": "eval",
+      "to": "store",
+      "label": "内存库"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "主路径",
+      "items": [
+        "CLI 调用 Agent；存储与模型访问由编排层协调。",
+        "评测通过 driver.make_agent 构造同一个 Agent。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "实现边界",
+      "items": [
+        "技能调用尚未接入；无独立向量数据库。",
+        "配置与提示词：mmm/config.py、mmm/prompts.py。"
+      ]
+    }
+  ]
+}

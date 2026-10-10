@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "MMM · 核心记忆数据流",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      680
+    ]
+  },
+  "stages": [
+    {
+      "label": "输入与读取"
+    },
+    {
+      "label": "特征与摘要"
+    },
+    {
+      "label": "记忆处理"
+    },
+    {
+      "label": "上下文与路由"
+    },
+    {
+      "label": "输出与写回"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "task",
+      "label": "任务状态",
+      "sublabel": "agent.py:208",
+      "stage": 0,
+      "row": 0,
+      "type": "database"
+    },
+    {
+      "id": "ranking",
+      "label": "历史任务评分",
+      "sublabel": "scoring.py:85",
+      "stage": 1,
+      "row": 0,
+      "type": "backend"
+    },
+    {
+      "id": "topk",
+      "label": "相关记忆 Top-3",
+      "sublabel": "agent.py:243",
+      "stage": 2,
+      "row": 0,
+      "type": "backend"
+    },
+    {
+      "id": "context",
+      "label": "续接上下文",
+      "sublabel": "agent.py:319",
+      "stage": 3,
+      "row": 0,
+      "type": "backend"
+    },
+    {
+      "id": "hint",
+      "label": "中文续接提示",
+      "sublabel": "agent.py:341",
+      "stage": 4,
+      "row": 0,
+      "type": "frontend"
+    },
+    {
+      "id": "done",
+      "label": "完成任务",
+      "sublabel": "agent.py:468",
+      "stage": 0,
+      "row": 3,
+      "type": "backend"
+    },
+    {
+      "id": "summary",
+      "label": "摘要与难度分",
+      "sublabel": "agent.py:490",
+      "stage": 1,
+      "row": 3,
+      "type": "backend"
+    },
+    {
+      "id": "patterns",
+      "label": "聚合困难模式",
+      "sublabel": "semantic.py:202",
+      "stage": 2,
+      "row": 3,
+      "type": "backend"
+    },
+    {
+      "id": "routing",
+      "label": "有序压缩路由",
+      "sublabel": "compress.py:93",
+      "stage": 3,
+      "row": 3,
+      "type": "backend"
+    },
+    {
+      "id": "writeback",
+      "label": "记忆写回",
+      "sublabel": "agent.py:523",
+      "stage": 4,
+      "row": 3,
+      "type": "database"
+    }
+  ],
+  "flows": [
+    {
+      "id": "task-ranking",
+      "from": "task",
+      "to": "ranking",
+      "label": "任务向量"
+    },
+    {
+      "id": "ranking-topk",
+      "from": "ranking",
+      "to": "topk",
+      "label": "加权得分"
+    },
+    {
+      "id": "topk-context",
+      "from": "topk",
+      "to": "context",
+      "label": "标题 / 摘要",
+      "route": "straight"
+    },
+    {
+      "id": "context-hint",
+      "from": "context",
+      "to": "hint",
+      "label": "提示词"
+    },
+    {
+      "id": "done-summary",
+      "from": "done",
+      "to": "summary",
+      "label": "对话 / 子任务"
+    },
+    {
+      "id": "summary-patterns",
+      "from": "summary",
+      "to": "patterns",
+      "label": "摘要 / 难度"
+    },
+    {
+      "id": "patterns-routing",
+      "from": "patterns",
+      "to": "routing",
+      "label": "模式命中",
+      "route": "straight"
+    },
+    {
+      "id": "routing-writeback",
+      "from": "routing",
+      "to": "writeback",
+      "label": "压缩决策"
+    },
+    {
+      "id": "patterns-context",
+      "from": "patterns",
+      "to": "context",
+      "label": "模式线索",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "via": [
+        [
+          530,
+          328
+        ],
+        [
+          745,
+          328
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "续接路径",
+      "items": [
+        "当前状态、近期对话与历史摘要合入提示词。",
+        "模式线索经 _matched_pattern 单独送入上下文。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "完成路径",
+      "items": [
+        "先存摘要与难度，再聚合，最后扫描压缩。",
+        "命中模式保留现有内容；摘要封存后只规则归档。"
+      ]
+    }
+  ]
+}

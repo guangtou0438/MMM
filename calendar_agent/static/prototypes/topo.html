@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>地形日历 · 原型</title>
+<style>
+  /* A month as a contour map: the busier a day, the higher its hill. */
+  :root {
+    --ink: #e9ecef; --ink-2: #a9b3bc; --ink-3: #8d98a3; --bg: #070b10;
+    --accent: #f0b46a; --line: rgba(233, 236, 239, .14); --glass: rgba(12, 18, 26, .72);
+    --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    --sans: "Segoe UI Variable Text", "Segoe UI", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  }
+  * { box-sizing: border-box }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); overflow: hidden }
+  canvas#map { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block }
+  .chrome { position: fixed; inset: 0; pointer-events: none }
+  .chrome > * { pointer-events: auto }
+  header { position: absolute; top: 28px; left: 36px; right: 36px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px }
+  .brand { font-size: 12px; letter-spacing: .32em; color: var(--ink-3); text-transform: uppercase }
+  .brand b { display: block; font: 600 15px/1.4 var(--sans); letter-spacing: .12em; color: var(--ink); margin-top: 6px }
+  .title { display: flex; align-items: center; gap: 18px }
+  .title button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink-2); font-size: 18px; cursor: pointer; transition: border-color .3s, color .3s }
+  .title button:hover { border-color: var(--accent); color: var(--accent) }
+  .month { text-align: center; min-width: 260px }
+  .month .cn { font: 400 13px/1 var(--sans); letter-spacing: .5em; color: var(--ink-2); margin-top: 10px; padding-left: .5em }
+  /* split-flap digits */
+  .flap { display: inline-flex; gap: 4px; font: 400 44px/1 var(--serif); font-variant-numeric: tabular-nums }
+  .flap span { position: relative; display: inline-grid; place-items: center; width: .74em; height: 1.18em; border-radius: 6px; background: linear-gradient(#141b24 50%, #10161e 50%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 10px 22px -12px #000 }
+  .flap span:after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .55) }
+  .flap span.dot { width: .32em; background: none; box-shadow: none; color: var(--ink-3) }
+  .flap span.dot:after { display: none }
+  .flap span.tick { animation: flip .09s ease-in }
+  @keyframes flip { 0% { transform: perspective(200px) rotateX(0) } 50% { transform: perspective(200px) rotateX(-70deg) } 100% { transform: perspective(200px) rotateX(0) } }
+  .stats { text-align: right; font-size: 12px; color: var(--ink-3); line-height: 1.9; letter-spacing: .06em }
+  .stats strong { color: var(--ink); font: 400 22px/1 var(--serif); display: block; letter-spacing: 0 }
+  /* day labels sit on their hills */
+  .day { position: absolute; transform: translate(-50%, -50%); text-align: center; cursor: pointer; padding: 6px 8px; border-radius: 10px; transition: opacity .6s, transform .3s }
+  .day .n { font: 400 15px/1 var(--serif); color: var(--ink-2); font-variant-numeric: tabular-nums }
+  .day .c { display: flex; gap: 2px; justify-content: center; margin-top: 5px; height: 3px }
+  .day .c i { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: .8 }
+  .day.busy .n { color: var(--ink); font-size: 18px }
+  .day.weekend .n { color: #d9a7a0 }
+  .day.today .n { color: #0b0f14; background: var(--accent); border-radius: 50%; display: inline-grid; place-items: center; width: 30px; height: 30px; box-shadow: 0 0 0 5px rgba(240, 180, 106, .16) }
+  .day.past { opacity: .55 }
+  .day:hover, .day.sel { transform: translate(-50%, -50%) scale(1.12) }
+  .day.hide { opacity: 0; pointer-events: none }
+  .wk { position: absolute; font-size: 12px; letter-spacing: .3em; color: var(--ink-3); transform: translateX(-50%) }
+  footer { position: absolute; left: 36px; bottom: 28px; font-size: 12px; color: var(--ink-3); letter-spacing: .06em; display: flex; align-items: center; gap: 14px }
+  footer .ramp { width: 120px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #12313b, #2c6f6a, #9bbf7a, #f0b46a, #ffe2b8) }
+  /* the day sheet */
+  aside { position: absolute; top: 108px; right: 36px; bottom: 28px; width: min(340px, calc(100vw - 72px)); background: var(--glass); border: 1px solid var(--line); border-radius: 22px; padding: 26px 26px 22px; backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); transform: translateX(calc(100% + 60px)); transition: transform .55s cubic-bezier(.22, .61, .36, 1); display: flex; flex-direction: column }
+  aside.open { transform: none }
+  aside .d { font: 400 64px/1 var(--serif) }
+  aside .w { color: var(--ink-2); letter-spacing: .2em; font-size: 13px; margin-top: 10px }
+  aside .alt { margin-top: 8px; font-size: 12px; color: var(--ink-3) }
+  aside ul { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; overflow: auto }
+  aside li { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: baseline; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .035); border: 1px solid rgba(255, 255, 255, .05) }
+  aside li time { font: 400 15px/1 var(--serif); color: var(--accent); font-variant-numeric: tabular-nums }
+  aside li span { font-size: 14px; line-height: 1.5 }
+  aside li small { display: block; color: var(--ink-3); font-size: 12px; margin-top: 2px }
+  aside .empty { color: var(--ink-3); font-size: 13px; margin-top: 22px; line-height: 1.8 }
+  aside .x { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: none; color: var(--ink-2); cursor: pointer; font-size: 16px }
+  .tip { position: absolute; pointer-events: none; padding: 8px 12px; border-radius: 10px; background: rgba(8, 12, 18, .86); border: 1px solid var(--line); font-size: 12px; color: var(--ink-2); white-space: nowrap; opacity: 0; transition: opacity .2s; transform: translate(14px, 14px) }
+  .tip b { color: var(--ink); font-weight: 600 }
+  .note { position: absolute; right: 36px; bottom: 28px; font-size: 12px; color: var(--ink-3); letter-spacing: .08em }
+  @media (max-width: 760px) {
+    header { top: 18px; left: 18px; right: 18px; flex-wrap: wrap }
+    .stats, .brand { display: none }
+    .title { width: 100%; justify-content: space-between }
+    .flap { font-size: 30px }
+    .month { min-width: 0 }
+    footer { left: 18px; bottom: 18px }
+    .note { display: none }
+    aside { top: auto; left: 12px; right: 12px; bottom: 12px; width: auto; height: 62vh; transform: translateY(calc(100% + 40px)) }
+    .day .n { font-size: 13px } .day.busy .n { font-size: 15px }
+  }
+  @media (prefers-reduced-motion: reduce) { .flap span.tick { animation: none } aside { transition: none } }
+</style>
+</head>
+<body>
+<canvas id="map" aria-hidden="true"></canvas>
+<div class="chrome">
+  <header>
+    <div class="brand">MMM · Prototype<b>地形日历</b></div>
+    <div class="title">
+      <button id="prev" aria-label="上个月">‹</button>
+      <div class="month"><div class="flap" id="flap" aria-live="polite"></div><div class="cn" id="cn"></div></div>
+      <button id="next" aria-label="下个月">›</button>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <div id="days"></div>
+  <footer><span>平地</span><span class="ramp"></span><span>一天的安排越多，山就越高</span></footer>
+  <div class="note">示例数据</div>
+  <aside id="sheet" aria-live="polite"><button class="x" id="close" aria-label="关闭">✕</button><div id="sheetBody"></div></aside>
+  <div class="tip" id="tip"></div>
+</div>
+<script src="sample.js"></script>
+<script src="topo.js"></script>
+</body>
+</html>

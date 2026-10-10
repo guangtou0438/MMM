@@ -1,0 +1,99 @@
+[
+  {
+    "case": "明天读完示例短篇小说，帮我记成待办。",
+    "status": 200,
+    "result": {
+      "reply": "确认后会出现在首页的明天分组里～\n\n已创建「读完示例短篇小说」，计划日 2026-09-07。",
+      "message_id": 2,
+      "citations": [
+        {
+          "message_id": 1,
+          "session_id": null,
+          "href": "/?message=1",
+          "label": "来源 #1 · 2026-09-06"
+        }
+      ],
+      "saved_sessions": [
+        {
+          "id": 1,
+          "title": "读完示例短篇小说",
+          "session_goal": "",
+          "planned_date": "2026-09-07",
+          "deadline_date": null,
+          "agenda": [],
+          "status": "open",
+          "archived_at": null,
+          "version": 1,
+          "created_at": "2026-09-06T00:00:00+00:00",
+          "topic_id": null,
+          "migration_metadata": {}
+        }
+      ],
+      "suggestion_ids": [],
+      "attempts": []
+    }
+  },
+  {
+    "case": "再帮我添加一个数学作业。",
+    "status": 200,
+    "result": {
+      "reply": "好的，帮你记数学作业～不过作业需要有截止日期：这个数学作业什么时候要交呀？",
+      "message_id": 4,
+      "citations": [],
+      "saved_sessions": [],
+      "suggestion_ids": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "error": "模型输出格式错误：需要 JSON 对象"
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-collaboration",
+    "status": 200,
+    "result": {
+      "reply": "收到～以后多用短句和分步解释。\n\n明天想试试陶艺，我帮你留个「以后试试」的想法：\n- 想法：试试陶艺\n- 日期：明天（2026-09-07）\n\n这样提交可以吗？\n\n已保存待确认建议，请在首页接受、修改或忽略；尚未更改任务。",
+      "message_id": 6,
+      "citations": [],
+      "saved_sessions": [],
+      "suggestion_ids": [
+        1
+      ],
+      "attempts": [
+        {
+          "attempt": 1,
+          "error": "模型输出格式错误：需要 JSON 对象"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cross-session-recall",
+    "result": {
+      "reply": "记得呀～你说过读长段文字比较累，更喜欢短句和分步解释的表达方式，我会照这个来。数学作业的截止时间想好了吗？定下来我就一起帮你记上。",
+      "message_id": 8,
+      "citations": [
+        {
+          "message_id": 5,
+          "session_id": 1,
+          "href": "/?session=1&message=5",
+          "label": "来源 #5 · 2026-09-06"
+        }
+      ],
+      "saved_sessions": [],
+      "suggestion_ids": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "error": "模型输出格式错误：需要 JSON 对象"
+        }
+      ]
+    }
+  },
+  {
+    "case": "personal-memory",
+    "processed": true
+  }
+]

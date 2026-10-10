@@ -1,0 +1,842 @@
+/* ==========================================================================
+   MMM · the whole interface in one sheet.
+
+   Colour works the way it does in ai_pet: one hue (picked from ten swatches
+   in the menu) and a day/night switch. theme.js puts the hue on :root as
+   --hue and the switch as data-theme; every colour below is an OKLCH
+   lightness/chroma pair at that hue, so any choice stays in tune with
+   itself. Amber (arrangements, today), brick (danger) and sage (done) keep
+   their own hues because they carry meaning. The calendar (timecal.js) and
+   the mist (mist.js) read these same tokens back for their canvases.
+
+   1 tokens · 2 base · 3 top bar · 4 menu · 5 controls · 6 home · 7 chat
+   8 task · 9 memory · 10 dialogs · 11 calendar · 12 small screens · 13 motion
+   ========================================================================== */
+
+/* 1. Tokens ------------------------------------------------------------- */
+:root {
+  --hue: 260;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", "PingFang SC", "Microsoft YaHei UI", ui-rounded, system-ui, sans-serif;
+  --font-num: ui-rounded, "SF Pro Rounded", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --topbar: 56px;
+}
+/* day (ai_pet's light formulas) */
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --page: oklch(96% .035 var(--hue));
+  --surface: oklch(99% .012 var(--hue)); --surface-2: oklch(96.5% .025 var(--hue)); --surface-3: oklch(93% .04 var(--hue));
+  --header: oklch(94% .05 var(--hue));
+  --ink: oklch(30% .045 var(--hue)); --ink-2: oklch(42% .045 var(--hue)); --ink-3: oklch(53% .04 var(--hue));
+  --rule: oklch(90% .035 var(--hue)); --rule-2: oklch(84% .05 var(--hue));
+  --accent: oklch(52% .16 var(--hue)); --on-accent: #fff;   /* ai_pet uses 66%; 52% keeps white text and accent links at 4.5:1 */
+  --accent-tint: oklch(93% .04 var(--hue)); --accent-soft: oklch(88% .09 var(--hue));
+  --bubble: oklch(93% .04 var(--hue));
+  --amber: oklch(55% .13 60); --amber-tint: oklch(95% .05 80);
+  --sage: oklch(52% .12 160); --brick: oklch(54% .19 25); --brick-tint: oklch(95% .03 25); --on-brick: #fff;
+  --marker: var(--accent-soft);
+  --page-art: linear-gradient(transparent, transparent);
+  --glass: oklch(99% .012 var(--hue) / .76);
+  --card: oklch(99% .012 var(--hue) / .74);
+  --shadow-card: 0 0 0 .5px var(--rule-2), 0 1px 2px oklch(45% .05 var(--hue) / .06), 0 8px 20px -10px oklch(45% .05 var(--hue) / .16);   /* glass on mist needs only a hint of lift */
+  --shadow-pop: 0 0 0 1px var(--rule), 0 18px 48px oklch(40% .06 var(--hue) / .22);
+}
+/* night (ai_pet's dark formulas) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: oklch(20% .025 var(--hue));
+  --surface: oklch(25% .022 var(--hue)); --surface-2: oklch(29% .03 var(--hue)); --surface-3: oklch(33% .035 var(--hue));
+  --header: oklch(23% .035 var(--hue));
+  --ink: oklch(92% .015 var(--hue)); --ink-2: oklch(82% .02 var(--hue)); --ink-3: oklch(72% .025 var(--hue));
+  --rule: oklch(34% .03 var(--hue)); --rule-2: oklch(42% .035 var(--hue));
+  --accent: oklch(72% .15 var(--hue)); --on-accent: oklch(20% .03 var(--hue));
+  --accent-tint: oklch(32% .035 var(--hue)); --accent-soft: oklch(38% .05 var(--hue));
+  --bubble: oklch(32% .035 var(--hue));
+  --amber: oklch(82% .12 80); --amber-tint: oklch(32% .05 80);
+  --sage: oklch(80% .12 155); --brick: oklch(78% .11 25); --brick-tint: oklch(30% .05 25); --on-brick: oklch(22% .04 25);
+  --marker: var(--accent-soft);
+  --page-art: linear-gradient(transparent, transparent);
+  --glass: oklch(25% .022 var(--hue) / .78);
+  --card: oklch(25% .022 var(--hue) / .66);
+  --shadow-card: 0 0 0 .5px var(--rule-2), inset 0 1px 0 oklch(100% 0 0 / .04);   /* a hairline ring, but no drop shadow at night: it pooled into a dark block under the cards */
+  --shadow-pop: 0 0 0 1px var(--rule), 0 20px 50px oklch(5% .02 var(--hue) / .6);
+}
+
+/* 2. Base ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box }
+html, body { height: 100% }
+body {
+  margin: 0; display: flex; flex-direction: column; height: 100dvh; overflow: hidden;
+  background: var(--page-art), var(--page); background-attachment: fixed;
+  color: var(--ink); font: 14px/1.6 var(--font-sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, h3, p { margin: 0 }
+h1, h2, h3 { font-weight: 650; letter-spacing: -.01em; line-height: 1.3 }
+a { color: var(--accent) }
+[hidden] { display: none !important }
+.icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+.muted { color: var(--ink-3) }
+.small { font-size: 12.5px }
+.error { color: var(--brick); font-size: 13px; margin-top: var(--s2) }
+.error:empty { display: none }
+.sr-only, .message .role { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+.skip-link { position: absolute; left: 12px; top: -48px; z-index: 100; padding: 8px 14px; border-radius: var(--r-sm); background: var(--accent); color: var(--on-accent) }
+.skip-link:focus { top: 8px }
+::selection { background: var(--marker) }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+main:focus { outline: none }
+* { scrollbar-width: thin; scrollbar-color: var(--rule-2) transparent }
+
+h1, h2, h3 { text-wrap: balance }
+p, li, .agent-answer, .muted { text-wrap: pretty }
+
+/* 3. Top bar ------------------------------------------------------------ */
+#mist { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block }
+main { position: relative; z-index: 1 }
+/* Launch intro (intro.js): a dark stage over everything, shown only while it plays */
+#intro { display: none; position: fixed; inset: 0; z-index: 200; background: oklch(12% .03 var(--hue)); cursor: pointer; transition: opacity .9s var(--ease) .15s }
+[data-intro="play"] #intro, [data-intro="leaving"] #intro { display: block }
+[data-intro="leaving"] #intro { opacity: 0; pointer-events: none }
+#intro canvas { position: absolute; inset: 0; width: 100%; height: 100% }
+.intro-line {
+  position: absolute; left: 0; right: 0; bottom: 18vh; text-align: center; margin: 0;
+  color: oklch(92% .02 var(--hue) / .82); font: 500 15px/1.4 var(--font-sans); letter-spacing: .32em;
+  opacity: 0;
+}
+#intro.running .intro-line { animation: intro-line 1.6s var(--ease) 2.3s forwards }
+[data-intro="leaving"] .intro-line { animation: none; opacity: 0; transition: opacity .4s }
+@keyframes intro-line { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+.topbar {
+  flex: none; height: var(--topbar); position: relative; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 var(--s4) 0 var(--s3);
+  /* no fill and no rule: the bar is part of the page, floating on the same mist */
+  background: transparent;
+}
+.menu-button {
+  display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 10px 0 6px;
+  border-radius: 999px; font-size: 15px; font-weight: 650; letter-spacing: -.01em;
+  transition: background .2s var(--ease);
+}
+.menu-button:hover, .menu-button[aria-expanded="true"] { background: color-mix(in srgb, var(--ink) 7%, transparent) }
+.menu-button .chevron { width: 16px; height: 16px; color: var(--ink-3); transition: rotate .3s var(--spring) }
+.menu-button[aria-expanded="true"] .chevron { rotate: 180deg }
+.logo {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
+  background: var(--surface); color: var(--accent); font: 800 14px/1 var(--font-num); letter-spacing: -.03em; border-radius: 50%; box-shadow: 0 0 0 2.5px var(--accent);
+}
+.icon-button {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent); transition: transform .2s var(--spring), filter .2s;
+}
+.icon-button:hover { filter: brightness(1.08) }
+.icon-button:active { transform: scale(.96) }
+/* the bar: list menu at left, the three views in the middle, settings and create at right */
+.topbar { display: grid; grid-template-columns: 1fr auto 1fr }
+.topbar-start { justify-self: start; display: flex; align-items: center; gap: 4px }
+.topbar-actions { justify-self: end; display: flex; align-items: center; gap: var(--s2) }
+#breadcrumb { display: none }
+.view-tabs {
+  display: flex; gap: 2px; padding: 3px; border-radius: 999px;
+  background: var(--glass); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 0 0 .5px var(--rule-2), 0 4px 16px -8px oklch(30% .05 var(--hue) / .25);
+}
+.view-tabs button {
+  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 550; color: var(--ink-2);
+  transition: background-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.view-tabs button .icon { width: 16px; height: 16px }
+.view-tabs button span { white-space: nowrap }
+.view-tabs button:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent) }
+.view-tabs button:active { transform: scale(.96) }
+.view-tabs button[aria-current="page"] { background: var(--accent); color: var(--on-accent) }
+.ghost-button {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--ink-2);
+  transition: background-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.ghost-button:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); color: var(--ink) }
+.ghost-button:active { transform: scale(.96) }
+/* settings: the old menu groups, laid out as a quiet sheet */
+#settings-dialog { width: min(380px, calc(100vw - 32px)) }
+.settings-body { margin: var(--s3) -6px 0 }
+.settings-body .menu-group + .menu-group { margin-top: var(--s2) }
+
+/* 4. Menu: a frosted panel that grows out of the button ------------------ */
+.menu {
+  position: fixed; inset: auto; top: calc(var(--topbar) - 4px); left: var(--s3); margin: 0;
+  width: min(300px, calc(100vw - 24px)); max-height: calc(100dvh - var(--topbar) - 16px); overflow: auto;
+  padding: 5px; border: 0; border-radius: 14px; color: var(--ink);
+  background: var(--glass); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: var(--shadow-pop);
+  transform-origin: 24px 0; opacity: 0; transform: scale(.88) translateY(-4px);
+  transition: opacity .16s ease, transform .32s var(--spring), overlay .32s allow-discrete, display .32s allow-discrete;
+}
+.menu:popover-open { opacity: 1; transform: none }
+@starting-style { .menu:popover-open { opacity: 0; transform: scale(.88) translateY(-4px) } }
+.menu-group { padding: 3px 0 }
+.menu-group + .menu-group { border-top: .5px solid var(--rule-2) }
+.menu-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 34px; padding: 0 10px;
+  border-radius: 8px; font-size: 14px; text-align: left; color: var(--ink); cursor: default;
+}
+.menu-item .icon { width: 17px; height: 17px; color: var(--ink-2) }
+.menu-item:hover, .menu-item:focus-visible { background: var(--accent); color: var(--on-accent); outline: none }
+.menu-item:hover .icon, .menu-item:focus-visible .icon, .menu-item:hover .count { color: inherit }
+.menu-item.active { font-weight: 650 }
+.menu-item.active::after { content: ""; margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
+.count { margin-left: auto; font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums }
+.menu-disclosure > summary { list-style: none }
+.menu-disclosure > summary::-webkit-details-marker { display: none }
+.menu-disclosure > summary::after {
+  content: ""; width: 7px; height: 7px; margin: 0 4px 0 auto; flex: none;
+  border: solid currentColor; border-width: 0 1.6px 1.6px 0; rotate: -45deg; opacity: .55; transition: rotate .25s var(--spring);
+}
+.menu-disclosure > summary:has(.count)::after { margin-left: 12px }
+.menu-disclosure[open] > summary::after { rotate: 45deg }
+.menu-sub { padding: 2px 2px 6px 8px; max-height: 280px; overflow: auto; overscroll-behavior: contain }
+.menu-sub input[type="search"] { height: 30px; padding: 0 10px; margin: 4px 0 6px; font-size: 13px; border-radius: 8px }
+.menu-row-button { width: 100%; text-align: left; padding: 6px 8px; border-radius: 8px; font-size: 13px; color: var(--accent); font-weight: 600 }
+.menu-row-button:hover { background: var(--surface-2) }
+.menu-field { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; padding: 0 10px; font-size: 14px }
+.menu-field label { margin: 0; font-size: 14px; color: var(--ink) }
+.menu-field select { width: auto; max-width: 160px; height: 28px; padding: 0 8px; font-size: 13px; border-radius: 7px }
+/* colour: ten swatches that swell under the pointer like a dock (app.js), and a day/night switch */
+.menu-look { padding: 6px 10px 2px; font-size: 14px }
+.swatches { display: flex; gap: 5px; padding: 16px 14px 6px; margin: 0 -4px }
+.swatch {
+  --base-scale: 1; --hover-scale: var(--base-scale); --lift: 0px;
+  width: 24px; height: 24px; flex: none; border-radius: 7px; background: var(--color); border: 2px solid transparent;
+  transform: scale(var(--hover-scale)) translateY(var(--lift));
+  transition: transform 140ms ease-out, box-shadow 300ms cubic-bezier(.175, .885, .32, 1.275), border-radius 200ms ease;
+}
+.swatch:hover { border-radius: 10px; z-index: 2 }
+.swatch[aria-checked="true"] { --base-scale: 1.15; border-color: var(--surface); box-shadow: 0 0 0 2px var(--color), 0 2px 4px oklch(0% 0 0 / .18) }
+.night-toggle::before { content: ""; position: absolute; inset: -8px -4px }   /* a 44px target around the 28px switch */
+.night-toggle {
+  position: relative; width: 52px; height: 28px; flex: none; border-radius: 14px; border: 1px solid var(--rule);
+  background: oklch(78% .08 220); transition: background .3s ease;
+}
+.night-toggle[aria-checked="true"] { background: oklch(28% .05 260) }
+.night-toggle .knob {
+  position: absolute; top: 2px; left: 2px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  background: oklch(85% .15 95); color: oklch(45% .12 70); box-shadow: 0 1px 3px oklch(0% 0 0 / .3);
+  transition: left .3s var(--spring), background .3s ease;
+}
+.night-toggle[aria-checked="true"] .knob { left: 27px; background: oklch(88% .01 260); color: oklch(35% .05 260) }
+.night-toggle .knob svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+.menu-foot { padding: 6px 10px 3px; border-top: .5px solid var(--rule-2); font-size: 11.5px; color: var(--ink-3) }
+
+/* task and conversation rows, in the menu */
+.task-card { position: relative; display: flex; align-items: center; gap: 2px; border-radius: 8px }
+.task-link, .conversation-link {
+  flex: 1; min-width: 0; display: block; width: 100%; text-align: left; padding: 6px 8px; border-radius: 8px; color: var(--ink);
+}
+.task-link span, .conversation-link span { display: block; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.task-link small, .conversation-link small { display: block; font-size: 11.5px; color: var(--ink-3) }
+.task-link:hover, .conversation-link:hover { background: color-mix(in srgb, var(--ink) 6%, transparent) }
+.task-link[aria-current="page"], .conversation-link[aria-current="true"] { background: var(--accent-tint) }
+#topic-list .task-link, #legacy-list .task-link { font-size: 13px }
+.conversation-empty { padding: 6px 8px; font-size: 12.5px; color: var(--ink-3) }
+.overflow-trigger { width: 30px; height: 30px; border-radius: 8px; color: var(--ink-2); font-size: 16px }
+.task-card .overflow-trigger { width: 28px; height: 28px; color: var(--ink-3); opacity: 0; transition: opacity .15s }
+.task-card:hover .overflow-trigger, .overflow-trigger:focus-visible, .overflow-trigger[aria-expanded="true"] { opacity: 1 }
+.overflow-trigger:hover { background: color-mix(in srgb, var(--ink) 8%, transparent) }
+@media (hover: none) { .task-card .overflow-trigger { opacity: 1 } }
+.floating-actions {
+  position: fixed; inset: auto; margin: 0; min-width: 170px; padding: 5px; border: 0; border-radius: 12px;
+  background: var(--glass); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: var(--shadow-pop); color: var(--ink);
+}
+.floating-actions button {
+  display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 10px;
+  border-radius: 7px; background: none; color: var(--ink); font-size: 13.5px; font-weight: 400; box-shadow: none;
+}
+.floating-actions button:hover, .floating-actions button:focus-visible { background: var(--accent); color: var(--on-accent); outline: none }
+.floating-actions .danger { color: var(--brick) }
+.floating-actions .danger:hover { background: var(--brick); color: var(--on-brick) }
+.floating-actions .icon { width: 16px; height: 16px }
+
+/* 5. Controls ------------------------------------------------------------ */
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent }
+button:disabled { opacity: .45; cursor: default }
+.primary, .secondary, .danger {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 34px; padding: 0 16px;
+  border-radius: 999px; font-size: 13.5px; font-weight: 600; white-space: nowrap;
+  transition: transform .2s var(--spring), filter .2s, background .2s;
+}
+.primary { background: var(--accent); color: var(--on-accent) }
+.secondary { background: var(--surface-2); color: var(--ink); box-shadow: inset 0 0 0 .5px var(--rule-2) }
+.danger { background: var(--brick); color: var(--on-brick) }
+.primary:hover:not(:disabled), .danger:hover:not(:disabled) { filter: brightness(1.08) }
+.secondary:hover:not(:disabled) { background: var(--surface-3) }
+:is(.primary, .secondary, .danger, .quiet):active:not(:disabled) { transform: scale(.96) }
+.quiet { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 8px; font-size: 13px; color: var(--ink-2) }
+.quiet:hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 7%, transparent); color: var(--ink) }
+.send { width: 40px; height: 40px; padding: 0; background: transparent; color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--rule-2); transition: background-color .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease), transform .15s var(--ease) }
+.send:hover:not(:disabled), .send:focus-visible { background: var(--accent); color: var(--on-accent); box-shadow: 0 0 10px color-mix(in oklch, var(--accent) 90%, transparent), 0 0 26px color-mix(in oklch, var(--accent) 40%, transparent); filter: none; outline: 0 }
+input, select, textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--surface-2);
+  border: 1px solid transparent; border-radius: 10px; padding: 8px 12px; transition: border-color .2s, box-shadow .2s, background .2s;
+}
+textarea { resize: vertical; line-height: 1.6 }
+input:focus, select:focus, textarea:focus { outline: none; background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint) }
+input::placeholder, textarea::placeholder { color: var(--ink-3); opacity: 1 }
+input[type="checkbox"] { width: 18px; height: 18px; padding: 0; margin: 2px 0 0; flex: none; accent-color: var(--accent) }
+label { display: block; margin: var(--s4) 0 6px; font-size: 12.5px; color: var(--ink-2) }
+details > summary { cursor: pointer }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px }
+.empty { display: grid; gap: 4px; place-items: center; text-align: center; padding: 40px 16px; color: var(--ink-3) }
+.empty small { font-size: 12.5px }
+
+/* 6. Home ---------------------------------------------------------------- */
+main { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden }
+#notice { flex: none; margin: var(--s3) var(--s6) 0; padding: 10px 14px; border-radius: var(--r-md); background: var(--brick-tint); color: var(--brick); font-size: 13px }
+#home-view {
+  flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+  gap: var(--s5); padding: var(--s5) var(--s6) var(--s6);
+}
+.work-column { min-height: 0; overflow: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: var(--s4); padding: 2px 4px 2px 2px; margin: -2px -4px -2px -2px }
+.inbox { flex: none; display: flex; flex-direction: column; gap: var(--s3) }
+.inbox:not(:has(.reminder, #suggestions-panel:not([hidden]), #reviews .panel, #weather-items .memory-card)) { display: none }
+.work-tools, #reviews { display: contents }
+.reminders { display: flex; flex-wrap: wrap; gap: var(--s2) }
+.reminders:empty { display: none }
+.reminder { height: 30px; padding: 0 12px; border-radius: 999px; background: var(--amber-tint); color: var(--amber); font-size: 13px; font-weight: 550 }
+.reminder.overdue { background: var(--brick-tint); color: var(--brick) }
+/* cards are frosted glass, so the mist (mist.js) drifts behind them */
+.panel, .chat-panel, .goal-panel, .session-chat, #chat-view .composer { backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%) }
+.panel { position: relative; background: var(--card); border: 0; border-radius: var(--r-lg); padding: var(--s4) 18px; box-shadow: var(--shadow-card) }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s2) }
+.panel-heading h2 { font-size: 15px }
+#suggestions { max-height: 248px; overflow: auto; overscroll-behavior: contain; margin-right: -8px; padding-right: 8px }
+.suggestion { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: var(--s3) 0; border-top: .5px solid var(--rule) }
+.suggestion:first-child { border-top: 0; padding-top: var(--s1) }
+.suggestion strong { font-size: 14px; font-weight: 600 }
+.suggestion p { font-size: 12.5px; margin: 2px 0 }
+.suggestion .actions { flex: none }
+.citations { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 6px }
+.citations a { font-size: 12px; text-decoration: none }
+.citations a:hover { text-decoration: underline }
+.review > p { white-space: pre-wrap; line-height: 1.8 }
+.weather-panel:not(:has(.memory-card)) { display: none }
+.weather-panel .memory-card { display: grid; gap: var(--s2); padding: var(--s3) 0; border-top: .5px solid var(--rule) }
+.weather-panel .memory-card:first-child { border-top: 0 }
+.weather-panel input[type="date"] { width: auto }
+.calendar-panel { flex: none }
+#calendar { height: clamp(480px, calc(100dvh - var(--topbar) - 64px), 780px) }
+
+/* 7. Chat ---------------------------------------------------------------- */
+.chat-panel { min-height: 0; display: flex; flex-direction: column; padding: var(--s4) var(--s4) var(--s3); background: var(--card); border: 0; border-radius: var(--r-xl); box-shadow: var(--shadow-card) }
+#agent-view { flex: 1; min-height: 0; display: flex; flex-direction: column }
+.agent-head { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--s3) }
+.agent-head h2 { font-size: 16px }
+.agent-toolbar { display: flex; gap: 2px }
+.agent-toolbar details { position: relative }
+.agent-toolbar summary { list-style: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: var(--ink-3) }
+.agent-toolbar summary::-webkit-details-marker { display: none }
+.agent-toolbar summary:hover { background: var(--surface-2); color: var(--ink) }
+.agent-toolbar details[open] summary { background: var(--accent-tint); color: var(--accent) }
+.agent-toolbar summary .icon { width: 16px; height: 16px }
+.agent-toolbar-content {
+  position: absolute; right: 0; top: 36px; z-index: 10; width: min(380px, 80vw); max-height: 50vh; overflow: auto;
+  padding: 10px 12px; border-radius: var(--r-md); background: var(--surface); box-shadow: var(--shadow-pop);
+}
+.agent-trace { font-size: 12.5px; color: var(--ink-2) }
+.agent-trace:empty::before { content: "这次对话还没有记录。"; color: var(--ink-3) }
+.agent-trace p { margin-bottom: 6px }
+.trace-step { margin-bottom: 8px; padding-left: 10px; border-left: 2px solid var(--accent-soft) }
+.trace-step strong { display: block; font-weight: 600; color: var(--ink) }
+.trace-step ul { margin: 4px 0 0; padding: 0; list-style: none }
+.trace-step li { margin-top: 2px; color: var(--ink-2); overflow-wrap: anywhere }
+.agent-trace pre, dialog pre, #memory-view pre { margin: 0 0 8px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2); font: 11.5px/1.5 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere }
+#agent-status { flex: none; margin-top: 2px; font-size: 11.5px; color: var(--ink-3); overflow-wrap: anywhere }
+#agent-status:empty { display: none }
+.agent-answer { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: var(--s3) 2px var(--s2) }
+.agent-answer:empty { display: grid; place-content: center; text-align: center; color: var(--ink-3); font-size: 13.5px }
+/* ways to begin: quiet pills above the box, gone once the conversation starts */
+.agent-starters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: var(--s3) 0 }
+.agent-answer:not(:empty) ~ .agent-starters { display: none }
+.starter { height: 32px; padding: 0 14px; border-radius: 999px; font-size: 13px; color: var(--ink-2); background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: inset 0 0 0 .5px var(--rule-2); transition: background-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease) }
+.starter:hover { background: var(--accent-tint); color: var(--accent) }
+.starter:active { transform: scale(.96) }
+.agent-answer:empty::after { content: "说一句就行，比如「明天下午读书」。\A 需要确认的改动会出现在日历上方。"; white-space: pre-wrap; max-width: 26ch; line-height: 1.8 }
+.messages { overflow: auto; overscroll-behavior: contain }
+.message { width: fit-content; max-width: 85%; margin: 0 0 var(--s3); padding: 10px 16px; font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; animation: bubble-in .3s var(--ease) both }
+.message.assistant { border-radius: 20px 20px 20px 6px; background: var(--bubble); color: var(--ink) }
+@keyframes bubble-in { from { opacity: 0; transform: translateY(6px) } }
+.message .content { white-space: pre-wrap }
+/* a reply that has not started yet is just the waiting dots inside the bubble */
+.message .content:empty { display: none }
+.message .chat-working { min-height: 20px; padding: 2px 0 }
+.message.user { margin-left: auto; border-radius: 20px 20px 6px 20px; background: var(--accent); color: var(--on-accent) }
+.message.highlight { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 12px }
+.chat-working { display: flex; gap: 5px; align-items: center; min-height: 24px; padding: 4px 2px; flex: none }
+.chat-working i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); animation: chat-dot 1.2s ease-in-out infinite }
+.chat-working i:nth-child(2) { animation-delay: .15s }
+.chat-working i:nth-child(3) { animation-delay: .3s }
+@keyframes chat-dot { 0%, 60%, 100% { transform: none; opacity: .3 } 30% { transform: translateY(-4px); opacity: 1 } }
+.composer {
+  flex: none; margin-top: var(--s2); padding: 6px 6px 6px 16px; border-radius: 22px;
+  background: var(--page); border: 1px solid var(--rule); transition: box-shadow .2s, border-color .2s;
+}
+.composer:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint) }
+.composer textarea { display: block; padding: 6px 0; min-height: 40px; max-height: 30vh; border: 0; border-radius: 0; background: none; resize: none; box-shadow: none }
+.composer textarea:focus { box-shadow: none; background: none }
+.composer-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--s2) }
+.composer-footer .actions { margin-left: -8px }
+.composer-footer .quiet { height: 28px; font-size: 12.5px; color: var(--ink-3) }
+#agent-view:not(:has(.chat-working:not([hidden]))) #agent-cancel { display: none }
+#chat-view { flex: 1; min-height: 0; display: flex; justify-content: center; padding: var(--s4) var(--s6) var(--s6) }
+#chat-view > #agent-view { flex: 0 1 760px; min-width: 0 }
+/* wide screens: the saved chats stay beside the conversation, as a diary's spine:
+   days in the calendar's numerals, each conversation a stop on one thread */
+:root { --rail: 280px }
+.chat-sidebar {
+  position: fixed; z-index: 40; left: 0; top: 0; bottom: 0; width: var(--rail);
+  display: flex; flex-direction: column; gap: var(--s3); padding: 10px var(--s3) var(--s3); overflow: hidden;
+  background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: .5px 0 0 var(--rule-2);
+  transition: translate .32s var(--ease), visibility 0s linear 0s;
+}
+/* only on the chat page; folded, it slides out past the edge */
+body:not([data-page="chat"]) .chat-sidebar, body.chat-folded .chat-sidebar { translate: -100% 0; visibility: hidden; transition: translate .32s var(--ease), visibility 0s linear .32s }
+body[data-page="chat"]:not(.chat-folded) { padding-left: var(--rail) }
+body[data-page="chat"]:not(.chat-folded) .menu { left: calc(var(--rail) + var(--s3)) }
+.chat-rail-open { display: none }
+body[data-page="chat"].chat-folded .chat-rail-open { display: inline-grid }
+/* with the sidebar there, its 新对话 is the one; the composer keeps only 停止 */
+body[data-page="chat"]:not(.chat-folded) #agent-new { display: none }
+.chat-sidebar-head { display: flex; align-items: center; gap: 8px; padding-left: 4px; min-height: 36px }
+.chat-sidebar-head h2 { font-size: 14px; font-weight: 650; letter-spacing: -.01em; white-space: nowrap }
+.chat-sidebar-head .count { margin-left: 0 }
+.chat-rail-toggle { margin-left: auto; width: 32px; height: 32px; flex: none }
+.chat-rail-toggle .icon { width: 17px; height: 17px }
+.chat-new {
+  display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px; flex: none; border-radius: 12px;
+  background: var(--accent-tint); color: var(--accent); font-size: 14px; font-weight: 600; white-space: nowrap;
+  transition: background-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.chat-new:hover { background: var(--accent); color: var(--on-accent) }
+.chat-new:active { transform: scale(.96) }
+.chat-new .icon { width: 16px; height: 16px; stroke-width: 2.2 }
+.chat-search { position: relative; display: block; margin: 0; flex: none }
+.chat-search .icon { position: absolute; left: 11px; top: 50%; translate: 0 -50%; width: 15px; height: 15px; color: var(--ink-3); pointer-events: none }
+.chat-search input { height: 36px; padding: 0 12px 0 33px; font-size: 13px; border-radius: 10px }
+.chat-history { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; margin: 0 -6px; padding: 2px 6px 8px }
+.chat-day { position: relative; padding-bottom: var(--s3) }
+.chat-day + .chat-day { margin-top: var(--s2) }
+/* the thread: one hairline under every day, the conversations hang on it */
+.chat-day::before { content: ""; position: absolute; left: 15px; top: 40px; bottom: 6px; width: 1px; background: linear-gradient(var(--rule-2), color-mix(in srgb, var(--rule-2) 20%, transparent)) }
+.chat-day-head { display: flex; align-items: center; gap: 10px; height: 36px; padding-left: 2px; margin-bottom: 2px }
+.chat-day-num { width: 28px; text-align: center; font: 300 22px/1 var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -.03em; color: var(--ink) }
+.chat-day-label { display: flex; align-items: baseline; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--ink-2) }
+.chat-day-label small { font-size: 11.5px; font-weight: 400; color: var(--ink-3); letter-spacing: .06em }
+.chat-entry {
+  position: relative; display: block; width: 100%; padding: 8px 10px 8px 34px; border-radius: 10px; text-align: left;
+  transition: background-color .2s var(--ease);
+}
+.chat-entry::before {   /* the stop on the thread */
+  content: ""; position: absolute; left: 12px; top: 15px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--surface); box-shadow: 0 0 0 1.5px var(--rule-2); transition: background-color .2s var(--ease), box-shadow .2s var(--ease), scale .2s var(--ease);
+}
+.chat-entry:hover { background: color-mix(in srgb, var(--ink) 5%, transparent) }
+.chat-entry:hover::before { box-shadow: 0 0 0 1.5px var(--accent) }
+.chat-entry[aria-current="true"] { background: var(--accent-tint) }
+.chat-entry[aria-current="true"]::before { background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); scale: 1.15 }
+.chat-entry-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13.5px; line-height: 1.45; color: var(--ink); text-wrap: pretty }
+.chat-entry[aria-current="true"] .chat-entry-title { font-weight: 600 }
+.chat-entry-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums }
+.chat-entry-state { display: inline-flex; align-items: center; gap: 5px; font-weight: 500 }
+.chat-entry-state::before { content: ""; width: 6px; height: 6px; border-radius: 50% }
+.chat-entry-state.live { color: var(--accent) } .chat-entry-state.live::before { background: var(--accent); animation: chat-live 1.4s ease-in-out infinite }
+.chat-entry-state.wait { color: var(--amber) } .chat-entry-state.wait::before { background: var(--amber) }
+.chat-entry-state.fail { color: var(--brick) } .chat-entry-state.fail::before { background: var(--brick) }
+@keyframes chat-live { 50% { opacity: .3; scale: .7 } }
+.chat-history-empty { padding: var(--s6) var(--s3); text-align: center; font-size: 13px; line-height: 1.8; color: var(--ink-3) }
+.chat-sidebar-foot { flex: none; margin: 0 calc(-1 * var(--s3)) calc(-1 * var(--s3)); padding: 10px 16px; border-top: .5px solid var(--rule); font-size: 11.5px; color: var(--ink-3) }
+.chat-sidebar-foot:empty { display: none }
+#chat-view .agent-answer:empty::after { content: "今天过得怎么样？想到什么都可以说。" }
+#chat-view .composer { background: var(--card); box-shadow: var(--shadow-card) }
+#chat-view .agent-answer { padding-top: var(--s5) }
+
+/* 8. A task -------------------------------------------------------------- */
+#session-view { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: var(--s4); padding: var(--s4) var(--s6) var(--s6) }
+.session-bar { flex: none; display: flex; align-items: center; gap: var(--s4) }
+.session-bar .back { padding-left: 4px; color: var(--accent); font-weight: 600 }
+.session-titles { flex: 1; min-width: 0 }
+.session-titles h1 { font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.session-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--s5) }
+.goal-panel { min-height: 0; overflow: auto; padding: 18px; background: var(--card); border: 0; border-radius: var(--r-xl); box-shadow: var(--shadow-card) }
+.goal-panel h2, .goal-panel h3 { font-size: 12.5px; font-weight: 600; color: var(--ink-3) }
+.goal-panel h3 { margin: var(--s5) 0 var(--s2) }
+#session-goal { margin-top: 6px; font-size: 14.5px; line-height: 1.7; white-space: pre-wrap }
+.agenda-item { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 6px 0; font-size: 14px; color: var(--ink) }
+.agenda-item:has(:checked) span { color: var(--ink-3); text-decoration: line-through }
+.agenda-completion { color: var(--sage); margin-top: var(--s2) }
+.goal-panel details { margin-top: var(--s5); font-size: 13px; color: var(--ink-2) }
+.history-event { padding: 4px 0; font-size: 12px; color: var(--ink-3); white-space: pre-wrap }
+#view-topic { margin-top: var(--s3) }
+.session-chat { min-height: 0; display: flex; flex-direction: column; padding: var(--s3) var(--s4); background: var(--card); border: 0; border-radius: var(--r-xl); box-shadow: var(--shadow-card) }
+#session-messages { flex: 1; min-height: 0; overflow-anchor: none; padding: var(--s3) 2px }
+
+/* 9. Memory -------------------------------------------------------------- */
+#memory-view { flex: 1; min-height: 0; overflow: auto; padding: var(--s8) var(--s6) }
+#memory-view > * { max-width: 880px; margin-inline: auto }
+.page-heading h1 { font-size: 26px; letter-spacing: -.02em }
+.page-heading h1 { display: inline; background: linear-gradient(transparent 60%, var(--marker) 60%); padding: 0 2px }
+.page-heading p { margin-top: 6px; color: var(--ink-3) }
+/* 关于你: a portrait in five dimensions. Head: a line of intent and the shape (five axes, each reaching as far as
+   what MMM knows). Below, one row per dimension: its question at the left, the understanding and its evidence at the right. */
+#memory-view > .about { max-width: 960px }
+.about-head { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s8); align-items: center; padding-bottom: var(--s5) }
+.about-intro h1 { font-size: 28px; letter-spacing: -.02em }
+.about-lead { margin-top: var(--s3); font-size: 16px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty; max-width: 30em }
+.about-status { margin-top: var(--s3); font-size: 13px; color: var(--ink-3) }
+.about-status:empty { display: none }
+.about-mark { margin: 0 }
+.about-mark svg { display: block; width: 100%; aspect-ratio: 1; overflow: visible }
+.about-mark .guide { fill: none; stroke: var(--rule-2); stroke-width: .6; stroke-dasharray: 2 3 }
+.about-mark .axis { stroke: var(--rule-2); stroke-width: .6 }
+.about-mark .blob { fill: color-mix(in srgb, var(--accent) 16%, transparent); stroke: var(--accent); stroke-width: 1.4; stroke-linejoin: round; transform-origin: 110px 110px; animation: blob-in .9s var(--ease) both }
+@keyframes blob-in { from { transform: scale(.4); opacity: 0 } }
+.about-mark .dot { stroke: var(--page); stroke-width: 1.5 }
+.about-mark .label text { font-size: 11px; fill: var(--ink-2); cursor: pointer; transition: fill .2s var(--ease) }
+.about-mark .label:hover text, .about-mark .label:focus-visible text { fill: var(--accent) }
+.dims { margin: 0; padding: 0; list-style: none; border-top: .5px solid var(--rule-2) }
+.trait { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: var(--s6); padding: var(--s6) 0; border-bottom: .5px solid var(--rule); scroll-margin: 80px }
+.dim-side { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-content: start }
+.dim-glyph { grid-row: span 2; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; color: var(--tone); background: color-mix(in srgb, var(--tone) 14%, transparent) }
+.dim-glyph .icon { width: 19px; height: 19px }
+.dim-side h2 { align-self: end; font-size: 16px; line-height: 1.2 }
+.dim-ask { font-size: 12.5px; color: var(--ink-3) }
+.dim-text { font-size: 16.5px; line-height: 1.8; color: var(--ink); text-wrap: pretty; max-width: 34em }
+.trait.unknown .dim-text, .dim-text.pending { font-size: 14px; color: var(--ink-3) }
+.trait .starter { margin-top: var(--s3) }
+.dim-evidence { display: flex; flex-wrap: wrap; gap: 6px; margin: var(--s3) 0 0; padding: 0; list-style: none }
+.dim-chip { display: inline-flex; align-items: center; gap: 2px; min-height: 30px; padding: 0 4px 0 11px; border-radius: 999px; font-size: 12.5px; color: var(--ink-2); background: color-mix(in srgb, var(--tone) 10%, transparent); box-shadow: inset 0 0 0 .5px color-mix(in srgb, var(--tone) 35%, transparent); transition: opacity .25s var(--ease), translate .25s var(--ease) }
+li.leaving { opacity: 0; translate: 0 -4px }
+/* forget: hidden until you reach for the item; the first press asks */
+.about-forget { display: inline-flex; align-items: center; gap: 4px; height: 24px; min-width: 24px; padding: 0 5px; border-radius: 999px; color: var(--ink-3); opacity: 0; transition: opacity .15s var(--ease), background-color .15s var(--ease), color .15s var(--ease) }
+.about-forget .icon { width: 12px; height: 12px }
+.about-forget span { display: none; font-size: 12px }
+li:hover > .about-forget, li:focus-within > .about-forget, .about-forget.confirm { opacity: 1 }
+.about-forget:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink) }
+.about-forget.confirm { color: var(--brick); background: var(--brick-tint) }
+.about-forget.confirm span { display: inline }
+.about-forget.confirm .icon { display: none }
+@media (hover: none) { .about-forget { opacity: .7 } }
+.memory-empty { max-width: 460px !important; margin: 12vh auto 0; text-align: center }
+.memory-empty-mark { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; margin-bottom: var(--s4); font: 800 22px/1 var(--font-num); color: var(--accent); box-shadow: 0 0 0 3px var(--accent), 0 12px 32px -12px var(--accent) }
+.memory-empty h1 { font-size: 20px; letter-spacing: -.01em }
+.memory-empty p { margin: var(--s2) 0 var(--s5); color: var(--ink-2); line-height: 1.8; text-wrap: pretty }
+@media (max-width: 900px) {
+  .about-head { grid-template-columns: 1fr; gap: var(--s4) }
+  .about-mark { max-width: 260px; margin-inline: auto }
+  .trait { grid-template-columns: 1fr; gap: var(--s3); padding: var(--s5) 0 }
+}
+#memory-portrait-retry { margin-top: var(--s3) }
+
+/* 10. Dialogs ------------------------------------------------------------ */
+dialog {
+  width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); padding: 20px 22px; border: 0; border-radius: 18px;
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow-pop);
+  opacity: 0; transform: scale(.96);
+  transition: opacity .2s ease, transform .3s var(--spring), overlay .3s allow-discrete, display .3s allow-discrete;
+}
+dialog[open] { opacity: 1; transform: none }
+@starting-style { dialog[open] { opacity: 0; transform: scale(.96) } }
+dialog::backdrop { background: rgba(8, 12, 30, .3); backdrop-filter: blur(3px) }
+:root[data-theme="dark"] dialog::backdrop { background: rgba(0, 0, 0, .5) }
+dialog h2 { font-size: 17px }
+dialog > .panel-heading, dialog form > .panel-heading { align-items: center; margin-bottom: 0 }
+dialog p.muted { margin-top: var(--s2) }
+.close.quiet { width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 50%; font-size: 20px; line-height: 1 }
+.modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--s2); margin-top: var(--s5) }
+#arrangement-actions { margin-right: auto }
+.two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3) }
+/* 任务 / 安排: one segmented choice under the name, in place of a select */
+.kind-choice { display: flex; gap: 2px; margin: var(--s3) 0 0; padding: 3px; border: 0; border-radius: 12px; background: var(--surface-2) }
+.kind-choice label { flex: 1; margin: 0; position: relative }
+.kind-choice input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer }
+.kind-choice span { display: grid; place-items: center; height: 34px; border-radius: 9px; font-size: 13.5px; color: var(--ink-2); transition: background-color .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease) }
+.kind-choice input:checked + span { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: 0 1px 3px oklch(30% .04 var(--hue) / .12) }
+.kind-choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 1px }
+.kind-choice input:disabled { cursor: default }
+#kind-help { margin-top: 6px }
+#history-dialog { width: min(720px, calc(100vw - 32px)) }
+#history-content { max-height: 70vh; overflow: auto; margin-top: var(--s3) }
+#preferences-form .agenda-item { margin-top: var(--s3) }
+
+/* 11. Calendar (timecal.js) ---------------------------------------------- */
+.tc {
+  /* The calendar uses the look's tokens; its canvases read them back (TimeCalendar.retheme).
+     Only the day sheet keeps its own paper: it is an object lying on the surface. */
+  --tc-bg: var(--surface); --tc-ink: var(--ink); --tc-ink-2: var(--ink-2); --tc-ink-3: var(--ink-3);
+  --tc-line: color-mix(in srgb, var(--tc-ink) 14%, transparent); --tc-line-2: color-mix(in srgb, var(--tc-ink) 30%, transparent);
+  --tc-glass: color-mix(in srgb, var(--tc-bg) 72%, transparent);
+  --tc-paper: #f3eee3; --tc-paper-2: #e8e0cf; --tc-p-ink: #1c1a17; --tc-p-ink-2: #59524a; --tc-p-ink-3: #786f64;
+  --tc-teal: var(--accent); --tc-amber: var(--amber); --tc-rose: var(--brick);
+  --tc-amber-hi: color-mix(in srgb, var(--tc-amber) 55%, var(--tc-ink));
+  --tc-serif: var(--font-num); --tc-sans: var(--font-sans);
+  --tc-ease: cubic-bezier(.22, .61, .36, 1);
+  position: relative; display: flex; flex-direction: column; min-height: 480px;
+  border-radius: var(--r-xl); overflow: hidden; isolation: isolate;
+  background: var(--card); border: 1px solid var(--rule); color: var(--tc-ink); font-family: var(--tc-sans); user-select: none;
+  backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--shadow-card);
+}
+.tc button { font: inherit; color: inherit; font-weight: 400 }
+.tc .tc-day:active { transform: translate(-50%, -50%) scale(1.08) }
+.tc :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+/* the card takes focus only to hear the arrow keys and Esc; its controls show focus */
+.tc:focus, .tc:focus-visible { outline: none }
+
+/* header */
+.tc-head { position: relative; z-index: 5; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px 6px; flex-wrap: wrap }
+.tc-date { display: flex; align-items: baseline; gap: 12px; min-width: 0 }
+.tc-flap { display: inline-flex; gap: 3px; font: 400 26px/1 var(--tc-serif); font-variant-numeric: tabular-nums }
+.tc-flap span { position: relative; display: inline-grid; place-items: center; width: .74em; height: 1.18em; border-radius: 5px; background: linear-gradient(color-mix(in srgb, var(--tc-ink) 9%, var(--tc-bg)) 50%, color-mix(in srgb, var(--tc-ink) 5%, var(--tc-bg)) 50%); box-shadow: inset 0 0 0 1px var(--tc-line) }
+.tc-flap span:after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--tc-line) }
+.tc-flap span.dot { width: .3em; background: none; box-shadow: none; color: var(--tc-ink-3) }
+.tc-flap span.dot:after { display: none }
+.tc-flap span { transition: opacity .3s var(--ease) }
+.tc-flap span.dim { opacity: .3 }
+.tc-flap span.tick { animation: tc-flip .09s ease-in }
+@keyframes tc-flip { 50% { transform: perspective(200px) rotateX(-70deg) } }
+.tc-sub { font-size: 13px; letter-spacing: .3em; color: var(--tc-ink-2); white-space: nowrap }
+.tc-nav { display: flex; align-items: center; gap: 8px }
+.tc-seg { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--tc-line) }
+.tc-seg button { height: 30px; padding: 0 12px 0 calc(12px + .2em); border: 0; border-radius: 999px; background: none; color: var(--tc-ink-2); font-size: 13px; letter-spacing: .2em; cursor: pointer; transition: background .3s, color .3s }
+.tc-seg button[aria-pressed="true"] { background: var(--tc-ink); color: var(--tc-bg) }
+.tc-seg button:not([aria-pressed="true"]):hover { color: var(--tc-ink) }
+.tc-pill { height: 36px; min-width: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--tc-line); background: var(--tc-glass); color: var(--tc-ink); font-size: 13px; letter-spacing: .06em; cursor: pointer; white-space: nowrap; transition: border-color .3s, color .3s }
+.tc-pill:hover { border-color: var(--tc-teal); color: var(--tc-teal) }
+.tc-pill.round { width: 36px; padding: 0; font-size: 16px }
+
+/* the stage and the three views */
+.tc-stage { position: relative; flex: 1 1 auto; min-height: 0 }
+.tc-view { position: absolute; inset: 0; opacity: 0; pointer-events: none; transform: scale(.94); filter: blur(6px); transition: opacity .4s var(--tc-ease), transform .5s var(--tc-ease), filter .4s var(--tc-ease) }
+.tc-view.active { opacity: 1; pointer-events: auto; transform: none; filter: none }
+.tc-view.out { transform: scale(1.08) }
+.tc-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
+.tc-foot { position: relative; z-index: 5; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 18px 14px; font-size: 12px; color: var(--tc-ink-3); letter-spacing: .06em }
+.tc-ramp { display: inline-flex; align-items: center; gap: 8px }
+.tc-ramp i { width: 84px; height: 5px; border-radius: 3px; background: linear-gradient(90deg, color-mix(in srgb, var(--tc-teal) 30%, var(--tc-bg)), var(--tc-teal), var(--tc-amber), var(--tc-amber-hi)) }
+.tc-hint { text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+
+/* 年 */
+.tc-year canvas { cursor: grab; touch-action: none }
+.tc-year canvas.drag { cursor: grabbing }
+.tc-side { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); width: min(230px, 30%); max-height: 88%; display: flex; flex-direction: column }
+.tc-side .k { font-size: 12px; letter-spacing: .24em; color: var(--tc-ink-3) }
+.tc-side ul { list-style: none; padding: 0; margin: 10px 0 0; overflow: auto }
+.tc-side .empty { color: var(--tc-ink-3); font-size: 13px; line-height: 1.8; margin-top: 10px }
+.tc-side .tc-pill { margin-top: 14px; align-self: flex-start }
+.tc-item { width: 100%; display: grid; grid-template-columns: 16px 1fr auto; gap: 10px; align-items: baseline; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--tc-line); background: none; text-align: left; cursor: pointer; font-size: 14px; line-height: 1.45 }
+.tc-item:hover { color: var(--tc-teal) }
+.tc-item .m { font-size: 11px; color: var(--tc-teal); justify-self: center }
+.tc-item.arr .m { color: var(--tc-amber) }
+.tc-item.done { color: var(--tc-ink-3) } .tc-item.done .t { text-decoration: line-through }
+.tc-item .p { font: 400 13px/1 var(--tc-serif); color: var(--tc-ink-3); font-variant-numeric: tabular-nums }
+
+/* 月 */
+.tc-day { position: absolute; transform: translate(-50%, -50%); text-align: center; cursor: pointer; padding: 5px 7px; border: 0; background: none; border-radius: 10px; transition: opacity .6s, transform .3s }
+.tc-day .n { font: 400 14px/1 var(--tc-serif); color: var(--tc-ink-2); font-variant-numeric: tabular-nums; text-shadow: 0 0 3px var(--tc-bg), 0 0 8px var(--tc-bg) }
+.tc-day .c { display: flex; gap: 2px; justify-content: center; margin-top: 4px; height: 3px }
+.tc-day .c i { width: 3px; height: 3px; border-radius: 50%; background: var(--tc-amber); opacity: .85 }
+.tc-day.busy .n { color: var(--tc-ink); font-size: 16px }
+.tc-day.weekend .n { color: color-mix(in srgb, var(--tc-teal) 45%, var(--tc-ink-2)) }   /* weekends lean to the hue, never to the danger red */
+.tc-day.today .n { color: var(--tc-bg); background: var(--tc-amber); border-radius: 50%; display: inline-grid; place-items: center; width: 26px; height: 26px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--tc-amber) 18%, transparent); text-shadow: none }
+.tc-day.past { opacity: .72 }
+.tc-day:hover { transform: translate(-50%, -50%) scale(1.14) }
+.tc-day.hide { opacity: 0; pointer-events: none }
+.tc-wk { position: absolute; font-size: 12px; letter-spacing: .3em; color: var(--tc-ink-3); transform: translateX(-50%) }
+.tc-tip { position: absolute; z-index: 6; pointer-events: none; padding: 8px 12px; border-radius: 10px; background: color-mix(in srgb, var(--tc-bg) 92%, transparent); border: 1px solid var(--tc-line); font-size: 12px; color: var(--tc-ink-2); white-space: nowrap; opacity: 0; transition: opacity .2s; transform: translate(12px, 12px); max-width: 320px; overflow: hidden; text-overflow: ellipsis }
+.tc-tip b { color: var(--tc-ink); font-weight: 600 }
+.tc-flat { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 13px; color: var(--tc-ink-3); letter-spacing: .08em; white-space: nowrap }
+/* the month's two looks and two distances (timecal.js): controls in the footer, only while the month is shown */
+.tc-modes { display: flex; gap: 8px; transition: opacity .3s var(--tc-ease) }
+.tc:not([data-v="month"]) .tc-modes { opacity: 0; visibility: hidden }
+.tc-seg.mini { padding: 2px }
+.tc-seg.mini button { height: 26px; padding: 0 10px 0 calc(10px + .14em); font-size: 12px; letter-spacing: .14em }
+.tc.tc-detail .tc-ramp { visibility: hidden }   /* the 空→满 key belongs to the map */
+.tc-month canvas { transition: opacity .45s var(--tc-ease) }
+.tc-month.detail canvas { opacity: .22 }
+.tc-day .n small { margin-left: 3px; font-size: 10.5px; letter-spacing: .04em; color: var(--tc-ink-3) }
+.tc-day.other { opacity: .62 }
+.tc-day.today .n small { display: none }   /* the circle holds the date alone */
+/* close-up on the map: bigger numerals, the hills spread to fill the stage */
+.tc-month.two:not(.detail) .tc-day .n { font-size: 20px }
+.tc-month.two:not(.detail) .tc-day.today .n { width: 34px; height: 34px }
+/* the cells: one even grid, every day the same quiet tile; only today wears a ring */
+.tc-month.detail .tc-day {
+  width: calc(var(--cw) - 6px); height: calc(var(--ch) - 6px); padding: 7px 7px 6px;
+  display: flex; flex-direction: column; align-items: stretch; text-align: left; overflow: hidden;
+  border-radius: 12px; background: color-mix(in srgb, var(--tc-bg) 55%, transparent); box-shadow: inset 0 0 0 .5px var(--tc-line);
+  transition: opacity .6s, box-shadow .2s var(--tc-ease), background-color .2s var(--tc-ease);
+}
+.tc-month.detail .tc-day.flying { overflow: visible; z-index: 3 }   /* cards may cross cell edges while they travel */
+.tc-month.detail .tc-day:hover { transform: translate(-50%, -50%); background: var(--tc-bg); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc-teal) 60%, transparent) }
+.tc-month.detail .tc-day:active { transform: translate(-50%, -50%) scale(.98) }
+.tc-month.detail .tc-day .n { align-self: flex-start; display: inline-flex; align-items: baseline; font-size: 13px; text-shadow: none }
+.tc-month.detail .tc-day.today { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--tc-amber) 75%, transparent) }
+.tc-month.detail .tc-day.today .n { width: 22px; height: 22px; display: inline-grid; font-size: 12px; color: var(--tc-bg) }
+.tc-lis { display: flex; flex-direction: column; gap: 3px; margin-top: 5px; min-width: 0 }
+/* the cards: one big, the rest small (heights match HEIGHT in timecal.js).
+   lead: the day's first open thing — a tinted card with an accent spine, a small label and a weighty title
+   small: a compact line led by a mark whose shape says what it is —
+   task a square, with steps a half-filled square, arrangement an amber dot, finished a struck line */
+.tc-chip { --c: var(--tc-teal); position: relative; display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 11.5px; line-height: 15px; color: var(--tc-ink-2); will-change: transform }
+.tc-chip.arr { --c: var(--tc-amber) }
+.tc-chip.done { --c: var(--tc-ink-3) }
+.tc-chip-t { display: block; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.tc-chip:not(.lead) { height: 18px; padding: 0 6px 0 15px; border-radius: 5px; background: color-mix(in srgb, var(--tc-ink) 4.5%, transparent) }
+.tc-chip:not(.lead)::before { content: ""; position: absolute; left: 6px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 1.5px; background: var(--c) }
+.tc-chip.steps:not(.lead)::before { background: linear-gradient(135deg, var(--c) 50%, transparent 0); box-shadow: inset 0 0 0 1px var(--c) }
+.tc-chip.arr:not(.lead)::before { border-radius: 50% }
+.tc-chip.done:not(.lead) { height: 16px; background: none; font-size: 11px; color: var(--tc-ink-3); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--tc-ink-3) 60%, transparent) }
+.tc-chip.done:not(.lead)::before { height: 1px; margin-top: 0; border-radius: 0; opacity: .7 }
+.tc-chip-n { font-weight: 500; font-size: 11px; color: var(--tc-ink-3); font-variant-numeric: tabular-nums }
+.tc-chip.lead {
+  height: 35px; padding: 3px 7px 4px 10px; flex-direction: column; align-items: stretch; justify-content: center; gap: 1px;
+  border-radius: 8px; overflow: hidden; color: var(--tc-ink);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--c) 30%, var(--tc-bg)), color-mix(in srgb, var(--c) 11%, var(--tc-bg)));
+  box-shadow: inset 0 0 0 .5px color-mix(in srgb, var(--c) 40%, transparent), 0 8px 16px -12px color-mix(in srgb, var(--c) 80%, transparent);
+}
+.tc-chip.lead::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c) }
+.tc-chip-k { display: flex; gap: 5px; font-size: 9.5px; line-height: 11px; letter-spacing: .14em; color: color-mix(in srgb, var(--c) 72%, var(--tc-ink)) }
+.tc-chip-k b { margin-left: auto; font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums }
+.tc-chip.lead .tc-chip-t { flex: none; font-size: 12.5px; line-height: 16px; font-weight: 600; letter-spacing: .01em }
+/* in the month the progress is the lead card's bottom edge; up close it sits inside, with room to breathe */
+.tc-steps { position: absolute; left: 3px; right: 0; bottom: 0; display: flex }
+.tc-steps i { flex: 1; height: 2.5px; background: linear-gradient(90deg, var(--c) calc(var(--p) * 100%), color-mix(in srgb, var(--tc-ink) 14%, transparent) 0) }
+.tc-more { padding-left: 6px; font-size: 11px; color: var(--tc-ink-3) }
+/* up close (two weeks) the contrast grows: the lead takes two lines and a real headline, the small ones stay one line */
+.tc-month.detail.two .tc-day { padding: 11px 10px 9px; border-radius: 16px }
+.tc-month.detail.two .tc-day .n { font-size: 20px; font-weight: 300 }
+.tc-month.detail.two .tc-day.today .n { width: 32px; height: 32px; font-size: 16px; font-weight: 400 }
+.tc-month.detail.two .tc-lis { gap: 5px; margin-top: 8px }
+.tc-month.detail.two .tc-chip { font-size: 12.5px; line-height: 16px }
+.tc-month.detail.two .tc-chip:not(.lead) { height: 26px; padding: 0 9px 0 21px; border-radius: 8px }
+.tc-month.detail.two .tc-chip:not(.lead)::before { left: 9px; width: 6px; height: 6px; margin-top: -3px }
+.tc-month.detail.two .tc-chip.done:not(.lead) { height: 22px; font-size: 12px }
+.tc-month.detail.two .tc-chip.done:not(.lead)::before { height: 1px; margin-top: 0 }
+.tc-month.detail.two .tc-chip.lead { height: 78px; padding: 9px 11px 10px 15px; gap: 4px; justify-content: flex-start; border-radius: 13px }
+.tc-month.detail.two .tc-chip.lead::before { width: 4px }
+.tc-month.detail.two .tc-chip.lead.steps { height: 92px; padding-bottom: 20px }
+.tc-month.detail.two .tc-chip-k { font-size: 11px; line-height: 14px }
+.tc-month.detail.two .tc-chip.lead .tc-chip-t { font-size: 15px; line-height: 20px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-wrap: pretty }
+.tc-month.detail.two .tc-steps { left: 15px; right: 11px; bottom: 10px }
+.tc-month.detail.two .tc-steps i { height: 3px; border-radius: 2px }
+
+/* 日 */
+.tc-pad { position: absolute; left: 50%; top: 54%; transform: translate(-50%, -50%); width: min(340px, 82%); height: min(460px, 84%); container-type: size }
+.tc-binding { position: absolute; left: -9px; right: -9px; top: -22px; height: 30px; border-radius: 9px 9px 4px 4px; background: linear-gradient(#2b3038, #1a1e24); box-shadow: 0 10px 18px -10px rgba(0, 0, 0, .7); z-index: 50 }
+.tc-binding:before, .tc-binding:after { content: ""; position: absolute; top: -12px; width: 14px; height: 34px; border-radius: 9px; border: 3px solid #c9c6bf; border-bottom-color: #8e8b84 }
+.tc-binding:before { left: 26% } .tc-binding:after { right: 26% }
+.tc-sheet { position: absolute; inset: 0; border-radius: 4px 4px 10px 10px; background: var(--tc-paper); color: var(--tc-p-ink); padding: clamp(20px, 6cqh, 28px) 24px 14px; display: flex; flex-direction: column; transform-origin: 50% 0; will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .08), 0 26px 44px -26px rgba(0, 0, 0, .7); transition: transform .5s var(--tc-ease), filter .5s }
+.tc-sheet:before { content: ""; position: absolute; left: 10px; right: 10px; top: 9px; height: 4px; background: radial-gradient(circle, rgba(60, 45, 30, .28) 1.4px, transparent 1.8px) 0 0 / 9px 4px repeat-x }
+.tc-sheet.top { cursor: grab }
+.tc-sheet.dragging { transition: none; cursor: grabbing }
+.tc-sheet.under { filter: brightness(.95) }
+.tc-sheet .meta { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; letter-spacing: .2em; color: var(--tc-p-ink-2) }
+.tc-sheet .meta .doy { white-space: nowrap }
+.tc-sheet .meta b { font: 600 12px/1 var(--tc-sans); letter-spacing: .26em; color: var(--tc-p-ink) }
+.tc-sheet .num { font: 400 clamp(52px, 26cqh, 150px)/.86 var(--tc-serif); letter-spacing: -.04em; margin: clamp(6px, 3cqh, 14px) 0 6px -4px }
+.tc-sheet.weekend .num { color: #a8432f }
+.tc-sheet .wd { display: flex; align-items: baseline; gap: 10px; font: 400 19px/1 var(--tc-serif); white-space: nowrap }
+.tc-sheet .wd small { font: italic 400 14px/1 var(--tc-serif); color: var(--tc-p-ink-3) }
+.tc-sheet .load { display: flex; gap: 3px; margin-left: auto; align-self: center }
+.tc-sheet .load i { width: 14px; height: 4px; border-radius: 2px; background: rgba(28, 26, 23, .1) }
+.tc-sheet hr { border: 0; border-top: 1px solid rgba(28, 26, 23, .16); margin: clamp(8px, 3cqh, 14px) 0 4px }
+.tc-sheet .list { flex: 1 1 auto; min-height: 0; overflow: auto; margin: 0 -6px; padding: 0 6px }
+.tc-sheet .tc-item { border-bottom-color: rgba(28, 26, 23, .1); color: var(--tc-p-ink) }
+.tc-sheet .tc-item:hover { color: #9a5a1f }
+.tc-sheet .tc-item .m { color: var(--tc-teal) }
+.tc-sheet .tc-item.arr .m { color: #b26f22 }
+.tc-sheet .tc-item.done { color: var(--tc-p-ink-3) }
+.tc-sheet .tc-item .p { color: var(--tc-p-ink-3) }
+.tc-sheet .empty { font: italic 400 15px/1.6 var(--tc-serif); color: var(--tc-p-ink-3); padding: 8px 0 }
+.tc-sheet .add { margin: 8px 0 2px; align-self: flex-start; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px dashed rgba(28, 26, 23, .3); background: none; color: var(--tc-p-ink-2); font-size: 13px; cursor: pointer }
+.tc-sheet .add:hover { border-style: solid; color: var(--tc-p-ink) }
+.tc-sheet .foot { margin-top: 10px; display: flex; justify-content: space-between; font-size: 12px; color: var(--tc-p-ink-3); letter-spacing: .04em }
+.tc-stub { position: absolute; left: 0; right: 0; top: 0; height: 20px; z-index: 40;
+  /* the last sheet torn off: paper fibres along a ragged edge, a noise-displaced matte rather than a zigzag */
+  background: linear-gradient(var(--tc-paper-2) 55%, color-mix(in srgb, var(--tc-paper-2) 40%, #fff) 100%);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='20'%3E%3Cfilter id='t' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.06 .5' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='10' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='-12' y='-12' width='204' height='26' filter='url(%23t)'/%3E%3C/svg%3E") 0 0 / 180px 20px repeat-x; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='20'%3E%3Cfilter id='t' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.06 .5' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='10' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='-12' y='-12' width='204' height='26' filter='url(%23t)'/%3E%3C/svg%3E") 0 0 / 180px 20px repeat-x;
+  transition: opacity 1.2s ease .6s }
+
+@media (max-width: 760px) {
+  .tc { min-height: 520px; border-radius: 16px }
+  .tc-head { padding: 12px 12px 4px }
+  .tc-nav { width: 100%; justify-content: space-between; gap: 6px }
+  .tc-pill { height: 32px; min-width: 32px; padding: 0 10px } .tc-pill.round { width: 32px }
+  .tc-seg button { height: 28px; padding: 0 10px 0 calc(10px + .2em) }
+  .tc-sheet .meta .en { display: none }
+  .tc-flap { font-size: 22px }
+  .tc-sub { display: none }
+  .tc-side { top: auto; bottom: 8px; left: 14px; right: 14px; width: auto; transform: none; max-height: 30% }
+  .tc-hint { display: none }
+  .tc-pad { width: min(320px, 88%) }
+}
+@media (prefers-reduced-motion: reduce) { .tc-view, .tc-sheet { transition: none } .tc-flap span.tick { animation: none } }
+
+/* 12. Small screens: one column, the page scrolls ------------------------ */
+@media (max-width: 900px) {
+  html, body { height: auto }
+  body { display: block; height: auto; min-height: 100dvh; overflow: visible }
+  /* here the page scrolls under the bar, so it frosts what passes beneath, still without a tint or a line */
+  .topbar { position: sticky; top: 0 }
+  /* the frost sits on a layer behind the bar: a filter on the bar itself would trap the fixed view tabs inside it */
+  .topbar::before { content: ""; position: absolute; inset: 0; z-index: -1; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px) }
+  main { display: block; overflow: visible }
+  #notice { margin: var(--s3) var(--s3) 0 }
+  #home-view { display: flex; flex-direction: column; gap: var(--s4); padding: var(--s3) }
+  .work-column { overflow: visible; margin: 0; padding: 0 }
+  #calendar { height: min(620px, calc(100dvh - var(--topbar) - 24px)) }
+  .chat-panel { height: 72dvh }
+  #chat-view { height: calc(100dvh - var(--topbar)); padding: var(--s3); display: flex }
+  /* narrow: the sidebar is a drawer over the page */
+  body[data-page="chat"]:not(.chat-folded) { padding-left: 0 }
+  .chat-sidebar { width: min(300px, 86vw); background: var(--surface); box-shadow: var(--shadow-pop), 0 0 0 100vmax oklch(10% .02 var(--hue) / .38) }   /* the second shadow dims the page behind the drawer */
+  body.chat-folded .chat-sidebar, body:not([data-page="chat"]) .chat-sidebar { box-shadow: none }
+  #session-view { padding: var(--s3) }
+  .session-bar { flex-wrap: wrap; gap: var(--s2) }
+  .session-titles { flex-basis: 100%; order: 2 }
+  #session-actions { order: 3 }
+  .session-grid { display: flex; flex-direction: column; gap: var(--s3) }
+  .session-chat { height: 72dvh }
+  #memory-view { padding: var(--s5) var(--s3) }
+  .two-cols { grid-template-columns: 1fr }
+  .suggestion { flex-direction: column; align-items: stretch }
+}
+
+/* phones: the views move to a bar under the thumb */
+@media (max-width: 640px) {
+  .topbar { grid-template-columns: 1fr auto }
+  .view-tabs { position: fixed; z-index: 30; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom)); translate: -50% 0 }
+  .view-tabs button { height: 44px; padding: 0 18px }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)) }
+  #chat-view { height: calc(100dvh - var(--topbar) - 76px - env(safe-area-inset-bottom)) }   /* the composer sits above the tab bar */
+}
+
+/* 13. Motion ------------------------------------------------------------- */
+@keyframes view-in { from { opacity: 0; transform: translateY(6px) } }
+#home-view:not([hidden]), #session-view:not([hidden]), #memory-view:not([hidden]), #chat-view:not([hidden]) { animation: view-in .35s var(--ease) both }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important }
+}
+/* the smallest form of a card: a pebble, coloured by what it is */
+.tc-pebbles { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px }
+.tc-pebbles i { width: 12px; height: 5px; border-radius: 3px; background: var(--tc-teal); opacity: .85 }
+.tc-pebbles i.steps { width: 16px }
+.tc-pebbles i.arr { width: 5px; background: var(--tc-amber) }
+.tc-pebbles i.done { background: color-mix(in srgb, var(--tc-ink) 22%, transparent) }

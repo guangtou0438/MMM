@@ -1,0 +1,132 @@
+{
+  "synthetic_only": true,
+  "source": "请记住以下三条独立信息：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。请把三件事分别保存为独立记忆，方便以后单独纠正。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "failed",
+        "memory_ids": [],
+        "error": "模型协议校验失败：JSON (json_invalid)",
+        "calls": 1,
+        "provider_tokens": 1481,
+        "seconds": 9.671472072601318,
+        "diagnostics": {
+          "stage": "operation_validation",
+          "error_type": "ValidationError",
+          "validation_errors": [
+            {
+              "type": "json_invalid",
+              "loc": []
+            }
+          ]
+        }
+      },
+      "raw_validation_errors": [
+        {
+          "type": "json_invalid",
+          "loc": [],
+          "msg": "Invalid JSON: trailing characters at line 18 column 1"
+        }
+      ],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"kind\": \"profile\",\n  \"content\": \"用户明确要求记住三条独立信息：(1) 用户的自行车叫「银杏」；(2) 用户的读书小组叫「雾松」；(3) 用户最喜欢的棋类是围棋。三条信息相互独立，以便日后单独纠正。\",\n  \"fragments\": [\n    \"用户的自行车叫「银杏」\",\n    \"用户的读书小组叫「雾松」\",\n    \"用户最喜欢的棋类是围棋\"\n  ],\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"sensitivity\": \"normal\",\n  \"expires\": null,\n  \"targets\": {},\n  \"source_ids\": [\"src_884c1761ac7e4e8186f98512862f21b1\"]\n}\n````",
+          "tokens": 1481,
+          "sha256": "ddb186bc9d2ffc4f7ec6ddbdb2ce0e8f43e6ef62c4c3a991d47e5ccd184f5d0c"
+        }
+      ],
+      "memories": []
+    },
+    {
+      "attempt": 2,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_6259a3a80a1444c79e48a0b29f1e0036"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 3459,
+        "seconds": 28.618426084518433,
+        "diagnostics": null
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"source_ids\": [\n    \"src_d0dffa8f220547ef8a00fdd904344001\"\n  ],\n  \"kind\": \"profile\",\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"content\": \"用户明确说明三条独立信息：自行车名叫银杏；读书小组名叫雾松；最喜欢的棋类是围棋。用户要求分别记录以便日后单独纠正。\",\n  \"fragments\": [\n    \"自行车名字：银杏\",\n    \"读书小组名字：雾松\",\n    \"最喜欢的棋类：围棋\"\n  ],\n  \"targets\": {},\n  \"sensitivity\": \"normal\",\n  \"expires\": null\n}\n",
+          "tokens": 1564,
+          "sha256": "0007d35a38f780373d5e2221302e2d76af818e0b921eead884eccb311eda3578"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"三条信息（自行车名银杏、读书小组名雾松、最喜欢的棋类围棋）与来源证据完全一致，无编造或歪曲；三个事实以独立 fragments 保存且 content 中明确记录了用户'分别存储以便单独纠正'的要求，未遗漏未完成承诺；certainty 记为 reported，符合用户自述性质，不确定性未丢失；source_ids 完整链接到 src_d0dffa8f220547ef8a00fdd904344001；内容为普通敏感性信息，无敏感秘密；existing_memories 为空，不存在被静默处理的冲突。\"}\n",
+          "tokens": 1895,
+          "sha256": "c0ec7f8ef3c23f6f5ed110427b787310d2fa34da2ab6629f705b76673480cd09"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_6259a3a80a1444c79e48a0b29f1e0036",
+          "kind": "profile",
+          "content": "用户明确说明三条独立信息：自行车名叫银杏；读书小组名叫雾松；最喜欢的棋类是围棋。用户要求分别记录以便日后单独纠正。",
+          "source_ids": [
+            "src_d0dffa8f220547ef8a00fdd904344001"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475261.421326,
+          "updated": 1789475261.421326,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "result": {
+        "status": "failed",
+        "memory_ids": [],
+        "error": "模型协议校验失败：JSON (json_invalid)",
+        "calls": 1,
+        "provider_tokens": 1351,
+        "seconds": 8.598959922790527,
+        "diagnostics": {
+          "stage": "operation_validation",
+          "error_type": "ValidationError",
+          "validation_errors": [
+            {
+              "type": "json_invalid",
+              "loc": []
+            }
+          ]
+        }
+      },
+      "raw_validation_errors": [
+        {
+          "type": "json_invalid",
+          "loc": [],
+          "msg": "Invalid JSON: trailing characters at line 17 column 1"
+        }
+      ],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"kind\": \"profile\",\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"content\": \"用户明确要求记住三条独立信息：1）用户的自行车名为银杏；2）用户的读书小组名为雾松；3）用户最喜欢的棋类是围棋。三条信息相互独立，应支持日后单独纠正。\",\n  \"fragments\": [\n    \"自行车名为银杏\",\n    \"读书小组名为雾松\",\n    \"最喜欢的棋类是围棋\"\n  ],\n  \"sensitivity\": \"normal\",\n  \"expires\": null,\n  \"source_ids\": [\"src_29ed38f4b2c54965b952d89d3e21cdae\"]\n}\n``说明：用户明确触发记忆保存（trigger=explicit），且要求三条信息独立保存以便单独纠正。由于本操作模式每次仅支持一条操作，已通过 `fragments` 字段将三条事实分别记录为独立片段，便于后续针对单一片段进行 UPDATE 或 INVALIDATE。所有名称（银杏、雾松、围棋）均按原样保留，置信度设为 0.95（用户显式自述），certainty 为 \"reported\"。无秘密信息，无事实冲突。",
+          "tokens": 1351,
+          "sha256": "1f411e0debd3a6a42c94243b9dfa1c9205c5f46073775a0b8be3a9816393dc2e"
+        }
+      ],
+      "memories": []
+    }
+  ]
+}

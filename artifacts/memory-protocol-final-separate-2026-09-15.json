@@ -1,0 +1,207 @@
+{
+  "synthetic_only": true,
+  "source": "请记住以下三条独立信息：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。请把三件事分别保存为独立记忆，方便以后单独纠正。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_5240a05df1b74911aea703c6ff218851"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2904,
+        "seconds": 22.793243169784546,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"kind\": \"profile\",\n  \"content\": \"用户报告三项个人事实：1) 自行车名为银杏；2) 读书小组名为雾松；3) 最喜欢的棋类是围棋。\",\n  \"fragments\": [\n    \"自行车名为银杏\",\n    \"读书小组名为雾松\",\n    \"最喜欢的棋类是围棋\"\n  ],\n  \"source_ids\": [\"src_7f0788b13d674642a7fa385e8b40641a\"],\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"sensitivity\": \"normal\",\n  \"expires\": null,\n  \"targets\": {}\n}\n",
+          "tokens": 1560,
+          "sha256": "8ae6c8fb342be846b4c2689f8026b29efb8ee9efe9e9d1351ace20bf029e3fdd"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：三项事实（自行车名银杏、读书小组名雾松、最喜欢的棋类为围棋）均无编造或遗漏；三项以独立 fragments 保存，满足用户'分别保存以便单独纠正'的要求；certainty 标记为 'reported'，正确保留了未验证的不确定性；已附带来源链接 src_7f0788b13d674642a7fa385e8b40641a；无敏感秘密；existing_memories 为空，不存在静默冲突处理。\"}\n",
+          "tokens": 1344,
+          "sha256": "cf8b5d6dffb3ad342579de87777d9ffbcfca86976d1bf9915f3e9ccc819f4a43"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_5240a05df1b74911aea703c6ff218851",
+          "kind": "profile",
+          "content": "用户报告三项个人事实：1) 自行车名为银杏；2) 读书小组名为雾松；3) 最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_7f0788b13d674642a7fa385e8b40641a"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475551.177999,
+          "updated": 1789475551.177999,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "index": {
+        "indexed": 1,
+        "status": "ready"
+      },
+      "recall": {
+        "status": "completed",
+        "answer": "根据您的记忆资料：您的自行车叫“银杏”，读书小组叫“雾松”，您最喜欢的棋类是围棋。",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2874,
+        "model": "glm",
+        "citations": "[\"mem_5240a05df1b74911aea703c6ff218851\"]"
+      }
+    },
+    {
+      "attempt": 2,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_2cbd02becb7d472dab5cab8ffb1efa7d"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 3163,
+        "seconds": 24.3470721244812,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "{\"operation\": \"ADD\", \"kind\": \"profile\", \"content\": \"用户明确要求记住三条独立信息：(1) 用户的自行车名字叫“银杏”；(2) 用户的读书小组名字叫“雾松”；(3) 用户最喜欢的棋类是围棋。用户特别说明希望分别保存为独立记忆，便于日后单独纠正。\", \"fragments\": [\"自行车名字：银杏\", \"读书小组名字：雾松\", \"最喜欢的棋类：围棋\"], \"source_ids\": [\"src_bd641cf0c10d42899839594c24805722\"], \"certainty\": \"reported\", \"confidence\": 0.95, \"sensitivity\": \"normal\", \"expires\": null, \"targets\": {}}",
+          "tokens": 1529,
+          "sha256": "a82f44a8ad4efe350de6f09c15bdcdf276304b4dd7f0b516aa0db2aa104c4ec8"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据逐条核对一致：自行车名'银杏'、读书小组名'雾松'、最喜欢的棋类'围棋'，三条信息无编造、无歪曲。fragments 将三项内容拆分为独立条目保存，且 content 中明确记录了用户'分别保存为独立记忆便于单独纠正'的要求，未遗漏该承诺。来源链接 src_bd641cf0c10d42899839594c24805722 与证据 ID 匹配。certainty 标记为 'reported'，正确保留了该信息为用户自述、未经独立核实的不确定性，未将其升格为已验证事实。内容属普通个人偏好，不含敏感秘密。existing_memories 为空，不存在需静默处理的冲突。\"}\n",
+          "tokens": 1634,
+          "sha256": "02f497281acb3bddb7512a64ee14eb7e16d0e7b33ed66e5bb1685265a59c15fd"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_2cbd02becb7d472dab5cab8ffb1efa7d",
+          "kind": "profile",
+          "content": "用户明确要求记住三条独立信息：(1) 用户的自行车名字叫“银杏”；(2) 用户的读书小组名字叫“雾松”；(3) 用户最喜欢的棋类是围棋。用户特别说明希望分别保存为独立记忆，便于日后单独纠正。",
+          "source_ids": [
+            "src_bd641cf0c10d42899839594c24805722"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475597.767508,
+          "updated": 1789475597.767508,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "index": {
+        "indexed": 1,
+        "status": "ready"
+      },
+      "recall": {
+        "status": "completed",
+        "answer": "根据您之前告诉我的信息：您的自行车叫“银杏”，您的读书小组叫“雾松”，您最喜欢的棋类是围棋。",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2953,
+        "model": "glm",
+        "citations": "[\"mem_2cbd02becb7d472dab5cab8ffb1efa7d\"]"
+      }
+    },
+    {
+      "attempt": 3,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_ef55d5a638544b11ab63df771dc822f4"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2562,
+        "seconds": 20.080081939697266,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "{\"operation\": \"ADD\", \"source_ids\": [\"src_ddb7fa3028a141f7ab54b764adc3e83f\"], \"kind\": \"profile\", \"certainty\": \"reported\", \"confidence\": 0.95, \"content\": \"用户报告三条独立事实：1) 用户的自行车名叫银杏；2) 用户的读书小组叫雾松；3) 用户最喜欢的棋类是围棋。用户明确要求三条信息可分别单独纠正，故以独立片段记录，便于后续单独 UPDATE 或 SPLIT。\", \"fragments\": [\"用户的自行车名叫银杏\", \"用户的读书小组叫雾松\", \"用户最喜欢的棋类是围棋\"], \"sensitivity\": \"normal\", \"expires\": null, \"targets\": {}}",
+          "tokens": 1489,
+          "sha256": "4bdf4739d2a772a68e641ac3c1229a9bbb38de244cf614bf754951e2c9a428a2"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：三条事实（自行车名银杏、读书小组叫雾松、最喜欢的棋类是围棋）均准确转述，无编造或歪曲；用户要求分别独立保存的请求通过三个独立 fragments 实现，并注明支持后续单独 UPDATE/SPLIT，满足可单独纠正的要求；certainty 标记为 reported 恰当反映这是用户自述信息，未丢失不确定性；source_ids 正确引用来源；sensitivity 为 normal 合理（不含敏感秘密）；existing_memories 为空，无冲突需处理。\"}\n",
+          "tokens": 1073,
+          "sha256": "17d8e96bb95dbb562766c4c376c2f65b1803472487b616affe6f529b24db0883"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_ef55d5a638544b11ab63df771dc822f4",
+          "kind": "profile",
+          "content": "用户报告三条独立事实：1) 用户的自行车名叫银杏；2) 用户的读书小组叫雾松；3) 用户最喜欢的棋类是围棋。用户明确要求三条信息可分别单独纠正，故以独立片段记录，便于后续单独 UPDATE 或 SPLIT。",
+          "source_ids": [
+            "src_ddb7fa3028a141f7ab54b764adc3e83f"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475629.953084,
+          "updated": 1789475629.953084,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "index": {
+        "indexed": 1,
+        "status": "ready"
+      },
+      "recall": {
+        "status": "completed",
+        "answer": "根据已保存的记忆：您的自行车叫「银杏」，读书小组叫「雾松」，您最喜欢的棋类是围棋。如果其中任何一条信息有误，请告诉我，我可以单独为您更正。",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2451,
+        "model": "glm",
+        "citations": "[\"mem_ef55d5a638544b11ab63df771dc822f4\"]"
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日历原型</title>
+<style>
+  :root { --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Noto Serif SC", "Songti SC", serif; --sans: "Segoe UI Variable Text", "Segoe UI", "PingFang SC", "Microsoft YaHei UI", sans-serif }
+  * { box-sizing: border-box }
+  body { margin: 0; min-height: 100vh; background: #0a0b0f; color: #eef0f4; font-family: var(--sans); display: grid; place-items: center; padding: 48px 20px }
+  main { width: min(980px, 100%) }
+  h1 { font: 400 40px/1.1 var(--serif); margin: 0 0 8px }
+  p.lead { color: #a3a9b6; margin: 0 0 36px; font-size: 15px }
+  p.lead a.all { display: inline-block; margin-left: 12px; padding: 6px 14px; border-radius: 999px; color: #e9a85f; border-color: rgba(233, 168, 95, .4) }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px }
+  a { display: block; text-decoration: none; color: inherit; padding: 26px 24px 24px; border-radius: 18px; border: 1px solid rgba(238, 240, 244, .12); background: rgba(255, 255, 255, .025); transition: border-color .3s, background .3s, transform .3s }
+  a:hover { border-color: rgba(238, 240, 244, .32); background: rgba(255, 255, 255, .05); transform: translateY(-2px) }
+  a .k { font-size: 12px; letter-spacing: .3em; color: #9aa0ad }
+  a h2 { font: 400 28px/1.2 var(--serif); margin: 10px 0 10px }
+  a p { margin: 0; color: #b7bcc7; font-size: 14px; line-height: 1.7 }
+  .note { margin-top: 28px; font-size: 13px; color: #9aa0ad }
+</style>
+</head>
+<body>
+<main>
+  <h1>三个日历原型</h1>
+  <p class="lead">都用同一份示例数据，可以对照着看。<a class="all" href="calendar.html">组合版：年 → 月 → 日，统一配色 →</a></p>
+  <div class="grid">
+    <a href="topo.html"><div class="k">01 · 月</div><h2>地形日历</h2><p>一个月是一张等高线地图。一天的安排越多，山就越高，忙的那几天一眼就能看出来。点山峰打开那一天。</p></a>
+    <a href="ring.html"><div class="k">02 · 年</div><h2>时间之环</h2><p>一整年是一圈 365 根刻度，越忙的日子刻度越长。拖动或滚动转动年轮，十二点方向就是选中的那天。</p></a>
+    <a href="tearoff.html"><div class="k">03 · 日</div><h2>撕页台历</h2><p>一天一张纸，拖动把今天撕下来。背后的天色随月份变化。</p></a>
+  </div>
+  <p class="note">示例数据 · 还没有接入真实日历</p>
+</main>
+</body>
+</html>

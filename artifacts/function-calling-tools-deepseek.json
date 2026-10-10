@@ -1,0 +1,2408 @@
+{
+  "synthetic_only": true,
+  "model": "deepseek",
+  "cases": [
+    {
+      "case": "create",
+      "input": "请在2026-09-20创建一个名为原生调用验收的任务。",
+      "passed": true,
+      "run": {
+        "status": "completed",
+        "answer": "已创建任务「原生调用验收」，计划日期为 2026-09-20（任务 ID 1，类型：task，状态：open）。",
+        "error": null,
+        "calls": 3,
+        "actual_tokens": 8345
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用验收",
+          "version": 1
+        }
+      ],
+      "tools": [
+        {
+          "tool": "read_calendar",
+          "arguments": "{\"end\": \"2026-09-20\", \"start\": \"2026-09-20\"}",
+          "status": "completed",
+          "result": "{\"tasks\": []}"
+        },
+        {
+          "tool": "create_task",
+          "arguments": "{\"activity_type\": \"task\", \"planned_date\": \"2026-09-20\", \"title\": \"原生调用验收\"}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:46.813714+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用验收\", \"topic_id\": null, \"version\": 1}"
+        }
+      ]
+    },
+    {
+      "case": "update",
+      "input": "把刚创建的原生调用验收任务名称改成原生调用已验证。",
+      "passed": true,
+      "run": {
+        "status": "completed",
+        "answer": "已把任务名称从「原生调用验收」改为「原生调用已验证」（任务 ID 1，计划日期 2026-09-20，版本已更新为 2）。",
+        "error": null,
+        "calls": 3,
+        "actual_tokens": 8557
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用已验证",
+          "version": 2
+        }
+      ],
+      "tools": [
+        {
+          "tool": "read_calendar",
+          "arguments": "{\"end\": \"2026-09-20\", \"start\": \"2026-09-20\"}",
+          "status": "completed",
+          "result": "{\"tasks\": [{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:46.813714+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用验收\", \"topic_id\": null, \"version\": 1}]}"
+        },
+        {
+          "tool": "update_task",
+          "arguments": "{\"changes\": {\"title\": \"原生调用已验证\"}, \"session_id\": 1}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:46.813714+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用已验证\", \"topic_id\": null, \"version\": 2}"
+        }
+      ]
+    },
+    {
+      "case": "clarify",
+      "input": "请帮我创建另一个任务，但任务名称和日期请先问我，不要自行决定。",
+      "passed": true,
+      "run": {
+        "status": "waiting_for_user",
+        "answer": "好的，我不会自行决定。请告诉我这个新任务的名称和计划日期（例如 YYYY-MM-DD），我再为你创建。",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2665
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用已验证",
+          "version": 2
+        }
+      ],
+      "tools": []
+    }
+  ],
+  "requests": [
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_aVgRXjE1cgIyJgmSKYev4141",
+            "type": "function",
+            "function": {
+              "name": "calendar__read_calendar",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "start"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "end"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_aVgRXjE1cgIyJgmSKYev4141"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_kcUlb5223uSUaGoIieU74004",
+            "type": "function",
+            "function": {
+              "name": "calendar__create_task",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "title"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原生"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "调用"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "验收"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "planned"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_date"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "activity"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_type"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "task"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_aVgRXjE1cgIyJgmSKYev4141",
+        "call_00_kcUlb5223uSUaGoIieU74004"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_sTdNjWNK7k092n4KGI6K8308",
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "answer"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "创建"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "「"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原生"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "调用"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "验收"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "」，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " ID"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "类型"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "："
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "task"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "状态"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "："
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "open"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "）。"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "citation"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_ids"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "[]"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_GtRj5curGyIaxE1fOhEv8334",
+            "type": "function",
+            "function": {
+              "name": "calendar__read_calendar",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "start"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "end"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_GtRj5curGyIaxE1fOhEv8334"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_b8o7MO3Pedzc4GVagNaj2519",
+            "type": "function",
+            "function": {
+              "name": "calendar__update_task",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "session"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_id"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "changes"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "title"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\":"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " \""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原生"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "调用"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已验证"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "expected"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_version"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_GtRj5curGyIaxE1fOhEv8334",
+        "call_00_b8o7MO3Pedzc4GVagNaj2519"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_ET_C89EIzFkVNFUt8z1eHGl8076",
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "answer"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "把"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "名称"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "从"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "「"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原生"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "调用"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "验收"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "」"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "改为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "「"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原生"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "调用"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已验证"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "」（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " ID"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "版本"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "更新"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "2"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "）。"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "citation"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_ids"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "[]"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_NSo8vSWgbkd8i824Vnen7635",
+            "type": "function",
+            "function": {
+              "name": "request_clarification",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "answer"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "好的"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "我不会"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "自行"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "决定"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "。"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "请"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "告诉我"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "这个"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "新"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务的"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "名称"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "和"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "例如"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " Y"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "YY"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "Y"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-MM"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-D"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "D"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "），"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "我再"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为你"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "创建"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "。"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "citation"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_ids"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "[]"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "synthetic_only": true,
+  "model": "glm",
+  "cases": [
+    {
+      "case": "create",
+      "input": "请在2026-09-20创建一个名为原生调用验收的任务。",
+      "passed": true,
+      "run": {
+        "status": "completed",
+        "answer": "已成功创建任务「原生调用验收」，计划日期为 2026-09-20。任务当前处于开放状态，暂无议程事项。如需添加议程、截止日期或其他细节，请告诉我。",
+        "error": null,
+        "calls": 2,
+        "actual_tokens": 5016
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用验收",
+          "version": 1
+        }
+      ],
+      "tools": [
+        {
+          "tool": "create_task",
+          "arguments": "{\"activity_type\": \"task\", \"planned_date\": \"2026-09-20\", \"title\": \"原生调用验收\"}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:37.593194+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用验收\", \"topic_id\": null, \"version\": 1}"
+        }
+      ]
+    },
+    {
+      "case": "update",
+      "input": "把刚创建的原生调用验收任务名称改成原生调用已验证。",
+      "passed": true,
+      "run": {
+        "status": "completed",
+        "answer": "已完成修改：任务名称已从「原生调用验收」改为「原生调用已验证」，计划日期保持为 2026-09-20，任务状态为开放（版本已更新）。",
+        "error": null,
+        "calls": 3,
+        "actual_tokens": 8022
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用已验证",
+          "version": 2
+        }
+      ],
+      "tools": [
+        {
+          "tool": "read_calendar",
+          "arguments": "{\"end\": \"2026-09-20\", \"start\": \"2026-09-20\"}",
+          "status": "completed",
+          "result": "{\"tasks\": [{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:37.593194+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用验收\", \"topic_id\": null, \"version\": 1}]}"
+        },
+        {
+          "tool": "update_task",
+          "arguments": "{\"changes\": {\"title\": \"原生调用已验证\"}, \"session_id\": 1}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T12:58:37.593194+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-20\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"原生调用已验证\", \"topic_id\": null, \"version\": 2}"
+        }
+      ]
+    },
+    {
+      "case": "clarify",
+      "input": "请帮我创建另一个任务，但任务名称和日期请先问我，不要自行决定。",
+      "passed": true,
+      "run": {
+        "status": "waiting_for_user",
+        "answer": "好的，我很乐意帮您创建新任务。请告诉我：\n\n1. **任务名称**：您希望这个任务叫什么？\n2. **日期**：您计划在哪一天进行？（格式如 2026-09-21）\n\n如果您还想添加议程事项、截止日期或其他细节，也请一并告诉我。",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2498
+      },
+      "tasks": [
+        {
+          "id": 1,
+          "title": "原生调用已验证",
+          "version": 2
+        }
+      ],
+      "tools": []
+    }
+  ],
+  "requests": [
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "id": "call_c61f3a5118ea470c95249ec1",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "calendar__create_task",
+              "arguments": "{\"activity_type\":\"task\",\"planned_date\":\"2026-09-20\",\"title\":\"原生调用验收\"}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_c61f3a5118ea470c95249ec1"
+      ],
+      "received_calls": [
+        [
+          {
+            "id": "call_70691710b2d7454f85063dc5",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": "{\"answer\":\"已成功创建任务「原生调用验收」，计划日期为 2026-09-20。任务当前处于开放状态，暂无议程事项。如需添加议程、截止日期或其他细节，请告诉我。\",\"citation_ids\":[]}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "id": "call_029c718dcd4d43ceb072980b",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "calendar__read_calendar",
+              "arguments": "{\"end\":\"2026-09-20\",\"start\":\"2026-09-20\"}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_029c718dcd4d43ceb072980b"
+      ],
+      "received_calls": [
+        [
+          {
+            "id": "call_70ef434bd0e547c9863a3d20",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "calendar__update_task",
+              "arguments": "{\"changes\":{\"title\": \"原生调用已验证\"},\"expected_version\":1,\"session_id\":1}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_029c718dcd4d43ceb072980b",
+        "call_70ef434bd0e547c9863a3d20"
+      ],
+      "received_calls": [
+        [
+          {
+            "id": "call_48d29b52040e42b982ac6b01",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": "{\"answer\":\"已完成修改：任务名称已从「原生调用验收」改为「原生调用已验证」，计划日期保持为 2026-09-20，任务状态为开放（版本已更新）。\",\"citation_ids\":[]}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "id": "call_7f4727bbe7e94e078f95c846",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "request_clarification",
+              "arguments": "{\"answer\":\"好的，我很乐意帮您创建新任务。请告诉我：\\n\\n1. **任务名称**：您希望这个任务叫什么？\\n2. **日期**：您计划在哪一天进行？（格式如 2026-09-21）\\n\\n如果您还想添加议程事项、截止日期或其他细节，也请一并告诉我。\",\"citation_ids\":[]}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    }
+  ]
+}

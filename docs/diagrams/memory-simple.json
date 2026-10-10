@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "你的记忆系统：记下来 → 用起来 → 展示出来",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      760
+    ]
+  },
+  "stages": [
+    {
+      "label": "输入"
+    },
+    {
+      "label": "处理"
+    },
+    {
+      "label": "检查与组织"
+    },
+    {
+      "label": "输出"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "chat_source",
+      "type": "database",
+      "label": "消息来源",
+      "sublabel": "程序保存你说过的话",
+      "stage": 0,
+      "row": 0,
+      "tag": "01 · 记下来"
+    },
+    {
+      "id": "extract_facts",
+      "type": "cloud",
+      "label": "模型提取要点",
+      "sublabel": "判断新增、更新或不记",
+      "stage": 1,
+      "row": 0,
+      "tag": "模型 · 默认 GLM"
+    },
+    {
+      "id": "check_changes",
+      "type": "security",
+      "label": "检查后才写入",
+      "sublabel": "来源 / 版本 / 高风险复核",
+      "stage": 2,
+      "row": 0,
+      "tag": "程序 + 必要时模型"
+    },
+    {
+      "id": "saved_facts",
+      "type": "database",
+      "label": "长期记忆库",
+      "sublabel": "SQLite · 事实与来源关系",
+      "stage": 3,
+      "row": 0,
+      "tag": "保存并建立检索索引"
+    },
+    {
+      "id": "recall_facts",
+      "type": "database",
+      "label": "同一个记忆库",
+      "sublabel": "跨会话保存的有效信息",
+      "stage": 0,
+      "row": 2,
+      "tag": "02 · 用起来"
+    },
+    {
+      "id": "find_relevant",
+      "type": "backend",
+      "label": "程序检索记忆",
+      "sublabel": "新问题 → 关键词 + 向量",
+      "stage": 1,
+      "row": 2,
+      "tag": "FTS5 + MiniLM + sqlite-vec"
+    },
+    {
+      "id": "build_context",
+      "type": "backend",
+      "label": "程序组装上下文",
+      "sublabel": "问题＋会话＋相关记忆",
+      "stage": 2,
+      "row": 2,
+      "tag": "补充有效短期情境"
+    },
+    {
+      "id": "respond_user",
+      "type": "cloud",
+      "label": "模型回答或安排",
+      "sublabel": "聊天回答 / 安排模式用工具",
+      "stage": 3,
+      "row": 2,
+      "tag": "GLM / DeepSeek"
+    },
+    {
+      "id": "portrait_facts",
+      "type": "database",
+      "label": "同一个记忆库",
+      "sublabel": "所有有效长期记忆",
+      "stage": 0,
+      "row": 4,
+      "tag": "03 · 展示出来"
+    },
+    {
+      "id": "write_portrait",
+      "type": "cloud",
+      "label": "模型写分类总结",
+      "sublabel": "你是… / 你喜欢… / 你最近…",
+      "stage": 1,
+      "row": 4,
+      "tag": "日历状态辅助核对"
+    },
+    {
+      "id": "cache_portrait",
+      "type": "backend",
+      "label": "程序校验并缓存",
+      "sublabel": "校验依据 · 本地缓存",
+      "stage": 2,
+      "row": 4,
+      "tag": "后台生成 · 有变化再更新"
+    },
+    {
+      "id": "show_portrait",
+      "type": "frontend",
+      "label": "只读记忆中心",
+      "sublabel": "五类总结，不显示管理表单",
+      "stage": 3,
+      "row": 4,
+      "tag": "不会回写到事实库"
+    }
+  ],
+  "flows": [
+    {
+      "from": "chat_source",
+      "to": "extract_facts",
+      "label": "后台排队"
+    },
+    {
+      "from": "extract_facts",
+      "to": "check_changes",
+      "label": "结构化操作"
+    },
+    {
+      "from": "check_changes",
+      "to": "saved_facts",
+      "label": "通过后保存"
+    },
+    {
+      "from": "recall_facts",
+      "to": "find_relevant",
+      "label": "查询时读取"
+    },
+    {
+      "from": "find_relevant",
+      "to": "build_context",
+      "label": "相关片段"
+    },
+    {
+      "from": "build_context",
+      "to": "respond_user",
+      "label": "模型输入"
+    },
+    {
+      "from": "portrait_facts",
+      "to": "write_portrait",
+      "label": "打开页面时"
+    },
+    {
+      "from": "write_portrait",
+      "to": "cache_portrait",
+      "label": "带依据总结"
+    },
+    {
+      "from": "cache_portrait",
+      "to": "show_portrait",
+      "label": "读取结果"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "程序管流程，模型理解文字",
+      "items": [
+        "程序：存储、排队、校验、检索与缓存",
+        "模型：提取要点、回答问题、写画像"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "三处记忆库，是同一个库",
+      "items": [
+        "五类：个人信息 / 偏好 / 经历 / 任务 / 程序",
+        "聊天与安排共享记忆，会话上下文分开"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "画像仅展示，不回写成事实",
+      "items": [
+        "日历核对任务状态，无依据不猜偏好",
+        "普通消息提取可能延迟约 15 分钟以上"
+      ]
+    }
+  ]
+}

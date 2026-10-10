@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "E:\\ai\\MMM\\docs\\diagrams\\architecture.json",
+  "output": "E:\\ai\\MMM\\docs\\diagrams\\architecture.html",
+  "specification": {
+    "sha256": "2f411303b574c3c3e8302be0aba8f127761ad9a46319044293ac7e2172f18b96",
+    "bytes": 3524
+  },
+  "artifact": {
+    "sha256": "20c16f983978650fcc59d562430ffcdd4aa92dc63ce927e3363a07a7d400659b",
+    "bytes": 709908
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

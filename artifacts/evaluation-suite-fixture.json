@@ -1,0 +1,1434 @@
+{
+  "memory": {
+    "dataset": "synthetic-calendar-v1",
+    "mode": "fixture",
+    "warning": "Fixture results validate plumbing, not GLM/DeepSeek quality.",
+    "groups": [
+      {
+        "model": "glm",
+        "group": "A",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 584.25,
+          "first_token_seconds": 0.02369949221611023,
+          "total_seconds": 0.06637500000942964,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 569,
+            "first_token_seconds": 0.015007972717285156,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 599,
+            "first_token_seconds": 0.013511896133422852,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 585,
+            "first_token_seconds": 0.01601099967956543,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 590,
+            "first_token_seconds": 0.023113012313842773,
+            "total_seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 573,
+            "first_token_seconds": 0.035331010818481445,
+            "total_seconds": 0.062000000034458935,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 594,
+            "first_token_seconds": 0.024730920791625977,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 579,
+            "first_token_seconds": 0.04008889198303223,
+            "total_seconds": 0.125,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 585,
+            "first_token_seconds": 0.021801233291625977,
+            "total_seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "glm",
+        "group": "B",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 8351.875,
+          "first_token_seconds": 0.03490212559700012,
+          "total_seconds": 0.09562499998719431,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9429,
+            "first_token_seconds": 0.03594183921813965,
+            "total_seconds": 0.0940000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9473,
+            "first_token_seconds": 0.038752079010009766,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9482,
+            "first_token_seconds": 0.031140804290771484,
+            "total_seconds": 0.125,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user may have felt tired after the September workshop; this is uncertain.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9480,
+            "first_token_seconds": 0.04895520210266113,
+            "total_seconds": 0.10899999993853271,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7228,
+            "first_token_seconds": 0.0312960147857666,
+            "total_seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7249,
+            "first_token_seconds": 0.04305410385131836,
+            "total_seconds": 0.10999999998603016,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7234,
+            "first_token_seconds": 0.03252601623535156,
+            "total_seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7240,
+            "first_token_seconds": 0.017550945281982422,
+            "total_seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "glm",
+        "group": "C",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 8350.875,
+          "first_token_seconds": 0.02419111132621765,
+          "total_seconds": 0.08987500001967419,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9430,
+            "first_token_seconds": 0.03306984901428223,
+            "total_seconds": 0.0940000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9470,
+            "first_token_seconds": 0.02402806282043457,
+            "total_seconds": 0.1720000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9483,
+            "first_token_seconds": 0.02002096176147461,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user may have felt tired after the September workshop; this is uncertain.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9473,
+            "first_token_seconds": 0.034860849380493164,
+            "total_seconds": 0.07800000009592623,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7228,
+            "first_token_seconds": 0.019947052001953125,
+            "total_seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7249,
+            "first_token_seconds": 0.019696950912475586,
+            "total_seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7234,
+            "first_token_seconds": 0.01874399185180664,
+            "total_seconds": 0.062000000034458935,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7240,
+            "first_token_seconds": 0.02316117286682129,
+            "total_seconds": 0.10999999998603016,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "A",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 584.25,
+          "first_token_seconds": 0.026619642972946167,
+          "total_seconds": 0.08024999998451676,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 569,
+            "first_token_seconds": 0.01856398582458496,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 599,
+            "first_token_seconds": 0.020045042037963867,
+            "total_seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 585,
+            "first_token_seconds": 0.022717952728271484,
+            "total_seconds": 0.10999999998603016,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 590,
+            "first_token_seconds": 0.02551889419555664,
+            "total_seconds": 0.10899999993853271,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 573,
+            "first_token_seconds": 0.043920040130615234,
+            "total_seconds": 0.09399999992456287,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 594,
+            "first_token_seconds": 0.029788970947265625,
+            "total_seconds": 0.0940000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 579,
+            "first_token_seconds": 0.02596116065979004,
+            "total_seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 585,
+            "first_token_seconds": 0.026441097259521484,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "B",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 8350.875,
+          "first_token_seconds": 0.03461834788322449,
+          "total_seconds": 0.09187499999825377,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9427,
+            "first_token_seconds": 0.03343391418457031,
+            "total_seconds": 0.07900000002700835,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9472,
+            "first_token_seconds": 0.03887295722961426,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9484,
+            "first_token_seconds": 0.026098966598510742,
+            "total_seconds": 0.09399999992456287,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user may have felt tired after the September workshop; this is uncertain.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9473,
+            "first_token_seconds": 0.034465789794921875,
+            "total_seconds": 0.10900000005494803,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7228,
+            "first_token_seconds": 0.02686595916748047,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7249,
+            "first_token_seconds": 0.052488088607788086,
+            "total_seconds": 0.10999999998603016,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7234,
+            "first_token_seconds": 0.03638601303100586,
+            "total_seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7240,
+            "first_token_seconds": 0.028335094451904297,
+            "total_seconds": 0.0940000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "C",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": null,
+          "budget_units": 8351.75,
+          "first_token_seconds": 0.04232940077781677,
+          "total_seconds": 0.1033750000060536,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9430,
+            "first_token_seconds": 0.0463101863861084,
+            "total_seconds": 0.10899999993853271,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9471,
+            "first_token_seconds": 0.03102898597717285,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9485,
+            "first_token_seconds": 0.057083845138549805,
+            "total_seconds": 0.125,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user may have felt tired after the September workshop; this is uncertain.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 9477,
+            "first_token_seconds": 0.05216097831726074,
+            "total_seconds": 0.10900000005494803,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7228,
+            "first_token_seconds": 0.02598118782043457,
+            "total_seconds": 0.0940000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7249,
+            "first_token_seconds": 0.05140805244445801,
+            "total_seconds": 0.10900000005494803,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7234,
+            "first_token_seconds": 0.02858710289001465,
+            "total_seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": null,
+            "budget_units": 7240,
+            "first_token_seconds": 0.046074867248535156,
+            "total_seconds": 0.125,
+            "status": "completed",
+            "error": null,
+            "answer": "No supporting memory available.",
+            "consolidation": {
+              "status": "not_applicable",
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      }
+    ]
+  },
+  "workflows": {
+    "mode": "fixture",
+    "weather": "synthetic, never real personal activity",
+    "models": [
+      {
+        "model": "glm",
+        "candidate_status": "enabled_by_synthetic_user",
+        "metrics": {
+          "baseline": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": null,
+            "steps": 2.0,
+            "provider_tokens": null,
+            "seconds": 0.1720000000204891
+          },
+          "before": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 3.0,
+            "provider_tokens": null,
+            "seconds": 0.14066666667349637
+          },
+          "after": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 3.0,
+            "provider_tokens": null,
+            "seconds": 0.06266666665518035
+          }
+        },
+        "records": [
+          {
+            "phase": "baseline",
+            "goal": "Create a task titled Synthetic report on 2026-09-07.",
+            "run_id": "run_bfc955be60ae4fde81a25a3354d2db5f",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 2,
+            "provider_tokens": null,
+            "seconds": 0.1720000000204891,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "create_task",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_a53107eb531640cf8023672d1cd35a96",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.18700000003445894,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_dc24251018b24519baf0305281ccb40d",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.0470000000204891,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_fdb207b479ab46a2be36c71b9cf0e38c",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.18799999996554106,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_bea4240f4c384683a988ede1ade11c1c",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_6d606c81e3ef4ff7892f1eeec5e48c51",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.07800000009592623,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_35289101c0a6487e9171fb13f2b157e7",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.046999999904073775,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "candidate_status": "enabled_by_synthetic_user",
+        "metrics": {
+          "baseline": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": null,
+            "steps": 2.0,
+            "provider_tokens": null,
+            "seconds": 0.125
+          },
+          "before": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 3.0,
+            "provider_tokens": null,
+            "seconds": 0.0779999999795109
+          },
+          "after": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 3.0,
+            "provider_tokens": null,
+            "seconds": 0.08333333333333333
+          }
+        },
+        "records": [
+          {
+            "phase": "baseline",
+            "goal": "Create a task titled Synthetic report on 2026-09-07.",
+            "run_id": "run_d5197d872e9d401c9ed9363dd8c0f13c",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 2,
+            "provider_tokens": null,
+            "seconds": 0.125,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "create_task",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_9c0a5c4576c747e09fa699fa2564467c",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_bb4a2a45cf1944e5ae9a7fa67903248c",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.06299999996554106,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_92fc429e04844fb196851c7c0e808309",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.09299999999348074,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_3cfc31745b134b57a9980851c9155bea",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.0779999999795109,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_df09ab2a86cb4a93ba7fd8f35f251f85",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.06300000008195639,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_238379cd14094cb2a219cb154a24964f",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": null,
+            "seconds": 0.10899999993853271,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          }
+        ]
+      }
+    ]
+  },
+  "scoring_version": "synthetic-v2-audit-penalized"
+}

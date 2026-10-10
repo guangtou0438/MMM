@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMM · 记住你，陪你前行</title>
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png">
+<link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f6fd">
+<script src="/static/theme.js?v=4"></script>
+<script src="/static/intro.js?v=1"></script>
+<link rel="stylesheet" href="/static/style.css?v=hue-34">
+<script src="/static/mist.js?v=hue-1" defer></script>
+<script src="/static/timecal.js?v=hue-13" defer></script>
+<script src="/static/app.js?v=hue-5" defer></script>
+<script src="/static/agent.js?v=hue-18" defer></script>
+</head>
+<body>
+<canvas id="mist" aria-hidden="true"></canvas>
+<div id="intro" aria-hidden="true"><canvas></canvas><p class="intro-line">记住你，陪你前行</p></div>
+<a class="skip-link" href="#main-content">跳到主要内容</a>
+
+<header class="topbar">
+  <div class="topbar-start"><button type="button" id="menu-button" class="menu-button" popovertarget="menu" aria-haspopup="true" aria-label="打开列表">
+    <span class="logo" aria-hidden="true">m.</span>
+    <span id="breadcrumb">日历</span>
+    <svg class="icon chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+  </button></div>
+  <nav class="view-tabs" aria-label="切换视图">
+    <button type="button" data-for="home-button" aria-current="page" title="日历（1）"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg><span>日历</span></button>
+    <button type="button" data-for="chat-button" aria-current="false" title="聊天（2）"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3V11a9 9 0 0 1 18 0Z"/></svg><span>聊天</span></button>
+    <button type="button" data-for="memory-button" aria-current="false" title="记忆（3）"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a5 5 0 0 0-5 5c0 1.4.6 2.6 1.5 3.5A5 5 0 0 0 7 21h10a5 5 0 0 0-1.5-9.5A5 5 0 0 0 12 3Z"/></svg><span>记忆</span></button>
+  </nav>
+  <div class="topbar-actions">
+    <button type="button" id="settings-button" class="ghost-button" aria-label="设置" title="设置"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+  <button type="button" id="create" class="icon-button" aria-label="新建任务或安排" title="新建任务或安排（N）"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+  </div>
+</header>
+
+<nav id="menu" class="menu" popover aria-label="列表">
+  <div class="menu-group menu-nav" hidden>
+    <button type="button" id="chat-button" class="menu-item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3V11a9 9 0 0 1 18 0Z"/></svg><span>聊天</span></button>
+    <button type="button" id="home-button" class="menu-item active" aria-current="page"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg><span>日历</span></button>
+    <button type="button" id="memory-button" class="menu-item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a5 5 0 0 0-5 5c0 1.4.6 2.6 1.5 3.5A5 5 0 0 0 7 21h10a5 5 0 0 0-1.5-9.5A5 5 0 0 0 12 3Z"/></svg><span>记忆</span></button>
+  </div>
+
+  <div class="menu-group">
+    <details class="menu-disclosure" name="menu-lists">
+      <summary class="menu-item"><span>进行中</span><span class="count" id="open-count">0</span></summary>
+      <div class="menu-sub">
+        <label for="task-search" class="sr-only">查找进行中的任务</label>
+        <input type="search" id="task-search" name="task-search" autocomplete="off" placeholder="搜索">
+        <div id="task-list" class="task-list"></div>
+      </div>
+    </details>
+    <details class="menu-disclosure" name="menu-lists">
+      <summary class="menu-item"><span id="conversations-label">对话</span></summary>
+      <div class="menu-sub">
+        <button type="button" id="sidebar-new-chat" class="menu-row-button">＋ 新对话</button>
+        <div id="agent-history" class="conversation-list"></div>
+      </div>
+    </details>
+    <details class="menu-disclosure" name="menu-lists">
+      <summary class="menu-item"><span>回收站</span><span class="count" id="trash-count">0</span></summary>
+      <div class="menu-sub"><div id="trash-list" class="task-list"></div></div>
+    </details>
+    <details class="menu-disclosure" name="menu-lists">
+      <summary class="menu-item"><span>原有任务与记录</span></summary>
+      <div class="menu-sub"><div id="topic-list"></div><div id="legacy-list"></div></div>
+    </details>
+  </div>
+
+</nav>
+
+<span id="chat-keyboard-hint" class="sr-only">Enter 发送，Shift 加 Enter 换行</span>
+
+<main id="main-content" tabindex="-1">
+  <div id="notice" role="status" hidden></div>
+
+  <section id="home-view">
+    <h1 class="sr-only">日历与安排</h1>
+    <div class="work-column">
+      <div class="inbox">
+        <div id="reminders" class="reminders"></div>
+        <section id="suggestions-panel" class="panel" hidden>
+          <div class="panel-heading"><h2>等你决定</h2><span class="muted small">确认后才会执行</span></div>
+          <div id="suggestions"></div>
+        </section>
+        <div id="reviews"></div>
+        <div id="work-tools" class="work-tools"></div>
+      </div>
+      <section class="calendar-panel" aria-label="日历"><div id="calendar"></div></section>
+    </div>
+
+    <section class="chat-panel" aria-label="安排助手">
+      <div id="home-messages" class="messages" hidden></div>
+      <form id="home-chat-form" class="composer" hidden>
+        <label class="sr-only" for="home-input">发送给首页助手</label>
+        <textarea id="home-input" rows="3" maxlength="16000"></textarea>
+        <button type="submit">发送</button>
+      </form>
+    </section>
+  </section>
+
+  <section id="session-view" hidden>
+    <div class="session-bar">
+      <button id="back-home" class="quiet back"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>日历</button>
+      <div class="session-titles"><h1 id="session-title"></h1><p id="session-meta" class="muted small"></p></div>
+      <div id="session-actions" class="actions"></div>
+    </div>
+    <div class="session-grid">
+      <aside class="goal-panel">
+        <h2>这次想做到</h2>
+        <p id="session-goal"></p>
+        <h3>小步清单</h3>
+        <div id="session-agenda"></div>
+        <details><summary>会话历程</summary><div id="session-history"></div></details>
+        <button id="view-topic" class="quiet" hidden>查看原任务历史 →</button>
+      </aside>
+      <section class="session-chat">
+        <div id="session-messages" class="messages" aria-live="polite"></div>
+        <form id="session-chat-form" class="composer">
+          <label class="sr-only" for="session-input">发送给协作助手</label>
+          <textarea id="session-input" rows="2" maxlength="16000" aria-describedby="chat-keyboard-hint" placeholder="继续讨论…" required></textarea>
+          <div class="composer-footer"><span id="session-chat-status" class="muted small"></span><button type="submit" class="primary send" aria-label="发送" title="Enter 发送 · Shift+Enter 换行"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button></div>
+        </form>
+      </section>
+    </div>
+  </section>
+</main>
+
+<dialog id="task-dialog"><form id="task-form"><div class="panel-heading"><h2 id="task-form-heading">新建</h2><button type="button" class="close quiet" aria-label="关闭">×</button></div><label for="task-title">名称</label><input id="task-title" maxlength="300" required autofocus autocomplete="off" placeholder="例如：读完一本书…"><fieldset class="kind-choice"><legend class="sr-only">类型</legend><input type="hidden" id="activity-type"><label><input type="radio" name="activity-kind" value="" checked><span>自动判断</span></label><label><input type="radio" name="activity-kind" value="task"><span>任务</span></label><label><input type="radio" name="activity-kind" value="arrangement"><span>安排</span></label></fieldset><p id="kind-help" class="muted small"></p><div id="task-work-fields"><label for="task-goal">想做到什么</label><textarea id="task-goal" rows="2" maxlength="6000" placeholder="给这段对话一个方向…"></textarea></div><div class="two-cols"><div><label for="task-date">计划日期</label><input id="task-date" type="date" required></div><div><label for="task-deadline">截止日期（可选）</label><input id="task-deadline" type="date"></div></div><p id="task-date-help" class="muted small"></p><div id="task-agenda-fields"><label for="task-agenda">清单（每行一项）</label><textarea id="task-agenda" rows="4" maxlength="10000" placeholder="先做哪一小步…"></textarea></div><p id="task-error" class="error" role="alert"></p><div class="modal-actions"><div id="arrangement-actions" class="actions"></div><button type="submit" class="primary">保存</button></div></form></dialog>
+<dialog id="settings-dialog" aria-labelledby="settings-title"><div class="panel-heading"><h2 id="settings-title">设置</h2><button type="button" class="close quiet" aria-label="关闭">×</button></div>
+<div class="settings-body">
+  <div class="menu-group menu-settings">
+    <div class="menu-look">
+      <span id="swatches-label">颜色</span>
+      <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="swatches-label"></div>
+    </div>
+    <div class="menu-field">
+      <span id="night-label">夜间</span>
+      <button type="button" id="night-toggle" class="night-toggle" role="switch" aria-checked="false" aria-labelledby="night-label" title="切换白天/夜晚"><span class="knob" aria-hidden="true">☀️</span></button>
+    </div>
+    <div class="menu-field">
+      <label for="agent-model">模型</label>
+      <select id="agent-model"><option value="glm">GLM-5.3-Flash</option><option value="deepseek">DeepSeek-V4-Flash</option></select>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <button type="button" id="export-button" class="menu-item"><span>导出日历…</span></button>
+    <button type="button" id="preferences-button" class="menu-item"><span>回顾与提醒…</span></button>
+    <button type="button" id="refresh" class="menu-item"><span>刷新</span></button>
+  </div>
+  <p class="menu-foot"><span id="model-state">连接中…</span></p>
+</div></dialog>
+<dialog id="history-dialog"><div class="panel-heading"><h2 id="history-title">历史来源</h2><button class="close quiet" aria-label="关闭">×</button></div><div id="history-content"></div></dialog>
+<dialog id="export-dialog"><div class="panel-heading"><h2>导出日历</h2><button type="button" class="close quiet" aria-label="关闭">×</button></div><div id="export-slot"></div></dialog>
+<dialog id="preferences-dialog"><form id="preferences-form"><div class="panel-heading"><h2>回顾与提醒</h2><button type="button" class="close quiet" aria-label="关闭">×</button></div><label class="agenda-item"><input id="reviews-enabled" type="checkbox"><span>开启月 / 季 / 年回顾</span></label><label for="review-hour">每个新周期首日几点发送（Melbourne）</label><input id="review-hour" type="number" inputmode="numeric" autocomplete="off" min="0" max="23" value="9" required><label class="agenda-item"><input id="review-combine" type="checkbox" checked><span>同日的多个周期合并显示</span></label><label for="review-catchup">应用关闭时错过的回顾</label><select id="review-catchup"><option value="none">不补发；后台仍整理历史</option><option value="latest">只补发每种周期最近一期</option></select><label for="deadline-days">截止日期提前几天提醒</label><input id="deadline-days" type="number" inputmode="numeric" autocomplete="off" min="0" max="30" value="3" required><p id="preferences-error" class="error"></p><div class="modal-actions"><button type="submit" class="primary">保存</button></div></form></dialog>
+<dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title"></h2><p class="muted">此操作无法撤销。任务、清单和该任务的对话内容将被清除，相关记忆引用将停用。独立的旧版原始记录和已有备份不受影响。</p><p id="delete-error" class="error" role="alert"></p><div class="modal-actions"><button type="button" class="secondary close">取消</button><button type="button" id="delete-confirm" class="danger">永久删除</button></div></dialog>
+</body>
+</html>

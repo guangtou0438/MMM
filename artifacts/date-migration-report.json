@@ -1,0 +1,52 @@
+{
+  "backup": "data\\calendar.db.pre-session-987e1a3bd5514829996767cb879743e6.db",
+  "tables": {
+    "tasks": {
+      "before": 4,
+      "after": 4,
+      "unchanged": true
+    },
+    "subtasks": {
+      "before": 10,
+      "after": 10,
+      "unchanged": true
+    },
+    "sessions": {
+      "before": 0,
+      "after": 0,
+      "unchanged": true
+    },
+    "task_messages": {
+      "before": 0,
+      "after": 0,
+      "unchanged": true
+    },
+    "task_notes": {
+      "before": 0,
+      "after": 0,
+      "unchanged": true
+    },
+    "planning_conversations": {
+      "before": 1,
+      "after": 1,
+      "unchanged": true
+    },
+    "user_facts": {
+      "before": 0,
+      "after": 0,
+      "unchanged": true
+    }
+  },
+  "integrity": [
+    [
+      "ok"
+    ]
+  ],
+  "foreign_keys": [],
+  "migration_versions": [
+    1,
+    2,
+    3
+  ],
+  "source_mapping_complete": true
+}

@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Calendar Memory Agent · 实现架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1020,
+      590
+    ]
+  },
+  "components": [
+    {
+      "id": "workspace",
+      "type": "frontend",
+      "label": "三个核心入口",
+      "sublabel": "日历 / Agent / 记忆",
+      "pos": [
+        40,
+        110
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "http",
+      "type": "backend",
+      "label": "FastAPI + SSE",
+      "sublabel": "持久事件游标",
+      "pos": [
+        290,
+        110
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "runtime",
+      "type": "backend",
+      "label": "有界 ReAct",
+      "sublabel": "队列 / 预算 / 恢复",
+      "pos": [
+        540,
+        110
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "policy",
+      "type": "security",
+      "label": "Skill 与 Tool",
+      "sublabel": "服务端白名单",
+      "pos": [
+        790,
+        110
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "external",
+      "label": "LLM Provider",
+      "sublabel": "GLM / DeepSeek",
+      "pos": [
+        540,
+        340
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "services",
+      "type": "backend",
+      "label": "业务服务",
+      "sublabel": "日历 / 天气 / 导出",
+      "pos": [
+        790,
+        340
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "memory",
+      "type": "backend",
+      "label": "记忆服务",
+      "sublabel": "来源 / 校验 / 检索",
+      "pos": [
+        290,
+        340
+      ],
+      "size": [
+        180,
+        78
+      ]
+    },
+    {
+      "id": "sqlite",
+      "type": "database",
+      "label": "SQLite",
+      "sublabel": "FTS5 + sqlite-vec",
+      "pos": [
+        40,
+        340
+      ],
+      "size": [
+        180,
+        78
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "workspace",
+      "to": "http",
+      "label": "HTTP"
+    },
+    {
+      "from": "http",
+      "to": "runtime",
+      "label": "Run"
+    },
+    {
+      "from": "runtime",
+      "to": "policy",
+      "label": "校验"
+    },
+    {
+      "from": "policy",
+      "to": "services",
+      "label": "执行",
+      "labelDy": 60
+    },
+    {
+      "from": "runtime",
+      "to": "providers",
+      "label": "模型请求",
+      "labelDy": 60
+    },
+    {
+      "from": "http",
+      "to": "memory",
+      "label": "用户控制",
+      "labelDy": 60
+    },
+    {
+      "from": "runtime",
+      "to": "memory",
+      "label": "相关上下文"
+    },
+    {
+      "from": "memory",
+      "to": "sqlite",
+      "label": "SQL"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "运行边界",
+      "items": [
+        "每个 Session 一个写 Run；全局两个模型槽位",
+        "调用预算由服务端固定，失败不伪装完成"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "事实与记忆",
+      "items": [
+        "日期、状态和 Checklist 以日历表为准",
+        "用户纠正和忘记立即使旧证据退出检索"
+      ]
+    }
+  ]
+}

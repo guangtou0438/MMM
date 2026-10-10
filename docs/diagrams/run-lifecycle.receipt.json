@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "E:\\ai\\MMM\\docs\\diagrams\\run-lifecycle-v2.json",
+  "output": "E:\\ai\\MMM\\docs\\diagrams\\run-lifecycle.html",
+  "specification": {
+    "sha256": "3aa21fa744b3eeb30fb3bc3113056ac2318a5cc62a7704c1f0565b968df81075",
+    "bytes": 2716
+  },
+  "artifact": {
+    "sha256": "1be7d4e7d0860dd6cc30426333f64edceb378cda99e8a46b123e05272944d267",
+    "bytes": 708208
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

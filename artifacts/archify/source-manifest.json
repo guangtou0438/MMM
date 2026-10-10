@@ -1,0 +1,21 @@
+{
+  "mmm/__init__.py": "5cbd8d7d30a1801d696a581aa7b253dcef90cd3e0de504a5d26bd7a7dea84390",
+  "mmm/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+  "mmm/agent.py": "071c3850546006de6569286b8d86bfe82d3be47065f22b933f878e26a608d6fd",
+  "mmm/cli.py": "fb3183759c6c69ca0aa6d335314f292568b9fe539da834caee2ee603ab2105d9",
+  "mmm/config.py": "0dfc0123ae1a1ea42070af6c9efbfd51ca5fe0dc5c2a4256a38eb6aa7d537259",
+  "mmm/eval/__init__.py": "f0a2f7e098c7f70421f4266c09783ec58119dc1a502202d3b95d464d2bae2b81",
+  "mmm/eval/corpus.py": "3fa8a9a919b169edcdf779e2a1f2210321fd8546902edbbe4fe81115e51477e7",
+  "mmm/eval/driver.py": "6c72e901ed3298aea49254c510680c3ed41be9d4d77859f5e0c02b989d10844c",
+  "mmm/eval/generate.py": "a55553df6dacc9c500656ad4917836e0b162e5df7e135b633060e6ce890c8faa",
+  "mmm/eval/simulate.py": "a2f39aea6374ebefb70236eb93bc0dcf36103b8abb022b2419906b8bc3f9341b",
+  "mmm/eval/tokens.py": "b02245cc435f2b0bd80d6011fd75e36b08bd9e3d275ef447d6aed8c175cbadce",
+  "mmm/llm.py": "70e0254d26efe00df41ce1ce27353ae3abfb6274229537a50973c57c7e310ff3",
+  "mmm/memory/__init__.py": "ed3429c72c03c39d34d1483803811423c5857423d0e943315a6e660b702ce587",
+  "mmm/memory/compress.py": "6dad59c69ebf9b42f7a20972d2d2bc66b912420aa44582b67e2f527cdd98fd26",
+  "mmm/memory/scoring.py": "6af440055e598a364d6869c0f952fae560112ba41021ee4767d4aa6123beded6",
+  "mmm/memory/semantic.py": "38c36677c40850e7f69c981d23b7119a41c2d7c88432763868a613a44bbf885b",
+  "mmm/models.py": "2d90b3c10cc4a2038746421431d1b07bd904fb50966acf66b9bfb1a5caf1ae74",
+  "mmm/prompts.py": "4288601fbff25da3543603d9144dde811a29bb4da3c78174c8f4bf33055a54b2",
+  "mmm/store.py": "87afc7897a91829a9473244c498f4831c97eb0727b84e72641ffb388c2ceaf4c"
+}

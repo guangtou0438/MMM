@@ -1,0 +1,147 @@
+{
+  "synthetic_only": true,
+  "source": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "failed",
+        "memory_ids": [],
+        "error": "需要目标版本",
+        "calls": 2,
+        "provider_tokens": 2626,
+        "seconds": 20.35970687866211,
+        "diagnostics": {
+          "stage": "apply",
+          "error_type": "ValueError"
+        },
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "{\"operation\": \"SPLIT\", \"source_ids\": [\"src_4819379ff1b84990a2a53e75911c7ee5\"], \"content\": \"用户明确要求记住三条独立个人信息：其自行车名叫银杏；其读书小组名叫雾松；其最喜欢的棋类是围棋。应拆分为三条独立记忆存储。\", \"fragments\": [\"用户的自行车名叫银杏\", \"用户的读书小组名叫雾松\", \"用户最喜欢的棋类是围棋\"], \"kind\": \"profile\", \"certainty\": \"reported\", \"confidence\": 0.95, \"sensitivity\": \"normal\", \"expires\": null}",
+          "tokens": 1607,
+          "sha256": "c012f49bb7e54e5b5be54e84501c62682420df458a0ed456d2328e5fa025567b"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作与来源证据完全一致：证据中用户明确列出三条个人信息（自行车名'银杏'、读书小组名'雾松'、最喜欢的棋类'围棋'），SPLIT操作将其拆为三条独立片段，内容无编造、无歪曲、无遗漏。certainty为'reported'，正确保留了这是用户自述事实的不确定性级别；source_ids正确关联来源；sensitivity为normal，不含敏感秘密；existing_memories为空，无冲突被静默处理。\"}\n",
+          "tokens": 1019,
+          "sha256": "bc2416ccd02c783e0b7f2f378f346d2e6072b885eb04bf0476c7fb83ebe39aa9"
+        }
+      ],
+      "memories": []
+    },
+    {
+      "attempt": 2,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_377ee9244ccf47e9aac41d148ee18a76"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2241,
+        "seconds": 15.530564069747925,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "{\"operation\": \"ADD\", \"kind\": \"profile\", \"certainty\": \"reported\", \"confidence\": 0.95, \"content\": \"用户的三项个人事实：1) 自行车名叫「银杏」；2) 所在读书小组名叫「雾松」；3) 最喜欢的棋类是围棋。\", \"fragments\": [\"自行车名字：银杏\", \"读书小组名称：雾松\", \"最喜欢的棋类：围棋\"], \"source_ids\": [\"src_69e2422472a642a58c416e1a3c6e7ccc\"], \"sensitivity\": \"normal\"}",
+          "tokens": 1392,
+          "sha256": "3b7202e68fdd0affdb99be386be061f5ad57a0d22b214c6aaace5f3e4baa1602"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：证据明确要求记住三项事实（自行车叫银杏、读书小组叫雾松、最喜欢的棋类是围棋），记忆内容逐项准确对应，无编造、无遗漏、无歪曲。来源链接 src_69e2422472a642a58c416e1a3c6e7ccc 已正确关联；不确定性以 certainty=reported 和 confidence=0.95 妥善标注；内容为普通个人偏好，无敏感秘密；existing_memories 为空，不存在冲突。\"}\n",
+          "tokens": 849,
+          "sha256": "b0e466f399e113aac10292fc87898f06f3426eb8c0923778dbb8861ea511759b"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_377ee9244ccf47e9aac41d148ee18a76",
+          "kind": "profile",
+          "content": "用户的三项个人事实：1) 自行车名叫「银杏」；2) 所在读书小组名叫「雾松」；3) 最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_69e2422472a642a58c416e1a3c6e7ccc"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475516.897757,
+          "updated": 1789475516.897757,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_d0d7345b774743daaef935e279eeffa7"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 1682,
+        "seconds": 9.987340927124023,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\"operation\": \"ADD\", \"kind\": \"profile\", \"content\": \"用户报告：其自行车名为“银杏”；其读书小组名为“雾松”；其最喜欢的棋类是围棋。\", \"fragments\": [\"用户的自行车名为“银杏”\", \"用户的读书小组名为“雾松”\", \"用户最喜欢的棋类是围棋\"], \"certainty\": \"reported\", \"confidence\": 0.95, \"source_ids\": [\"src_5d26afcffed94edaa1e0200ef5d3c135\"], \"sensitivity\": \"normal\", \"expires\": null, \"targets\": {}}\n",
+          "tokens": 982,
+          "sha256": "7cc2eb962948742171e14822388d45c3a24ba2e274ea4e8705f3e7c4772da223"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：自行车名为'银杏'、读书小组名为'雾松'、最喜欢的棋类为围棋，三个片段均准确提取且无遗漏。 certainty 标记为 'reported' 恰当保留了这是用户自述信息的不确定性；来源链接 src_5d26afcffed94edaa1e0200ef5d3c135 正确引用；无编造事实、无敏感信息、无与现有记忆的冲突（现有记忆为空），适用 ADD 操作。\"}\n",
+          "tokens": 700,
+          "sha256": "e6d74df0d2ad9d0007c4ca1309dc551eb4af631f1fb53cced1cb29f920014c57"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_d0d7345b774743daaef935e279eeffa7",
+          "kind": "profile",
+          "content": "用户报告：其自行车名为“银杏”；其读书小组名为“雾松”；其最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_5d26afcffed94edaa1e0200ef5d3c135"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475527.128022,
+          "updated": 1789475527.128022,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    }
+  ]
+}

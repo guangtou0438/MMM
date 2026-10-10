@@ -1,0 +1,78 @@
+{
+  "mode": "live",
+  "synthetic_only": true,
+  "cases": [
+    {
+      "source": "I live in Melbourne, Victoria.",
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_3216aeafc7654315b31f3ac47f9690bb"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 1611,
+        "seconds": 6.146981954574585
+      },
+      "memories": [
+        {
+          "id": "mem_3216aeafc7654315b31f3ac47f9690bb",
+          "kind": "profile",
+          "content": "User lives in Melbourne, Victoria.",
+          "source_ids": [
+            "src_7afe7798160c4366b61b877aa64efeb7"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1788694646.9213,
+          "updated": 1788694646.9213,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    },
+    {
+      "source": "My synthetic assignment deadline is 2026-09-12.",
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_224722eb740b42d39aff5ccd5cb7a5f1"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 1833,
+        "seconds": 6.524533033370972
+      },
+      "memories": [
+        {
+          "id": "mem_224722eb740b42d39aff5ccd5cb7a5f1",
+          "kind": "task",
+          "content": "Synthetic assignment deadline is 2026-09-12.",
+          "source_ids": [
+            "src_47d3377269634084967f3de59b7e6d79"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1788694653.710927,
+          "updated": 1788694653.710927,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    }
+  ]
+}

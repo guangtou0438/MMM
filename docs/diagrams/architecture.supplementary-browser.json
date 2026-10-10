@@ -1,0 +1,40 @@
+{
+  "kind": "supplementary-browser",
+  "artifact": {
+    "sha256": "20c16f983978650fcc59d562430ffcdd4aa92dc63ce927e3363a07a7d400659b",
+    "bytes": 709908
+  },
+  "measurements": [
+    {
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900
+    },
+    {
+      "width": 1600,
+      "height": 1000,
+      "scrollWidth": 1600,
+      "scrollHeight": 1000
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "scrollHeight": 1080
+    },
+    {
+      "width": 2048,
+      "height": 1320,
+      "scrollWidth": 2048,
+      "scrollHeight": 1320
+    }
+  ],
+  "screenshots": [
+    "artifacts/refactor-architecture-1440-light.png",
+    "artifacts/refactor-architecture-1440-dark.png",
+    "artifacts/refactor-architecture-2048-light.png",
+    "artifacts/refactor-architecture-2048-dark.png"
+  ],
+  "visualReview": "pending"
+}

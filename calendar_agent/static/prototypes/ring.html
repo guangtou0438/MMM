@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>时间之环 · 原型</title>
+<style>
+  /* A year as one ring: every day a tick, the busier the day the longer the tick. */
+  :root {
+    --ink: #eef0f4; --ink-2: #a8aebb; --ink-3: #8a90a0; --bg: #06070b; --line: rgba(238, 240, 244, .12);
+    --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    --sans: "Segoe UI Variable Text", "Segoe UI", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  }
+  * { box-sizing: border-box }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); overflow: hidden; user-select: none }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; cursor: grab; touch-action: none }
+  canvas.drag { cursor: grabbing }
+  .brand { position: fixed; top: 28px; left: 36px; font-size: 12px; letter-spacing: .32em; color: var(--ink-3); text-transform: uppercase }
+  .brand b { display: block; font: 600 15px/1.4 var(--sans); letter-spacing: .12em; color: var(--ink); margin-top: 6px }
+  .year { position: fixed; top: 26px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 18px }
+  .year button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: none; color: var(--ink-2); font-size: 17px; cursor: pointer }
+  .year button:hover { color: var(--ink); border-color: var(--ink-3) }
+  .year span { font: 400 26px/1 var(--serif); letter-spacing: .08em; font-variant-numeric: tabular-nums }
+  /* month wheel */
+  .wheel { position: fixed; left: 36px; top: 50%; transform: translateY(-50%); height: 420px; width: 150px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent); mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent) }
+  .wheel ol { list-style: none; margin: 0; padding: 0; position: absolute; left: 0; top: 50%; transition: transform .6s cubic-bezier(.22, .61, .36, 1) }
+  .wheel li { height: 42px; display: flex; align-items: center; gap: 10px; font: 400 22px/1 var(--serif); color: var(--ink-3); cursor: pointer; transform-origin: left center; transition: color .4s, transform .6s cubic-bezier(.22, .61, .36, 1), opacity .6s, filter .6s }
+  .wheel li small { font: 400 12px/1 var(--sans); letter-spacing: .2em; color: var(--ink-3) }
+  .wheel li.on { color: var(--ink) }
+  .wheel li:hover { color: var(--ink-2) }
+  /* the focused day */
+  aside { position: fixed; right: 36px; top: 50%; transform: translateY(-50%); width: 300px; max-height: 70vh; display: flex; flex-direction: column }
+  aside .k { font-size: 12px; letter-spacing: .12em; color: var(--ink-3) }
+  aside ul { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 2px; overflow: auto }
+  aside li { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line) }
+  aside li time { font: 400 15px/1 var(--serif); color: var(--ink-2); font-variant-numeric: tabular-nums }
+  aside li span { font-size: 14px }
+  aside li em { font-style: normal; font-size: 12px; color: var(--ink-3); letter-spacing: .1em }
+  aside .empty { color: var(--ink-3); font-size: 13px; line-height: 1.9; margin-top: 16px }
+  .hint { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); font-size: 12px; letter-spacing: .04em; color: var(--ink-3); white-space: nowrap }
+  .note { position: fixed; right: 36px; bottom: 26px; font-size: 12px; color: var(--ink-3); letter-spacing: .04em }
+  @media (max-width: 900px) {
+    .wheel { display: none }
+    aside { top: auto; bottom: 64px; left: 18px; right: 18px; width: auto; transform: none; max-height: 26vh }
+    .brand { top: 18px; left: 18px } .year { top: 60px } .note { display: none }
+  }
+</style>
+</head>
+<body>
+<canvas id="ring" aria-label="一年的日历，拖动或滚动转动"></canvas>
+<div class="brand">MMM · Prototype<b>时间之环</b></div>
+<div class="year"><button id="py" aria-label="上一年">‹</button><span id="yr"></span><button id="ny" aria-label="下一年">›</button></div>
+<nav class="wheel" aria-label="月份"><ol id="months"></ol></nav>
+<aside aria-live="polite"><div class="k" id="dk"></div><div id="list"></div></aside>
+<div class="hint">拖动或滚动转动年轮 · ← → 换一天 · ↑ ↓ 换一个月</div>
+<div class="note">示例数据</div>
+<script src="sample.js"></script>
+<script src="ring.js"></script>
+</body>
+</html>

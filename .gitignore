@@ -1,0 +1,35 @@
+.venv/
+.venv-calendar/
+__pycache__/
+*.pyc
+.env
+data/*.db
+data/*.db-*
+*.db
+*.db-*
+.pytest_cache/
+
+artifacts/date-server.*
+
+# Runtime output and temporary browser profiles.
+artifacts/*.log
+artifacts/*.pid
+artifacts/archify/browser-check/
+
+# Local editor settings, temporary backups, and unrelated generated files.
+.idea/
+.claude/
+.impeccable/
+tmp/
+outputs/
+.env.*
+!.env.example
+
+# Local editor settings, temporary backups, and unrelated generated files.
+.idea/
+.claude/
+.impeccable/
+tmp/
+outputs/
+.env.*
+!.env.example

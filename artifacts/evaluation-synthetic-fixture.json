@@ -1,0 +1,421 @@
+{
+  "dataset": "synthetic-calendar-v1",
+  "mode": "fixture",
+  "warning": "Fixture results validate plumbing, not GLM/DeepSeek quality.",
+  "groups": [
+    {
+      "model": "glm",
+      "group": "A",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 0.0,
+        "recall_at_8": 0.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6290.75,
+        "first_token_seconds": 0.015740513801574707,
+        "total_seconds": 0.043249999958788976
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6274,
+          "first_token_seconds": 0.015079021453857422,
+          "total_seconds": 0.046999999904073775,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6304,
+          "first_token_seconds": 0.01401209831237793,
+          "total_seconds": 0.030999999959021807,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6290,
+          "first_token_seconds": 0.014515876770019531,
+          "total_seconds": 0.03200000000651926,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6295,
+          "first_token_seconds": 0.019355058670043945,
+          "total_seconds": 0.06299999996554106,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "model": "glm",
+      "group": "B",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 1.0,
+        "recall_at_8": 1.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6874.25,
+        "first_token_seconds": 0.02718573808670044,
+        "total_seconds": 0.06649999998626299
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6815,
+          "first_token_seconds": 0.02807784080505371,
+          "total_seconds": 0.0779999999795109,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6879,
+          "first_token_seconds": 0.026488065719604492,
+          "total_seconds": 0.06299999996554106,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6911,
+          "first_token_seconds": 0.026813030242919922,
+          "total_seconds": 0.06299999996554106,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6892,
+          "first_token_seconds": 0.027364015579223633,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "model": "glm",
+      "group": "C",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 1.0,
+        "recall_at_8": 1.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6874.5,
+        "first_token_seconds": 0.024891197681427002,
+        "total_seconds": 0.0625
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6816,
+          "first_token_seconds": 0.02743387222290039,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6879,
+          "first_token_seconds": 0.024751901626586914,
+          "total_seconds": 0.06299999996554106,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6911,
+          "first_token_seconds": 0.026732921600341797,
+          "total_seconds": 0.06299999996554106,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6892,
+          "first_token_seconds": 0.020646095275878906,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "group": "A",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 0.0,
+        "recall_at_8": 0.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6290.75,
+        "first_token_seconds": 0.019378483295440674,
+        "total_seconds": 0.04274999999324791
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6274,
+          "first_token_seconds": 0.01841902732849121,
+          "total_seconds": 0.0470000000204891,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6304,
+          "first_token_seconds": 0.014039993286132812,
+          "total_seconds": 0.030999999959021807,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6290,
+          "first_token_seconds": 0.014978885650634766,
+          "total_seconds": 0.030999999959021807,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6295,
+          "first_token_seconds": 0.030076026916503906,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "group": "B",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 1.0,
+        "recall_at_8": 1.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6874.25,
+        "first_token_seconds": 0.01735508441925049,
+        "total_seconds": 0.046750000008614734
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6816,
+          "first_token_seconds": 0.015508174896240234,
+          "total_seconds": 0.0470000000204891,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6878,
+          "first_token_seconds": 0.019009113311767578,
+          "total_seconds": 0.0470000000204891,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6911,
+          "first_token_seconds": 0.018032073974609375,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6892,
+          "first_token_seconds": 0.016870975494384766,
+          "total_seconds": 0.030999999959021807,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "group": "C",
+      "semantic_enabled": false,
+      "metrics": {
+        "success": 1.0,
+        "recall_at_8": 1.0,
+        "forgotten_recall": 0.0,
+        "steps": 1.0,
+        "provider_tokens": null,
+        "budget_units": 6874.0,
+        "first_token_seconds": 0.021169722080230713,
+        "total_seconds": 0.0470000000204891
+      },
+      "cases": [
+        {
+          "case": "residence",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6816,
+          "first_token_seconds": 0.02950906753540039,
+          "total_seconds": 0.062000000034458935,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "preference",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6879,
+          "first_token_seconds": 0.016516923904418945,
+          "total_seconds": 0.03200000000651926,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "episodic",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6911,
+          "first_token_seconds": 0.018146991729736328,
+          "total_seconds": 0.0470000000204891,
+          "status": "completed",
+          "error": null
+        },
+        {
+          "case": "commitment",
+          "success": 1,
+          "recall_at_8": 1.0,
+          "forgotten_recall": 0,
+          "steps": 1,
+          "provider_tokens": null,
+          "budget_units": 6890,
+          "first_token_seconds": 0.020505905151367188,
+          "total_seconds": 0.0470000000204891,
+          "status": "completed",
+          "error": null
+        }
+      ]
+    }
+  ]
+}

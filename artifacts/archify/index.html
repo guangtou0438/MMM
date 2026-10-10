@@ -1,0 +1,646 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MMM · 架构与实现核对</title><style>
+:root{color-scheme:light;--bg:#f3f6fa;--panel:white;--ink:#172d46;--muted:#51667e;--line:#dce5ef;--accent:#087e92}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,'Microsoft YaHei',sans-serif}main{max-width:1180px;margin:auto;padding:40px 28px 70px}h1{font-size:36px;letter-spacing:-1px;line-height:1.3;margin:8px 0 18px}h2{font-size:24px;margin:30px 0 16px}h3{font-size:20px;margin:5px 0 12px}p{margin:10px 0}.eyebrow,.category{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:1px}.lead{max-width:850px;color:var(--muted)}.diagrams{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:26px 0}.diagram,article,.note{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}.diagram a{display:inline-block;background:var(--ink);color:white;border-radius:8px;padding:10px 22px;text-decoration:none;font-weight:600}.diagram small{display:block;color:var(--muted);margin:14px 0}.metrics{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.metrics span{background:#e4f3f1;color:#165e59;border-radius:7px;padding:5px 12px;font-size:13px}.filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:8px 15px;font:inherit;font-size:14px}button[aria-pressed=true]{background:var(--accent);color:white}.findings{display:grid;grid-template-columns:1fr 1fr;gap:18px}article[hidden]{display:none}.design{font-size:14px;color:var(--muted);border-left:3px solid #cbd8e5;padding-left:12px}details{border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-size:13px}summary{cursor:pointer;color:var(--accent)}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 Consolas,monospace;color:var(--muted);max-height:420px;overflow:auto}footer{font-size:13px;color:var(--muted);margin-top:28px}a{color:var(--accent)}.note{font-size:14px;color:var(--muted)}@media(max-width:760px){main{padding:24px 16px}.diagrams,.findings{grid-template-columns:1fr}h1{font-size:29px}}
+</style><main><div class="eyebrow">MEMORY MATTERS MOST / 2026-09-05</div><h1>MMM · 架构与实现核对</h1><p class="lead">核心记忆闭环已经实现：任务续接使用历史检索与模式线索，任务完成后先聚合再压缩。与设计相比，主要未完成项是技能调用、自然语言日期与人工准确率评测；“摘要一次”的全入口保证还需要收紧。</p><div class="metrics"><span>179 项离线断言通过</span><span>两图均 9 / 9 校验通过</span><span>四种桌面尺寸检查通过</span><span>源码证据可展开</span></div><section class="diagrams"><div class="diagram"><div class="eyebrow">01 / ARCHITECTURE</div><h2>中文架构图</h2><p>CLI、Agent、SQLite、模型适配、三类记忆机制与评测入口。</p><small>节点附源码位置 · 支持搜索、缩放、路径查看与深浅主题</small><a href="architecture.html" target="_blank" rel="noopener">打开交互架构图 ↗</a></div><div class="diagram"><div class="eyebrow">02 / DATA FLOW</div><h2>核心记忆数据流</h2><p>上方追踪任务续接，下方追踪完成、聚合与压缩写回。</p><small>跨行连线表示后续续接读取已存模式，并非同次即时调用</small><a href="dataflow.html" target="_blank" rel="noopener">打开交互数据流图 ↗</a></div></section><div class="note"><b>阅读范围与图示口径</b><p>以当前本地源码为实际行为依据，对照《Project10_开发交接文档_给CC.md》（优先）和《Project10_Session记忆Agent_架构设计与实验计划.md》，README 作为项目自述交叉核对。图中路径均相对 mmm/；scoring.py、semantic.py、compress.py 位于 memory/。架构图只保留主要依赖，细节见下方证据。</p><p>未读取 .env、.venv 或用户数据库；测试禁用 dotenv 加载并强制离线，使用临时或内存库。外部 API 的实际配置与在线响应未经验证；图中是代码支持的能力，不代表本机启用状态。</p></div><h2>设计与实现的差异 <small id="count">12 项</small></h2><div class="filter" role="group" aria-label="筛选差异"><button data-cat="全部" aria-pressed="true">全部</button><button data-cat="已落实" aria-pressed="false">已落实</button><button data-cat="有意调整" aria-pressed="false">有意调整</button><button data-cat="增强" aria-pressed="false">增强</button><button data-cat="待完成" aria-pressed="false">待完成</button><button data-cat="范围收窄" aria-pressed="false">范围收窄</button><button data-cat="需修正" aria-pressed="false">需修正</button><button data-cat="需复核" aria-pressed="false">需复核</button></div><section class="findings"><article data-cat="已落实"><div class="category">已落实</div><h3>技术选型已落地</h3><p class="design">设计：交接文档 §七将存储、Embedding、LLM 和界面列为待定。</p><p>实际为 CLI + SQLite；向量存为 JSON TEXT，由 Python 扫描打分；对话使用 OpenAI 兼容协议，Embedding 失败可退回本地哈希。不是独立向量数据库，也没有 Web 服务。</p><details><summary>查看源码 · mmm/store.py:24</summary><pre>  24      date        TEXT PRIMARY KEY,
+  25      created_at  TEXT NOT NULL
+  26  );
+  27  
+  28  CREATE TABLE IF NOT EXISTS task_sessions (
+  29      id                 TEXT PRIMARY KEY,
+  30      day_id             TEXT NOT NULL,
+  31      title              TEXT NOT NULL,
+  32      status             TEXT NOT NULL,
+  33      invoked_skills     TEXT NOT NULL DEFAULT &#x27;[]&#x27;,
+  34      created_at         TEXT NOT NULL,
+  35      completed_at       TEXT,
+  36      last_accessed      TEXT NOT NULL,
+  37      access_count       INTEGER NOT NULL DEFAULT 0,
+  38      importance_score   REAL NOT NULL DEFAULT 0.0,
+  39      compression_level  TEXT NOT NULL DEFAULT &#x27;raw&#x27;,
+  40      compression_generation INTEGER NOT NULL DEFAULT 0,
+  41      archived_at        TEXT,
+  42      difficulty_score   REAL NOT NULL DEFAULT 0.0,
+  43      summary            TEXT,
+  44      embedding          TEXT,
+  45      FOREIGN KEY (day_id) REFERENCES day_sessions(date) ON DELETE CASCADE
+  46  );
+  47  CREATE INDEX IF NOT EXISTS idx_task_day ON task_sessions(day_id);
+  48  CREATE INDEX IF NOT EXISTS idx_task_status ON task_sessions(status);
+  49  
+  50  CREATE TABLE IF NOT EXISTS subtasks (
+  51      id          TEXT PRIMARY KEY,
+  52      task_id     TEXT NOT NULL,
+  53      seq         INTEGER NOT NULL,
+  54      desc        TEXT NOT NULL,
+  55      done        INTEGER NOT NULL DEFAULT 0,
+  56      updated_at  TEXT NOT NULL,
+  57      FOREIGN KEY (task_id) REFERENCES task_sessions(id) ON DELETE CASCADE
+  58  );
+  59  CREATE INDEX IF NOT EXISTS idx_subtask_task ON subtasks(task_id, seq);
+  60  
+  61  CREATE TABLE IF NOT EXISTS messages (
+  62      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  63      task_id     TEXT NOT NULL,
+  64      role        TEXT NOT NULL,
+  65      content     TEXT NOT NULL,
+  66      created_at  TEXT NOT NULL,
+  67      FOREIGN KEY (task_id) REFERENCES task_sessions(id) ON DELETE CASCADE
+  68  );
+  69  CREATE INDEX IF NOT EXISTS idx_msg_task ON messages(task_id, id);
+  70  
+  71  -- 冲突消解的版本链：只追加，永不更新
+  72  CREATE TABLE IF NOT EXISTS subtask_events (
+  73      id          TEXT PRIMARY KEY,
+  74      task_id     TEXT NOT NULL,
+  75      subtask_id  TEXT NOT NULL,
+  76      field_name  TEXT NOT NULL,
+  77      old_value   TEXT,
+  78      new_value   TEXT,
+  79      changed_at  TEXT NOT NULL,
+  80      source      TEXT NOT NULL DEFAULT &#x27;user&#x27;
+  81  );
+  82  CREATE INDEX IF NOT EXISTS idx_event_subtask ON subtask_events(subtask_id, changed_at);
+  83  
+  84  CREATE TABLE IF NOT EXISTS semantic_memory (
+  85      id                    TEXT PRIMARY KEY,
+  86      pattern               TEXT NOT NULL,
+  87      evidence_session_ids  TEXT NOT NULL DEFAULT &#x27;[]&#x27;,
+  88      occurrence_count      INTEGER NOT NULL DEFAULT 0,
+  89      last_seen             TEXT NOT NULL,
+  90      confidence            REAL NOT NULL DEFAULT 0.0,
+  91      locked                INTEGER NOT NULL DEFAULT 0,
+  92      embedding             TEXT
+  93  );
+  94  &quot;&quot;&quot;
+  95  
+  96  
+  97  def _dump_vec(vec: list[float] | None) -&gt; str | None:
+  98      return None if vec is None else json.dumps(vec)
+  99  
+ 100  </pre></details></article><article data-cat="有意调整"><div class="category">有意调整</div><h3>先聚合，再压缩</h3><p class="design">设计：交接文档 §五先写压缩，再写模式聚合；早期设计 §3.4 还写了完成后立即 summarized。</p><p>complete_task 先生成并保存摘要与难度，再聚合，最后扫描压缩。完成不等于删除原文；保护规则和冷却期可以让任务继续保持 raw。这样可先保护刚形成重复模式的早期证据。</p><details><summary>查看源码 · mmm/agent.py:468</summary><pre> 468      def complete_task(self, task_id: str, auto_maintain: bool | None = None) -&gt; CompletionResult:
+ 469          &quot;&quot;&quot;标记完成，并按交接文档第五节把整个循环走完。
+ 470  
+ 471          文档规定的 `[Session完成]` 分支是三步：
+ 472  
+ 473              status → 已完成
+ 474              → 生成 summary，触发压缩流程（Demote/Expire 规则判断）
+ 475              → 检测跨 session 重复模式 → 更新语义记忆（Promote 规则判断）
+ 476  
+ 477          这里三步都做。**顺序是先聚合再压缩**，和文档写的顺序相反，是有意的：
+ 478          刚完成的这条 session 可能正是让某个模式成立的第二份证据，而那个模式
+ 479          要保护的是**更早的那条**——它此刻可能刚好冷却到期该被压缩了。
+ 480          先压后聚的话，证据会在模式成立前一刻被压掉。
+ 481  
+ 482          摘要仍然在这里生成（而不是留给压缩阶段）：续接提示和检索都要用它，
+ 483          提前生成还能让后续 SUMMARIZE 分支直接复用，不必再调一次 LLM。
+ 484          &quot;&quot;&quot;
+ 485          task = self.store.get_task(task_id)
+ 486          if task is None:
+ 487              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 488          task.status = STATUS_DONE
+ 489          task.completed_at = self.now_iso()
+ 490          task.summary = self.summarize(task)
+ 491          # 趁对话历史还在，把困难程度固化下来——压缩之后就算不出来了
+ 492          task.difficulty_score = compute_difficulty(task)
+ 493          self._refresh_memory_fields(task)
+ 494          self.store.update_task(task)
+ 495  
+ 496          result = CompletionResult(task=task)
+ 497          if auto_maintain is None:
+ 498              auto_maintain = auto_maintain_enabled()
+ 499          if not auto_maintain:
+ 500              return result
+ 501  
+ 502          result.consolidation = self.consolidate_memory()
+ 503          result.maintenance = self.run_maintenance()
+ 504          # 维护可能把这条 session 自己也改了，回读最新状态
+ 505          refreshed = self.store.get_task(task_id)
+ 506          if refreshed is not None:
+ 507              result.task = refreshed
+ 508          return result
+ 509  </pre></details></article><article data-cat="有意调整"><div class="category">有意调整</div><h3>维护由操作触发</h3><p class="design">设计：早期设计 §四描述 N 天未访问后归档。</p><p>完成任务和 plan_day 会触发维护，也可手动 compress；没有后台定时器。默认冷却为 20 天，实际按 last_accessed 计算，而非 completed_at；参数是代码默认值，未读取本机私有配置。</p><details><summary>查看源码 · mmm/config.py:153</summary><pre> 153  class CompressionConfig:
+ 154      &quot;&quot;&quot;路由式压缩的判定阈值。全部可在 .env 调，评测做消融实验时直接改配置。&quot;&quot;&quot;
+ 155  
+ 156      recent_days: float          # 完成后多久内保持 raw 不压缩
+ 157      promote_importance: float   # 重要性高于此值保持 raw（对应 Promote）
+ 158      promote_access_count: int   # 访问次数高于此值保持 raw
+ 159      archive_idle_days: float    # 已压缩且闲置超过这么久考虑归档（对应 Expire）
+ 160      archive_importance: float   # 重要性低于此值才允许归档
+ 161      archive_chars: int          # 归档后 summary 截断到多少字
+ 162      # 命中重复困难模式的 session 是否保留原文。这是本项目区别于通用记忆中间件的
+ 163      # 那个信号的总开关，关掉即可量化它单独贡献了多少开销和多少保真度。
+ 164      pattern_keeps_raw: bool = True
+ 165  
+ 166  
+ 167  def load_compression_config() -&gt; CompressionConfig:
+ 168      return CompressionConfig(
+ 169          # 默认 20 天而不是直觉上的 2 天：模式要攒够证据才浮现，冷却期短于
+ 170          # 重复出现的间隔时，第一条证据会在模式成立之前就被压掉。四档语料实测
+ 171          # 2 天时及时保护率只有 67-75%，20 天时全部 100%，代价仅 +3% token。
+ 172          # 这个值应按「同类困难实际相隔多久再出现」重新标定。
+ 173          recent_days=_env_float(&quot;COMPRESS_RECENT_DAYS&quot;, 20.0),
+ 174          promote_importance=_env_float(&quot;COMPRESS_PROMOTE_IMPORTANCE&quot;, 0.6),
+ 175          promote_access_count=_env_int(&quot;COMPRESS_PROMOTE_ACCESS&quot;, 8),
+ 176          archive_idle_days=_env_float(&quot;COMPRESS_ARCHIVE_IDLE_DAYS&quot;, 14.0),
+ 177          archive_importance=_env_float(&quot;COMPRESS_ARCHIVE_IMPORTANCE&quot;, 0.25),
+ 178          archive_chars=_env_int(&quot;COMPRESS_ARCHIVE_CHARS&quot;, 40),
+ 179          pattern_keeps_raw=_env(&quot;COMPRESS_PATTERN_KEEPS_RAW&quot;, &quot;1&quot;)
+ 180          not in (&quot;0&quot;, &quot;false&quot;, &quot;False&quot;),
+ 181      )</pre></details></article><article data-cat="增强"><div class="category">增强</div><h3>续接不仅看当前任务</h3><p class="design">设计：交接文档 §五要求近期对话、未完成子任务与重复模式提示。</p><p>还检索 Top-3 历史任务，将其标题/摘要送给续接提示；当前任务带近期消息、摘要和进度。历史候选 with_history=False，因此不会把历史 raw 对话自动传给模型；规则兜底只按子任务进度生成提示。</p><details><summary>查看源码 · mmm/agent.py:319</summary><pre> 319      def generate_resume_hint(
+ 320          self,
+ 321          task: TaskSession,
+ 322          related_pattern: str | None = None,
+ 323          related_memories: list[ScoredMemory] | None = None,
+ 324      ) -&gt; str:
+ 325          &quot;&quot;&quot;生成续接提示。
+ 326  
+ 327          `related_memories` 是检索到的历史 session，作为额外线索喂给模型——
+ 328          续接提示的价值不止于&quot;你上次停在哪&quot;，还在于&quot;你上次是怎么解决同类问题的&quot;。
+ 329          检索结果可能完全不相关，所以 prompt 里明确允许模型忽略它们。
+ 330          &quot;&quot;&quot;
+ 331          pending = [st.desc for st in task.pending_subtasks()]
+ 332          done = [st.desc for st in task.subtasks if st.done]
+ 333          recent = task.recent_messages(resume_recent_turns())
+ 334          dialogue = &quot;\n&quot;.join(f&quot;{m.role}: {m.content}&quot; for m in recent)
+ 335          memories = [
+ 336              (sm.task.title, sm.task.summary or &quot;&quot;)
+ 337              for sm in (related_memories or [])
+ 338              if sm.task.summary or sm.task.title
+ 339          ]
+ 340  
+ 341          if self.llm.chat_available:
+ 342              try:
+ 343                  raw = self.llm.chat(
+ 344                      [
+ 345                          {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: prompts.RESUME_HINT_SYSTEM},
+ 346                          {
+ 347                              &quot;role&quot;: &quot;user&quot;,
+ 348                              &quot;content&quot;: prompts.resume_hint_user(
+ 349                                  title=task.title,
+ 350                                  recent_dialogue=dialogue,
+ 351                                  pending=pending,
+ 352                                  done=done,
+ 353                                  summary=task.summary,
+ 354                                  related_pattern=related_pattern,
+ 355                                  related_memories=memories,
+ 356                              ),
+ 357                          },
+ 358                      ],
+ 359                      temperature=0.4,
+ 360                  )
+ 361                  if raw:
+ 362                      return raw.splitlines()[0].strip()
+ 363              except LLMUnavailable:
+ 364                  pass
+ 365          return self._resume_hint_fallback(task, pending, done)
+ 366  
+ 367      @staticmethod
+ 368      def _resume_hint_fallback(task: TaskSession, pending: list[str], done: list[str]) -&gt; str:
+ 369          &quot;&quot;&quot;规则版续接提示，同时充当评测里的 naive baseline。&quot;&quot;&quot;
+ 370          if pending:
+ 371              head = f&quot;上次做到「{done[-1]}」&quot; if done else &quot;上次刚开个头&quot;
+ 372              return f&quot;{head}，下一步是「{pending[0]}」，要继续吗？&quot;
+ 373          if task.subtasks:
+ 374              return &quot;子任务都勾完了，要把这个任务标记为已完成吗？&quot;</pre></details></article><article data-cat="增强"><div class="category">增强</div><h3>困难门槛与封存字段</h3><p class="design">设计：原始数据结构没有 difficulty_score、compression_generation、archived_at、locked。</p><p>代码补齐上述字段：困难分保留历史最大值，聚合只看已完成且达到门槛的任务；默认 2 次形成模式、3 次标记 locked。路由是否保护依据模式匹配，并不要求 locked=True。已压缩的内容命中模式后只停止继续压缩，不能还原原文。</p><details><summary>查看源码 · mmm/memory/semantic.py:202</summary><pre> 202  def consolidate(
+ 203      tasks: Sequence[TaskSession],
+ 204      existing: Sequence[SemanticMemoryEntry],
+ 205      *,
+ 206      embed: Any,
+ 207      name_pattern: Any = None,
+ 208      min_occurrences: int = DEFAULT_MIN_OCCURRENCES,
+ 209      min_difficulty: float = DEFAULT_MIN_DIFFICULTY,
+ 210      cluster_threshold: float = DEFAULT_CLUSTER_THRESHOLD,
+ 211      merge_threshold: float = DEFAULT_MERGE_THRESHOLD,
+ 212      lock_occurrences: int = DEFAULT_LOCK_OCCURRENCES,
+ 213  ) -&gt; ConsolidationReport:
+ 214      &quot;&quot;&quot;把已完成 session 聚合成语义记忆条目。
+ 215  
+ 216      `embed` 是 `(list[str]) -&gt; list[list[float]]`；
+ 217      `name_pattern` 是可选的 `(Cluster) -&gt; str`，不给就用规则命名。
+ 218      纯函数式：不碰存储，返回要写入的条目，由调用方持久化。
+ 219      &quot;&quot;&quot;
+ 220      # 只有真的卡过的 session 才够格当&quot;重复困难模式&quot;的证据。
+ 221      # 没有这道门槛，反复做的杂事会被当成困难，白白锁住不让压缩。
+ 222      done = sorted(
+ 223          (
+ 224              t
+ 225              for t in tasks
+ 226              if t.status == STATUS_DONE and t.difficulty_score &gt;= min_difficulty
+ 227          ),
+ 228          key=lambda t: t.created_at,
+ 229      )
+ 230      all_done = sum(1 for t in tasks if t.status == STATUS_DONE)
+ 231      report = ConsolidationReport(
+ 232          considered_sessions=len(done),
+ 233          filtered_easy=all_done - len(done),
+ 234      )
+ 235      if not done:
+ 236          return report
+ 237  
+ 238      texts = [difficulty_text(t) for t in done]
+ 239      embeddings = embed(texts)
+ 240      clusters = cluster_sessions(done, embeddings, threshold=cluster_threshold)
+ 241  
+ 242      existing_list = list(existing)
+ 243      for cluster in clusters:
+ 244          if len(cluster.members) &lt; min_occurrences:
+ 245              report.skipped_clusters += 1
+ 246              continue
+ 247  
+ 248          evidence = [t.id for t in cluster.members]
+ 249          occurrences = len(evidence)
+ 250  
+ 251          # 和已有条目重合的话走更新，避免每次跑都新建一堆重复模式
+ 252          match: SemanticMemoryEntry | None = None
+ 253          best_sim = merge_threshold
+ 254          for entry in existing_list:
+ 255              sim = cosine_similarity(cluster.centroid, entry.embedding)
+ 256              if sim &gt;= best_sim:
+ 257                  match, best_sim = entry, sim
+ 258  
+ 259          if match is None:
+ 260              name = (name_pattern(cluster) if name_pattern else None) or rule_based_pattern_name(cluster)
+ 261              entry = SemanticMemoryEntry.create(name)
+ 262              entry.evidence_session_ids = evidence
+ 263              entry.occurrence_count = occurrences
+ 264              entry.confidence = confidence_for(occurrences)
+ 265              entry.last_seen = now_iso()
+ 266              entry.embedding = list(cluster.centroid)
+ 267              entry.locked = occurrences &gt;= lock_occurrences
+ 268              report.created.append(entry)
+ 269              existing_list.append(entry)
+ 270          else:
+ 271              # 证据只增不减：已有的证据即使这次没进簇也保留，
+ 272              # 否则会话被归档后模式会莫名其妙地&quot;退化&quot;
+ 273              merged = list(dict.fromkeys(match.evidence_session_ids + evidence))
+ 274              match.evidence_session_ids = merged
+ 275              match.occurrence_count = len(merged)
+ 276              match.confidence = confidence_for(match.occurrence_count)
+ 277              match.last_seen = now_iso()
+ 278              match.embedding = list(cluster.centroid)
+ 279              match.locked = match.occurrence_count &gt;= lock_occurrences
+ 280              report.updated.append(match)
+ 281  
+ 282      return report
+ 283  
+ 284  
+ 285  def matching_pattern(
+ 286      task: TaskSession,
+ 287      entries: Sequence[SemanticMemoryEntry],
+ 288      query_embedding: Sequence[float] | None,
+ 289      *,
+ 290      min_similarity: float = 0.35,
+ 291      min_occurrences: int = DEFAULT_MIN_OCCURRENCES,
+ 292  ) -&gt; SemanticMemoryEntry | None:
+ 293      &quot;&quot;&quot;当前 session 命中了哪条重复困难模式。
+ 294  
+ 295      自己就是某条模式的证据时直接命中，不必再比相似度——
+ 296      这条捷径让刚被聚合进去的 session 立刻就能享受到巩固保留。
+ 297      &quot;&quot;&quot;
+ 298      for entry in entries:
+ 299          if task.id in entry.evidence_session_ids and entry.occurrence_count &gt;= min_occurrences:
+ 300              return entry
+ 301  
+ 302      best: SemanticMemoryEntry | None = None
+ 303      best_sim = min_similarity
+ 304      for entry in entries:
+ 305          if entry.occurrence_count &lt; min_occurrences:
+ 306              continue
+ 307          sim = cosine_similarity(query_embedding, entry.embedding)
+ 308          if sim &gt;= best_sim:
+ 309              best, best_sim = entry, sim
+ 310      return best
+ 311  </pre></details></article><article data-cat="待完成"><div class="category">待完成</div><h3>技能调用层尚未接入</h3><p class="design">设计：交接文档 Phase 3 第 10 条和早期设计 §五要求 web_search、知识树等。</p><p>invoked_skills 只有模型字段及存储/导出支持；Agent 对话路径没有工具调度、tool_calls 处理或这些技能执行器。本次 Archify 是开发分析工具，不是 MMM 已实现的运行时技能。</p><details><summary>查看源码 · mmm/agent.py:381</summary><pre> 381      def chat(self, task_id: str, user_message: str) -&gt; str:
+ 382          task = self.store.get_task(task_id)
+ 383          if task is None:
+ 384              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 385  
+ 386          user_msg = Message(role=&quot;user&quot;, content=user_message)
+ 387          self.store.append_message(task.id, user_msg)
+ 388          task.conversation_history.append(user_msg)
+ 389  
+ 390          reply = self._chat_reply(task)
+ 391  
+ 392          assistant_msg = Message(role=&quot;assistant&quot;, content=reply)
+ 393          self.store.append_message(task.id, assistant_msg)
+ 394          task.conversation_history.append(assistant_msg)
+ 395  
+ 396          self.store.touch_task(task, now=self.now_iso())
+ 397          self._refresh_memory_fields(task)
+ 398          self.store.update_task(task)
+ 399          return reply
+ 400  
+ 401      def _chat_reply(self, task: TaskSession) -&gt; str:
+ 402          if not self.llm.chat_available:
+ 403              return &quot;（未配置 LLM_API_KEY，当前只记录对话、不生成回复。填好 .env 后重启即可。）&quot;
+ 404          context = prompts.chat_context(task.title, self.render_subtasks(task), task.summary)
+ 405          messages: list[dict[str, str]] = [
+ 406              {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: prompts.CHAT_SYSTEM},
+ 407              {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: context},
+ 408          ]
+ 409          for m in task.recent_messages(12):
+ 410              messages.append({&quot;role&quot;: m.role, &quot;content&quot;: m.content})
+ 411          try:
+ 412              return self.llm.chat(messages, temperature=0.5)
+ 413          except LLMUnavailable:</pre></details></article><article data-cat="待完成"><div class="category">待完成</div><h3>自然语言日期没有落地</h3><p class="design">设计：设计以“前一晚输入明天任务”作为创建场景。</p><p>plan_day 未显式传 day 时使用今天，文本解析只取任务标题；CLI --date 可指定日期。内存库复核：输入“明天要写算法作业”，实际日期为 2026-09-05（执行当天）。</p><details><summary>查看源码 · mmm/agent.py:121</summary><pre> 121      def plan_day(
+ 122          self, text: str, day: str | None = None, auto_maintain: bool | None = None
+ 123      ) -&gt; tuple[DaySession, list[TaskSession]]:
+ 124          &quot;&quot;&quot;排一天的任务。顺带跑一次记忆维护。
+ 125  
+ 126          维护为什么要挂在这里：归档（Expire）是**时间驱动**的——闲置够久才降级。
+ 127          只在 complete_task 里跑维护的话，一段时间没完成任何任务就没有触发点，
+ 128          归档分支永远等不到执行。每天排任务是这个 Agent 唯一稳定的周期性入口。
+ 129          &quot;&quot;&quot;
+ 130          day = day or date_cls.today().isoformat()
+ 131          if auto_maintain is None:
+ 132              auto_maintain = auto_maintain_enabled()
+ 133          if auto_maintain:
+ 134              self.run_maintenance()
+ 135          titles = self._parse_task_titles(text)
+ 136          day_session = self.store.upsert_day(DaySession(date=day))
+ 137          tasks: list[TaskSession] = []
+ 138          for title in titles:
+ 139              task = TaskSession.create(day_id=day, title=title)
+ 140              self._refresh_memory_fields(task)
+ 141              self.store.create_task(task)
+ 142              tasks.append(task)
+ 143          day_session.task_session_ids = [t.id for t in tasks]
+ 144          return day_session, tasks
+ 145  
+ 146      def _parse_task_titles(self, text: str) -&gt; list[str]:
+ 147          if self.llm.chat_available:
+ 148              try:
+ 149                  data = self.llm.chat_json(prompts.PARSE_TASKS_SYSTEM, prompts.parse_tasks_user(text))
+ 150                  titles = [
+ 151                      str(item.get(&quot;title&quot;, &quot;&quot;)).strip()
+ 152                      for item in data
+ 153                      if isinstance(item, dict) and str(item.get(&quot;title&quot;, &quot;&quot;)).strip()
+ 154                  ]
+ 155                  if titles:
+ 156                      return titles
+ 157              except (LLMUnavailable, ValueError, TypeError, AttributeError):
+ 158                  pass  # 落到下面的规则实现
+ 159          return self._parse_task_titles_fallback(text)
+ 160  
+ 161      @staticmethod
+ 162      def _parse_task_titles_fallback(text: str) -&gt; list[str]:
+ 163          &quot;&quot;&quot;无 LLM 时的规则切分：按顿号/逗号/&quot;还要&quot;切开，再剥掉时间前缀。&quot;&quot;&quot;
+ 164          titles = []
+ 165          for chunk in _SPLIT_PATTERN.split(text):
+ 166              cleaned = _PREFIX_PATTERN.sub(&quot;&quot;, chunk.strip()).strip(&quot; 。.!！&quot;)
+ 167              if cleaned:
+ 168                  titles.append(cleaned)
+ 169          return titles
+ 170  
+ 171      # ==================================================================</pre></details></article><article data-cat="范围收窄"><div class="category">范围收窄</div><h3>版本链是子任务事件审计</h3><p class="design">设计：交接文档 §三包含 subtask 状态变化 / 记忆内容矛盾，早期设计还提到同一 task 内容多次修改的版本链。</p><p>已记录创建、勾选、撤销、删除子任务的事件；不是任意任务字段的全版本快照，也没有语义矛盾检测与自动裁决。不能据此宣称通用记忆冲突消解已完成。</p><details><summary>查看源码 · mmm/agent.py:420</summary><pre> 420      def set_subtask_done(self, task_id: str, subtask_id: str, done: bool, source: str = &quot;user&quot;) -&gt; TaskSession:
+ 421          task = self.store.get_task(task_id)
+ 422          if task is None:
+ 423              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 424          for st in task.subtasks:
+ 425              if st.id == subtask_id:
+ 426                  if st.done != done:
+ 427                      self.store.log_event(
+ 428                          SubtaskEvent.create(task.id, st.id, &quot;done&quot;, st.done, done, source=source)
+ 429                      )
+ 430                      st.done = done
+ 431                      st.updated_at = self.now_iso()
+ 432                  break
+ 433          else:
+ 434              raise KeyError(f&quot;找不到 subtask: {subtask_id}&quot;)
+ 435          self._refresh_memory_fields(task)
+ 436          return self.store.update_task(task)
+ 437  
+ 438      def add_subtask(self, task_id: str, desc: str, source: str = &quot;user&quot;) -&gt; TaskSession:
+ 439          task = self.store.get_task(task_id)
+ 440          if task is None:
+ 441              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 442          st = Subtask.create(desc)
+ 443          task.subtasks.append(st)
+ 444          self.store.log_event(
+ 445              SubtaskEvent.create(task.id, st.id, &quot;created&quot;, None, st.desc, source=source)
+ 446          )
+ 447          self._refresh_memory_fields(task)
+ 448          return self.store.update_task(task)
+ 449  
+ 450      def remove_subtask(self, task_id: str, subtask_id: str, source: str = &quot;user&quot;) -&gt; TaskSession:
+ 451          task = self.store.get_task(task_id)
+ 452          if task is None:
+ 453              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 454          target = next((s for s in task.subtasks if s.id == subtask_id), None)
+ 455          if target is None:
+ 456              raise KeyError(f&quot;找不到 subtask: {subtask_id}&quot;)
+ 457          task.subtasks = [s for s in task.subtasks if s.id != subtask_id]
+ 458          self.store.log_event(
+ 459              SubtaskEvent.create(task.id, subtask_id, &quot;deleted&quot;, target.desc, None, source=source)
+ 460          )
+ 461          self._refresh_memory_fields(task)</pre></details></article><article data-cat="待完成"><div class="category">待完成</div><h3>准确率评测仍缺人工闭环</h3><p class="design">设计：交接文档 Phase 4 第 13 条及早期设计 §七要求续接提示准确率人工评分。</p><p>已有语料回放、基线、阈值扫描和稳健性检查。保真度按 key_facts 子串命中，token 为估算的读入与摘要输入；这不是模型总账单，也不等同于续接提示正确率。README 明确人工评分尚未开始。</p><details><summary>查看源码 · mmm/eval/simulate.py:291</summary><pre> 291  def run_strategy(
+ 292      name: str,
+ 293      corpus: list[ScriptedSession],
+ 294      *,
+ 295      summarizer: Summarizer | None = None,
+ 296      routed: bool,
+ 297      config: CompressionConfig | None = None,
+ 298      days: int = 10,
+ 299      min_occurrences: int = 2,
+ 300      min_difficulty: float = 0.3,
+ 301  ) -&gt; StrategyResult:
+ 302      &quot;&quot;&quot;把语料回放到真实 Agent 上。
+ 303  
+ 304      两条策略共用同一套驱动（建任务 / enter_task / chat / complete_task），
+ 305      区别只有一处：routed 让 Agent 的自动维护跑起来，baseline 关掉它、
+ 306      改用无差别递归摘要。除压缩策略外完全同源，对比才成立。
+ 307      &quot;&quot;&quot;
+ 308      result = StrategyResult(name=name)
+ 309      truth_titles = ground_truth_pattern_titles(corpus)
+ 310      clock = SimClock()
+ 311      ledger = Ledger()
+ 312  
+ 313      agent = make_agent(summarizer, clock, ledger, config=config)
+ 314      agent.semantic_config = replace(
+ 315          agent.semantic_config,
+ 316          min_occurrences=min_occurrences,
+ 317          min_difficulty=min_difficulty,
+ 318      )
+ 319  
+ 320      ids: dict[str, str] = {}          # 标题 -&gt; task id
+ 321      scripts: dict[str, ScriptedSession] = {s.title: s for s in corpus}
+ 322  
+ 323      def read(task: TaskSession) -&gt; None:
+ 324          ledger.read_tokens += footprint_tokens(task)
+ 325  
+ 326      for day in range(days):
+ 327          clock.set_day(day)
+ 328          stamp = clock.now.replace(microsecond=0).isoformat()
+ 329  
+ 330          # 每天开头跑一次维护——产品里这一步挂在 plan_day 上，
+ 331          # 归档是时间驱动的，没有周期性入口就永远触发不了
+ 332          if routed:
+ 333              agent.run_maintenance()
+ 334  
+ 335          # --- 当天新建 ---
+ 336          for script in corpus:
+ 337              if script.created_day != day:
+ 338                  continue
+ 339              task = seed_task(agent, script, stamp)
+ 340              ids[script.title] = task.id
+ 341              read(task)
+ 342  
+ 343          # --- 当天重新打开：走真实的 enter_task ---
+ 344          for title, task_id in ids.items():
+ 345              script = scripts[title]
+ 346              if day not in script.revisit_days:
+ 347                  continue
+ 348              # 未完成的长任务重新打开通常会继续聊。压缩过也照样追加——
+ 349              # 「旧摘要 + 新内容」正是递归摘要被反复触发的条件。
+ 350              if script.completed_day is None:
+ 351                  agent.chat(task_id, &quot;继续上次的进度&quot;)
+ 352              entered = agent.enter_task(task_id)
+ 353              read(entered.task)
+ 354              # 续接提示要读进 top-K 条相关记忆，冷记忆的开销全在这里。
+ 355              # 这里取的是 Agent 真实检索出来的结果，不是替身。
+ 356              for sm in entered.related_memories:
+ 357                  read(sm.task)
+ 358  
+ 359          # --- 当天完成：走真实的 complete_task（内部触发聚合 + 压缩）---
+ 360          for script in corpus:
+ 361              if script.completed_day != day or script.title not in ids:
+ 362                  continue
+ 363              agent.complete_task(ids[script.title], auto_maintain=routed)
+ 364  
+ 365          # --- baseline 的压缩策略 ---
+ 366          if not routed:
+ 367              baseline_compress(agent, ledger)
+ 368  
+ 369          # --- 记录当天哪些 session 已经被语义记忆罩住了 ---
+ 370          if routed:
+ 371              for title, task_id in ids.items():
+ 372                  task = agent.store.get_task(task_id)
+ 373                  if task is not None and agent._matched_entry(task) is not None:
+ 374                      ledger.discovered_titles.add(title)
+ 375          ledger.days_run += 1
+ 376  
+ 377      # --- 收尾统计 ---
+ 378      result.read_tokens = ledger.read_tokens
+ 379      result.summarize_calls = ledger.summarize_calls
+ 380      result.summarize_input_tokens = ledger.summarize_input_tokens
+ 381      result.patterns_found = len(agent.store.list_semantic())
+ 382      result.discovered_titles = ledger.discovered_titles
+ 383      result.truth_titles = set(truth_titles)
+ 384  
+ 385      final: dict[str, TaskSession] = {}
+ 386      for title, task_id in ids.items():
+ 387          task = agent.store.get_task(task_id)
+ 388          if task is not None:
+ 389              final[title] = task
+ 390  
+ 391      # 该保护却已经被压掉的——保护来晚了
+ 392      result.late_discoveries = {
+ 393          title for title in truth_titles
+ 394          if title in final and final[title].compression_level != &quot;raw&quot;
+ 395      }
+ 396  
+ 397      for title, task in final.items():
+ 398          script = scripts[title]
+ 399          text = retained_text(task)
+ 400          hits = sum(1 for fact in script.key_facts if fact in text)
+ 401          result.outcomes.append(
+ 402              SessionOutcome(
+ 403                  title=title,
+ 404                  status=task.status,
+ 405                  level=task.compression_level,
+ 406                  generation=task.compression_generation,
+ 407                  retained_facts=hits,
+ 408                  total_facts=len(script.key_facts),
+ 409                  final_tokens=footprint_tokens(task),
+ 410                  is_active=task.status != STATUS_DONE or title in truth_titles,
+ 411              )
+ 412          )
+ 413      agent.store.close()
+ 414      return result</pre></details></article><article data-cat="需修正"><div class="category">需修正</div><h3>“最多摘要一次”不是全入口保证</h3><p class="design">设计：交接文档 §四与 README 以一次性压缩、不递归摘要作为重要约束。</p><p>compress.apply_decision 会拒绝封存后的重复摘要，并复用已有 summary。但 complete_task 每次都调用 summarize，没有已完成或 sealed 守卫。内存库重复完成同一任务，摘要入口被调用两次；应补幂等性，或把声明限定为压缩路由内。</p><details><summary>查看源码 · mmm/agent.py:468</summary><pre> 468      def complete_task(self, task_id: str, auto_maintain: bool | None = None) -&gt; CompletionResult:
+ 469          &quot;&quot;&quot;标记完成，并按交接文档第五节把整个循环走完。
+ 470  
+ 471          文档规定的 `[Session完成]` 分支是三步：
+ 472  
+ 473              status → 已完成
+ 474              → 生成 summary，触发压缩流程（Demote/Expire 规则判断）
+ 475              → 检测跨 session 重复模式 → 更新语义记忆（Promote 规则判断）
+ 476  
+ 477          这里三步都做。**顺序是先聚合再压缩**，和文档写的顺序相反，是有意的：
+ 478          刚完成的这条 session 可能正是让某个模式成立的第二份证据，而那个模式
+ 479          要保护的是**更早的那条**——它此刻可能刚好冷却到期该被压缩了。
+ 480          先压后聚的话，证据会在模式成立前一刻被压掉。
+ 481  
+ 482          摘要仍然在这里生成（而不是留给压缩阶段）：续接提示和检索都要用它，
+ 483          提前生成还能让后续 SUMMARIZE 分支直接复用，不必再调一次 LLM。
+ 484          &quot;&quot;&quot;
+ 485          task = self.store.get_task(task_id)
+ 486          if task is None:
+ 487              raise KeyError(f&quot;找不到 task: {task_id}&quot;)
+ 488          task.status = STATUS_DONE
+ 489          task.completed_at = self.now_iso()
+ 490          task.summary = self.summarize(task)
+ 491          # 趁对话历史还在，把困难程度固化下来——压缩之后就算不出来了
+ 492          task.difficulty_score = compute_difficulty(task)
+ 493          self._refresh_memory_fields(task)
+ 494          self.store.update_task(task)
+ 495  
+ 496          result = CompletionResult(task=task)
+ 497          if auto_maintain is None:
+ 498              auto_maintain = auto_maintain_enabled()
+ 499          if not auto_maintain:
+ 500              return result
+ 501  
+ 502          result.consolidation = self.consolidate_memory()
+ 503          result.maintenance = self.run_maintenance()
+ 504          # 维护可能把这条 session 自己也改了，回读最新状态
+ 505          refreshed = self.store.get_task(task_id)
+ 506          if refreshed is not None:
+ 507              result.task = refreshed
+ 508          return result
+ 509  </pre></details></article><article data-cat="需复核"><div class="category">需复核</div><h3>时间衰减与模拟时钟存在边界</h3><p class="design">设计：早期设计 §四说 importance_score 随时间衰减；评测驱动说明所有时间判断来自注入时钟。</p><p>importance_score 仅写操作刷新，维护 KEEP_RAW 时不重新计算；检索的 recency 会实时算，但 Agent._related_memories 未向 retrieve 传入 self.now()。因此模拟回放的检索时间项仍可能用真实时钟。此项为源码推断，未重新量化对评测结果的影响。</p><details><summary>查看源码 · mmm/agent.py:243</summary><pre> 243      def _related_memories(self, task: TaskSession, top_k: int = 3) -&gt; list[ScoredMemory]:
+ 244          &quot;&quot;&quot;用当前任务的向量去检索历史 session，走完整打分公式。&quot;&quot;&quot;
+ 245          query = task.embedding or self.llm.embed_one(task.memory_text())
+ 246          candidates = [
+ 247              t for t in self.store.list_tasks(with_history=False) if t.id != task.id and t.embedding
+ 248          ]
+ 249          if not candidates:
+ 250              return []
+ 251          return retrieve(
+ 252              query, candidates, top_k=top_k, config=self.retrieval_config
+ 253          )</pre></details></article><article data-cat="需复核"><div class="category">需复核</div><h3>后端降级可能改变向量空间</h3><p class="design">设计：README 说明语义聚类阈值按实际后端选择。</p><p>LLMClient.embed 在 API 失败后返回哈希向量，但 embedding_available 仍反映配置是否启用；auto_thresholds 由这个配置布尔值选择。切换后端也未见存量向量统一重建，因此应复核混用向量与阈值的行为。此项为源码推断，未调用外部服务制造故障。</p><details><summary>查看源码 · mmm/llm.py:234</summary><pre> 234      def embed(self, texts: Sequence[str]) -&gt; list[list[float]]:
+ 235          &quot;&quot;&quot;批量取向量。没有 key 或强制离线时用本地哈希向量。&quot;&quot;&quot;
+ 236          texts = [t if t.strip() else &quot; &quot; for t in texts]
+ 237          if not self.embedding_available:
+ 238              return [hash_embedding(t) for t in texts]
+ 239          try:
+ 240              client = self._get_embed_client()
+ 241              resp = client.embeddings.create(model=self.embedding_config.model, input=list(texts))
+ 242              return [item.embedding for item in resp.data]
+ 243          except Exception:
+ 244              # 网络/额度问题不应该让整条流程崩掉，退回本地向量并继续
+ 245              return [hash_embedding(t) for t in texts]
+ 246  
+ 247      def embed_one(self, text: str) -&gt; list[float]:
+ 248          return self.embed([text])[0]</pre></details></article></section><h2>验证与交付记录</h2><div class="note"><p>Phase 1：59/59；Phase 2：41/41；Phase 3：79/79。另以摘要替身复核重复 complete_task 会进入摘要两次，以当天计划复核“明天”没有日期解析。这些检查没有调用模型，不证明真实语言生成质量。</p><p>architecture / dataflow 均通过 Showcase 9/9、0 错误、0 警告。Edge 浏览器测量 1440×900、1600×1000、1920×1080、2048×1320 均无页面溢出。已目视检查 1440×900 浅色与 2048×1320 深色截图，未见节点遮挡或连线冲突。</p><details><summary>查看图形规格与产物 SHA-256 凭据</summary><pre>{
+  &quot;architecture&quot;: {
+    &quot;diagram_type&quot;: &quot;architecture&quot;,
+    &quot;output&quot;: &quot;E:\\ai\\MMM\\artifacts\\archify\\architecture.html&quot;,
+    &quot;specification_sha256&quot;: &quot;00d912777a0142b7227ff663fb95f6ac920e238ac86660f645e85f620cf3e045&quot;,
+    &quot;artifact_sha256&quot;: &quot;dfb97686a2d6c4aece35f4b07e97b3c389795ccdd953cf980a553727d71e5f25&quot;,
+    &quot;validation&quot;: &quot;9/9 showcase, 0 errors, 0 warnings&quot;,
+    &quot;browser_evidence&quot;: &quot;passed&quot;,
+    &quot;visual_review&quot;: &quot;passed&quot;,
+    &quot;correction_rounds&quot;: 0,
+    &quot;review_scope&quot;: &quot;1440×900 light and 2048×1320 dark screenshots; automated containment at four desktop sizes&quot;
+  },
+  &quot;dataflow&quot;: {
+    &quot;diagram_type&quot;: &quot;dataflow&quot;,
+    &quot;output&quot;: &quot;E:\\ai\\MMM\\artifacts\\archify\\dataflow.html&quot;,
+    &quot;specification_sha256&quot;: &quot;52361fc066cad9a55d5b70b8416dcac9cd96bc7f8d5e2733f05bb4666139b1f4&quot;,
+    &quot;artifact_sha256&quot;: &quot;5b9f9156b619cde54de6c42855f7e1fdb838515d8bafeb4475440f2fe99535d9&quot;,
+    &quot;validation&quot;: &quot;9/9 showcase, 0 errors, 0 warnings&quot;,
+    &quot;browser_evidence&quot;: &quot;passed&quot;,
+    &quot;visual_review&quot;: &quot;passed&quot;,
+    &quot;correction_rounds&quot;: 0,
+    &quot;review_scope&quot;: &quot;1440×900 light and 2048×1320 dark screenshots; automated containment at four desktop sizes&quot;
+  }
+}</pre></details><p><a href="source-manifest.json">源码快照校验值</a> · <a href="review-receipt.json">完整验收记录</a> · <a href="architecture.json">架构图规格</a> · <a href="dataflow.json">数据流规格</a></p></div><footer>本报告描述当前快照，不改动业务代码。数值结论限定于本次离线验证；未把 README 的历史实验百分比作为新实验结果。</footer></main><script>document.querySelectorAll('.filter button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));let n=0;document.querySelectorAll('article').forEach(a=>{a.hidden=b.dataset.cat!=='全部'&&a.dataset.cat!==b.dataset.cat;if(!a.hidden)n++});document.getElementById('count').textContent=n+' 项'}));</script></html>

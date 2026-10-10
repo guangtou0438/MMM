@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "errors": [],
+  "measurements": [
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  ]
+}

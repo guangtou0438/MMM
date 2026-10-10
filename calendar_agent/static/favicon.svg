@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- MMM's mark: the same dawn sweep and lowercase "m" as the in-app brand,
+       redrawn as a bold rounded stroke so it still reads at 16px. Filled to
+       every edge (no transparency) so it never disappears against a dark or
+       light browser tab. -->
+  <defs>
+    <linearGradient id="dawn" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="rgb(58, 61, 143)"/>
+      <stop offset="47%" stop-color="rgb(107, 87, 194)"/>
+      <stop offset="100%" stop-color="rgb(181, 118, 43)"/>
+    </linearGradient>
+    <clipPath id="badge">
+      <rect x="4" y="4" width="56" height="56" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#badge)">
+    <rect x="4" y="4" width="56" height="56" fill="url(#dawn)"/>
+    <!-- The lit top edge every raised surface in the app carries. -->
+    <ellipse cx="32" cy="13" rx="24" ry="11" fill="#ffffff" opacity=".16"/>
+  </g>
+
+  <path d="M20,44 L20,26 Q20,20 26,20 Q32,20 32,26 L32,44
+           M32,44 L32,26 Q32,20 38,20 Q44,20 44,26 L44,44"
+        fill="none" stroke="#ffffff" stroke-width="7"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,201 @@
+{
+  "synthetic_only": true,
+  "source": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_cbba40bfac424d058acdee65188e8859"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2233,
+        "seconds": 4.9518091678619385,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "deepseek",
+          "function": "propose_memory_operation",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "enum": [
+                  "ADD",
+                  "UPDATE",
+                  "MERGE",
+                  "SPLIT",
+                  "PROMOTE",
+                  "DEMOTE",
+                  "EXPIRE",
+                  "INVALIDATE",
+                  "CONFLICT",
+                  "NOOP"
+                ],
+                "title": "Operation",
+                "type": "string"
+              },
+              "source_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 20,
+                "minItems": 1,
+                "title": "Source Ids",
+                "type": "array"
+              },
+              "targets": {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "description": "UPDATE/MERGE/SPLIT/PROMOTE/DEMOTE/EXPIRE/INVALIDATE 必须提供已有记忆 ID 与当前版本；首次新增使用 ADD。",
+                "title": "Targets",
+                "type": "object"
+              },
+              "content": {
+                "default": "",
+                "maxLength": 6000,
+                "title": "Content",
+                "type": "string"
+              },
+              "kind": {
+                "default": "episodic",
+                "enum": [
+                  "profile",
+                  "preference",
+                  "episodic",
+                  "task",
+                  "procedural"
+                ],
+                "title": "Kind",
+                "type": "string"
+              },
+              "confidence": {
+                "default": 0.8,
+                "maximum": 1,
+                "minimum": 0,
+                "title": "Confidence",
+                "type": "number"
+              },
+              "certainty": {
+                "default": "reported",
+                "enum": [
+                  "reported",
+                  "inferred",
+                  "uncertain"
+                ],
+                "title": "Certainty",
+                "type": "string"
+              },
+              "sensitivity": {
+                "default": "normal",
+                "enum": [
+                  "normal",
+                  "sensitive"
+                ],
+                "title": "Sensitivity",
+                "type": "string"
+              },
+              "fragments": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 10,
+                "title": "Fragments",
+                "type": "array"
+              },
+              "expires": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Expires"
+              }
+            },
+            "required": [
+              "operation",
+              "source_ids"
+            ],
+            "title": "MemoryOperation",
+            "type": "object"
+          },
+          "transport": "native_function_call",
+          "raw": "{\"operation\": \"ADD\", \"source_ids\": [\"src_b681f81cb6084c03a1d81b2b09e66351\"], \"content\": \"用户的自行车名叫“银杏”；用户的读书小组叫“雾松”；用户最喜欢的棋类是围棋。\", \"kind\": \"profile\", \"fragments\": [\"自行车叫银杏\", \"读书小组叫雾松\", \"最喜欢的棋类是围棋\"], \"confidence\": 0.95, \"certainty\": \"reported\", \"sensitivity\": \"normal\"}",
+          "tokens": 1349,
+          "sha256": "7230af5c4674641a132e8b3a56329b8411c17933940da988d94e73e67852331c"
+        },
+        {
+          "model": "deepseek",
+          "function": "verify_memory_operation",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "approved": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "approved",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "transport": "native_function_call",
+          "raw": "{\"approved\": true, \"reason\": \"操作内容与唯一来源证据逐项一致：自行车名“银杏”、读书小组“雾松”、最喜欢的棋类“围棋”均为用户直接陈述的事实，无编造、无歪曲人物/日期/地点。certainty=reported 恰当反映这是用户自报信息，未丢失不确定性；source_ids 正确指向该证据，来源链接完整。内容不含任何敏感秘密，sensitivity=normal 合理。existing_memories 为空，不存在需处理的冲突，也未遗漏任何承诺。故批准该 ADD 操作。\"}",
+          "tokens": 884,
+          "sha256": "d82296aa05d3f3a15e56fefa04988620330e7efc60b4940ead661ab373ade87e"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_cbba40bfac424d058acdee65188e8859",
+          "kind": "profile",
+          "content": "用户的自行车名叫“银杏”；用户的读书小组叫“雾松”；用户最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_b681f81cb6084c03a1d81b2b09e66351"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789477000.596863,
+          "updated": 1789477000.596863,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "index": {
+        "indexed": 1,
+        "status": "ready"
+      },
+      "recall": {
+        "status": "completed",
+        "answer": "- 自行车名字：**银杏**\n- 读书小组：**雾松**\n- 最喜欢的棋类：**围棋**",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2904,
+        "model": "deepseek",
+        "citations": "[\"mem_cbba40bfac424d058acdee65188e8859\"]"
+      }
+    }
+  ]
+}

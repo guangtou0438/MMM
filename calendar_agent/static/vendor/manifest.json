@@ -1,0 +1,18 @@
+{
+  "fullcalendar.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.21/index.global.min.js",
+    "sha256": "4e72ff169af857bbb8fee626364949d570424b00df36c01bd087a9580371515e"
+  },
+  "luxon.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/luxon@3.7.2/build/global/luxon.min.js",
+    "sha256": "516c5fea5c82bdf1fb5c472b9aafdca9cda6dc806b2c12ce9d62c2e0fc348104"
+  },
+  "fullcalendar-luxon.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/@fullcalendar/luxon3@6.1.21/index.global.min.js",
+    "sha256": "89a8f33b1191438d992d77a7cc19ca98fa23b84fbaf0501f891b19311b0d8b51"
+  },
+  "zh-cn.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.21/locales/zh-cn.global.min.js",
+    "sha256": "6156491629d27eb3f18ee8dffd55432bf81eed972b4321b3a2833d1b0c439b87"
+  }
+}

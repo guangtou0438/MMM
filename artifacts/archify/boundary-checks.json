@@ -1,0 +1,5 @@
+{
+  "natural_language_tomorrow_actual_day": "2026-09-05",
+  "repeat_complete_summary_calls": 2,
+  "test_mode": "offline; dotenv loader replaced; in-memory SQLite"
+}

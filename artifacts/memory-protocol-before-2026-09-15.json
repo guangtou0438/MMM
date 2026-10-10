@@ -1,0 +1,162 @@
+{
+  "synthetic_only": true,
+  "source": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_ccfbe4e26b83430cac1eda81b0d9be11"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2119,
+        "seconds": 15.17193078994751,
+        "diagnostics": null
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"kind\": \"profile\",\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"content\": \"用户的三项个人事实：自行车名为银杏；参加的读书小组名为雾松；最喜欢的棋类是围棋。\",\n  \"fragments\": [\n    \"自行车名称: 银杏\",\n    \"读书小组名称: 雾松\",\n    \"最喜欢的棋类: 围棋\"\n  ],\n  \"source_ids\": [\"src_a771cebeb20548ed80005cbbdef2edc8\"]\n}\n",
+          "tokens": 1155,
+          "sha256": "b71755f675db888ad9e59537b670119fb7786c1c1abb95c5c07d5a8bdcee99e6"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：自行车名'银杏'、读书小组'雾松'、最喜欢的棋类'围棋'三项事实均逐字对应，无编造或遗漏。来源链接 src_a771cebeb20548ed80005cbbdef2edc8 正确指向证据。不确定性以 certainty='reported' 妥善保留（属于用户自述而非已验证事实）。三项内容为个人偏好，非敏感秘密。existing_memories 为空，无冲突需处理。证据中'请记住这三件事'的承诺即由本次 ADD 操作完成，无未完成的承诺被遗漏。\"}\n",
+          "tokens": 964,
+          "sha256": "79367121bb7ef38107857b44abca4e6365cce406173ec1825f515c6e31ed8188"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_ccfbe4e26b83430cac1eda81b0d9be11",
+          "kind": "profile",
+          "content": "用户的三项个人事实：自行车名为银杏；参加的读书小组名为雾松；最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_a771cebeb20548ed80005cbbdef2edc8"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789474625.423604,
+          "updated": 1789474625.423604,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_3b61bede1ffa48499c3e3ba21bea85cf"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2182,
+        "seconds": 17.24575901031494,
+        "diagnostics": null
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"kind\": \"profile\",\n  \"content\": \"用户报告了三个个人事实：用户的自行车名叫银杏；用户的读书小组名叫雾松；用户最喜欢的棋类是围棋。\",\n  \"fragments\": [\n    \"自行车名叫银杏\",\n    \"读书小组名叫雾松\",\n    \"最喜欢的棋类是围棋\"\n  ],\n  \"source_ids\": [\"src_f198450f8ce74e888cfa74bf07b25055\"],\n  \"certainty\": \"reported\",\n  \"confidence\": 0.95,\n  \"sensitivity\": \"normal\",\n  \"expires\": null\n}\n",
+          "tokens": 1194,
+          "sha256": "0141b982005c8296c78edd2da2a7a7cab095afae92ddf05d0874d3c0972fcffd"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据逐项核对一致：自行车名'银杏'、读书小组名'雾松'、最喜欢的棋类'围棋'三个事实均忠实转述，无编造或歪曲；用户要求'记住这三件事'，操作完整记录全部三项，无遗漏未完成的承诺；certainty 标记为 'reported' 恰当保留了'用户自述'的不确定性属性；source_ids 正确指向证据来源 src_f198450f8ce74e888cfa74bf07b25055；内容为普通个人偏好信息，sensitivity 标记为 normal 合理，不含敏感秘密；existing_memories 为空，不存在需处理的冲突。\"}\n",
+          "tokens": 988,
+          "sha256": "d9bf0acfc6103ace852ed560a2a96dcd5d58a6dafd81bea1392b65477999c74d"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_3b61bede1ffa48499c3e3ba21bea85cf",
+          "kind": "profile",
+          "content": "用户报告了三个个人事实：用户的自行车名叫银杏；用户的读书小组名叫雾松；用户最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_f198450f8ce74e888cfa74bf07b25055"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789474642.898376,
+          "updated": 1789474642.898376,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_1a5b9f0189954ea4aaef26420c5efaf0"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 2028,
+        "seconds": 12.857687950134277,
+        "diagnostics": null
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "glm",
+          "raw": "\n{\n  \"operation\": \"ADD\",\n  \"source_ids\": [\"src_e7606e8c76a248ecb8be9d1fe6eed4cb\"],\n  \"kind\": \"profile\",\n  \"certainty\": \"reported\",\n  \"confidence\": 0.9,\n  \"content\": \"用户的自行车名叫银杏；用户的读书小组名叫雾松；用户最喜欢的棋类是围棋。\",\n  \"fragments\": [\n    \"用户的自行车名叫银杏\",\n    \"用户的读书小组名叫雾松\",\n    \"用户最喜欢的棋类是围棋\"\n  ],\n  \"sensitivity\": \"normal\",\n  \"expires\": null,\n  \"targets\": {}\n}\n",
+          "tokens": 1234,
+          "sha256": "d411fd603ee874bf437ce9b841b3f0f1e65a0c9dc2c24fac852c23056509a70f"
+        },
+        {
+          "model": "glm",
+          "raw": "\n{\"approved\": true, \"reason\": \"操作内容与来源证据完全一致：自行车名'银杏'、读书小组名'雾松'、最喜欢的棋类'围棋'三项事实均被完整记录，无编造、无遗漏；来源链接src_e7606e8c76a248ecb8be9d1fe6eed4cb正确引用；certainty='reported'如实反映这是用户自述的信息；内容不涉及敏感秘密；无既有记忆冲突。\"}\n",
+          "tokens": 794,
+          "sha256": "096eef7403e64d295972138ac5edbc622adf1170c8af5a0313ec4bffcf889d4b"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_1a5b9f0189954ea4aaef26420c5efaf0",
+          "kind": "profile",
+          "content": "用户的自行车名叫银杏；用户的读书小组名叫雾松；用户最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_e7606e8c76a248ecb8be9d1fe6eed4cb"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789474655.91728,
+          "updated": 1789474655.91728,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ]
+    }
+  ]
+}

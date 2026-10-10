@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "MMM · 日期任务与个人记忆",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1250,
+      730
+    ]
+  },
+  "components": [
+    {
+      "id": "workbench",
+      "type": "frontend",
+      "label": "浏览器工作台",
+      "sublabel": "日历 · 首页聊天 · 任务会话",
+      "pos": [
+        40,
+        310
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "http_api",
+      "type": "backend",
+      "label": "FastAPI 接口",
+      "sublabel": "参数校验 · 入口隔离",
+      "pos": [
+        360,
+        310
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "date_service",
+      "type": "backend",
+      "label": "统一任务写服务",
+      "sublabel": "权限 · 版本 · 日期 · 幂等",
+      "pos": [
+        680,
+        310
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "local_store",
+      "type": "database",
+      "label": "本地 SQLite",
+      "sublabel": "任务 · 原文 · 记忆 · 回执",
+      "pos": [
+        1000,
+        310
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "chat_logic",
+      "type": "backend",
+      "label": "对话编排与检索",
+      "sublabel": "上下文 → 提案 → 业务校验",
+      "pos": [
+        680,
+        65
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "model_api",
+      "type": "external",
+      "label": "配置的模型 API",
+      "sublabel": "JSON 回复 · 操作提案",
+      "pos": [
+        1000,
+        65
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "memory_tick",
+      "type": "backend",
+      "label": "进程内定时器",
+      "sublabel": "每 30 秒检查积压",
+      "pos": [
+        680,
+        555
+      ],
+      "size": [
+        210,
+        76
+      ]
+    },
+    {
+      "id": "memory_jobs",
+      "type": "backend",
+      "label": "后台记忆整理",
+      "sublabel": "增量提取 · 日／月／季／年",
+      "pos": [
+        1000,
+        555
+      ],
+      "size": [
+        210,
+        76
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser_requests",
+      "from": "workbench",
+      "to": "http_api",
+      "label": "HTTP /api",
+      "variant": "emphasis"
+    },
+    {
+      "id": "manual_actions",
+      "from": "http_api",
+      "to": "date_service",
+      "label": "手动操作",
+      "variant": "emphasis"
+    },
+    {
+      "id": "persist_tasks",
+      "from": "date_service",
+      "to": "local_store",
+      "label": "事务写入",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat_entry",
+      "from": "http_api",
+      "to": "chat_logic",
+      "label": "聊天入口",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "model_completion",
+      "from": "chat_logic",
+      "to": "model_api",
+      "label": "请求／回复"
+    },
+    {
+      "id": "apply_or_queue",
+      "from": "chat_logic",
+      "to": "date_service",
+      "label": "执行或待确认",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        785,
+        220
+      ]
+    },
+    {
+      "id": "background_tick",
+      "from": "memory_tick",
+      "to": "memory_jobs",
+      "label": "触发整理",
+      "variant": "dashed"
+    },
+    {
+      "id": "memory_storage",
+      "from": "memory_jobs",
+      "to": "local_store",
+      "label": "读原文／存记忆",
+      "fromSide": "top",
+      "toSide": "bottom"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "任务与安排",
+      "items": [
+        "任务支持持续聊天；安排只记录行程。",
+        "完成由用户点击；归档保留完成状态。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "记忆如何闭环",
+      "items": [
+        "对话检索原文与记忆；整理也调用同一模型接口。",
+        "图中省略共享数据库读取与后台模型调用连线。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "当前运行边界",
+      "items": [
+        "calendar_agent 是当前网页；mmm 保留旧 CLI。",
+        "单服务进程；回顾通知默认关闭。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1590 @@
+{
+  "memory": {
+    "dataset": "synthetic-calendar-v1",
+    "mode": "live",
+    "warning": null,
+    "groups": [
+      {
+        "model": "glm",
+        "group": "A",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.125,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": 432.75,
+          "budget_units": 432.75,
+          "first_token_seconds": 6.452420562505722,
+          "total_seconds": 7.646249999976135,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 580,
+            "budget_units": 580,
+            "first_token_seconds": 6.060133934020996,
+            "total_seconds": 6.592999999993481,
+            "status": "completed",
+            "error": null,
+            "answer": "I don't have any information about where a synthetic user lives. The available context and memory contain no data about a synthetic user profile, including their location. If you can provide details about the synthetic user you're referring to, I'd be happy to help.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 348,
+            "budget_units": 348,
+            "first_token_seconds": 3.061267852783203,
+            "total_seconds": 3.23499999998603,
+            "status": "completed",
+            "error": null,
+            "answer": "I don’t have enough information to determine the synthetic user’s preferred exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 335,
+            "budget_units": 335,
+            "first_token_seconds": 4.702160835266113,
+            "total_seconds": 5.436999999918044,
+            "status": "completed",
+            "error": null,
+            "answer": "I don’t have any information about how the synthetic user felt after the workshop. Please provide the relevant transcript, notes, or context so I can answer accurately.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 374,
+            "budget_units": 374,
+            "first_token_seconds": 4.138689994812012,
+            "total_seconds": 5.592999999993481,
+            "status": "completed",
+            "error": null,
+            "answer": "There is no information available about a synthetic user or any unfinished commitment. The stored memory blocks (Agent Block, Task Block, Temporary, User Block) are all empty, and no current task is defined. If you can provide more context or the relevant data about the synthetic user, I'd be happy to help identify their unfinished commitment.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 294,
+            "budget_units": 294,
+            "first_token_seconds": 4.148399829864502,
+            "total_seconds": 5.23499999998603,
+            "status": "completed",
+            "error": null,
+            "answer": "抱歉，我目前没有任何关于这位用户居住地的信息，因此无法确定他/她通常住在哪座城市。如果您能提供相关的上下文或资料，我很乐意帮您分析。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 1,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 389,
+            "budget_units": 389,
+            "first_token_seconds": 4.983710050582886,
+            "total_seconds": 7.64000000001397,
+            "status": "completed",
+            "error": null,
+            "answer": "抱歉，我目前没有关于您锻炼偏好的任何记录（记忆中没有相关信息），因此无法确定下雨天气时您更喜欢哪种锻炼。如果您告诉我您的偏好，例如室内游泳、健身房训练或瑜伽等，我可以帮您记录下来，以便日后在天气多变时为您提供建议。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 778,
+            "budget_units": 778,
+            "first_token_seconds": 14.309303998947144,
+            "total_seconds": 15.530999999959022,
+            "status": "completed",
+            "error": null,
+            "answer": "我需要如实说明：我没有关于之前任何研讨会或对话的记忆记录，因此无法确认“上次研讨会之后的感受”具体指什么。每次对话对我来说都是独立的，我无法访问历史交流内容，也没有相关的证据可以依据。如果您能提供更多背景信息，例如研讨会讨论的主题、您当时的感受或想确认的具体问题，我很乐意在此基础上与您进一步探讨。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 364,
+            "budget_units": 364,
+            "first_token_seconds": 10.215698003768921,
+            "total_seconds": 11.905999999959022,
+            "status": "completed",
+            "error": null,
+            "answer": "抱歉，我目前没有找到相关信息。您的记录（任务、承诺、备忘等）都是空的，也没有任何待履行的作业承诺或截止日期的记录。如果您能告诉我这个作业承诺的具体内容或创建时间，我可以帮您记录或推算到期时间。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "glm",
+        "group": "B",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.75,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.75,
+          "provider_tokens": 4162.5,
+          "budget_units": 4162.5,
+          "first_token_seconds": 10.794436395168304,
+          "total_seconds": 11.74199999999837,
+          "citation_coverage": 0.5,
+          "citation_correctness": 1.0
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2782,
+            "budget_units": 2782,
+            "first_token_seconds": 4.464660167694092,
+            "total_seconds": 4.937000000034459,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2926,
+            "budget_units": 2926,
+            "first_token_seconds": 3.716085910797119,
+            "total_seconds": 4.01500000001397,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2850,
+            "budget_units": 2850,
+            "first_token_seconds": 3.300452947616577,
+            "total_seconds": 3.875,
+            "status": "completed",
+            "error": null,
+            "answer": "According to memory, the synthetic user may have felt tired after the September workshop, but this is uncertain — it was only reported as a possibility, not a confirmed observation.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2879,
+            "budget_units": 2879,
+            "first_token_seconds": 5.944865942001343,
+            "total_seconds": 6.827999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment, which is due by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "residence-zh",
+            "success": 1,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 3,
+            "provider_tokens": 6490,
+            "budget_units": 6490,
+            "first_token_seconds": 14.615417957305908,
+            "total_seconds": 15.827999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "根据我的记忆记录，这位用户通常住在澳大利亚维多利亚州的墨尔本（Melbourne, Victoria）。（citation_ids: [\"mem_dd5b50de2ccf49508cb6627437990466\"]）",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 1,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 4163,
+            "budget_units": 4163,
+            "first_token_seconds": 7.793406963348389,
+            "total_seconds": 8.73499999998603,
+            "status": "completed",
+            "error": null,
+            "answer": "我在记忆中没有找到这位用户关于雨天锻炼偏好的任何记录（搜索结果为空）。因此我无法确定下雨时用户更喜欢哪种锻炼方式。如果您愿意告诉我（例如：喜欢室内健身房、瑜伽、游泳，还是雨中跑步等），我可以帮您记录下来，方便以后在安排活动时参考。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 4413,
+            "budget_units": 4413,
+            "first_token_seconds": 18.832321166992188,
+            "total_seconds": 20.93700000003446,
+            "status": "waiting_for_user",
+            "error": null,
+            "answer": "我在记忆中没有找到关于上次研讨会感受的记录，因此无法确认您的感受是什么。能否请您告诉我：是哪一场研讨会（大概的日期或名称）？以及您想确认或记录的具体感受是什么？这样我可以帮您核实或补充记录。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 3,
+            "provider_tokens": 6797,
+            "budget_units": 6797,
+            "first_token_seconds": 27.68828010559082,
+            "total_seconds": 28.780999999959022,
+            "status": "completed",
+            "error": null,
+            "answer": "我没有找到任何未履行的作业承诺记录：记忆搜索结果为空，日历数据库（权威数据源）中也当前没有任何任务。因此无法提供到期日期。如果您记得该承诺的大致内容或日期，请告诉我，我可以帮您创建相应的任务并设置截止日期。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "glm",
+        "group": "C",
+        "semantic_enabled": true,
+        "metrics": {
+          "success": 1.0,
+          "recall_at_8": 0.875,
+          "forgotten_recall": 0.0,
+          "steps": 1.375,
+          "provider_tokens": 3293.875,
+          "budget_units": 3293.875,
+          "first_token_seconds": 10.729136735200882,
+          "total_seconds": 11.873374999995576,
+          "citation_coverage": 1.0,
+          "citation_correctness": 1.0
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 6134,
+            "budget_units": 6134,
+            "first_token_seconds": 10.531309127807617,
+            "total_seconds": 11.452999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "According to the user's profile, the synthetic user lives in Melbourne, Victoria. This is also consistent with the calendar timezone setting of Australia/Melbourne.",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_4f1eb97e893e443bad3fefc1253a0528"
+              ],
+              "error": null,
+              "calls": 2,
+              "provider_tokens": 2495,
+              "seconds": 9.119904041290283,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2865,
+            "budget_units": 2865,
+            "first_token_seconds": 10.830818891525269,
+            "total_seconds": 11.48499999998603,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user prefers indoor exercise when rain is likely.",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_141fa9dc3c1e4674b14ac881e9e24d6a"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1720,
+              "seconds": 10.85309910774231,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 3789,
+            "budget_units": 3789,
+            "first_token_seconds": 14.094783067703247,
+            "total_seconds": 15.73499999998603,
+            "status": "completed",
+            "error": null,
+            "answer": "Based on memory, the synthetic user may have felt tired after the September workshop — but this is uncertain and not confirmed, so it shouldn't be treated as a fact. (Confidence: low, recorded as 'uncertain'.)",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_7e4d7b9babc34e51afd0901b4d5d0aba"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1597,
+              "seconds": 5.873754024505615,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 3401,
+            "budget_units": 3401,
+            "first_token_seconds": 6.438259840011597,
+            "total_seconds": 6.812999999965541,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment, which is due by 2026-09-12.",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_eedbf8c1441f44fb85d8137972cd7132"
+              ],
+              "error": null,
+              "calls": 2,
+              "provider_tokens": 4464,
+              "seconds": 39.05651593208313,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "residence-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2177,
+            "budget_units": 2177,
+            "first_token_seconds": 4.003316879272461,
+            "total_seconds": 4.532000000006519,
+            "status": "completed",
+            "error": null,
+            "answer": "根据记忆档案，这位用户通常住在墨尔本（Melbourne）。这也与时区设置 Australia/Melbourne 相一致。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_4bf0e5cf23fc430a8b9308ef9f4be67a"
+              ],
+              "error": null,
+              "calls": 2,
+              "provider_tokens": 3217,
+              "seconds": 35.44181704521179,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "preference-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2278,
+            "budget_units": 2278,
+            "first_token_seconds": 6.831573009490967,
+            "total_seconds": 7.702999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "当预报可能下雨时，这位用户更喜欢室内锻炼（indoor exercise）。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_f75b1bac417f40e88b7d0b1928afee16"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1496,
+              "seconds": 4.970544099807739,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2658,
+            "budget_units": 2658,
+            "first_token_seconds": 13.076868057250977,
+            "total_seconds": 16.04700000002049,
+            "status": "completed",
+            "error": null,
+            "answer": "不确定。根据现有记忆，只有一条相关记录：\"用户在九月研讨会后可能感到疲倦\"——该记录被明确标记为\"不确定\"（置信度仅约 0.5），且来源中本身就使用了模糊表述（\"may have\"，即\"可能\"）。因此，关于上次研讨会之后的感受，目前没有确定的信息，只能视为一种未经证实的猜测。如果你能告诉我当时的实际感受，我可以帮你补充或更正这条记录。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_1abacd33ed8a49948c4883cb9444fce5"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1855,
+              "seconds": 17.661408185958862,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 3049,
+            "budget_units": 3049,
+            "first_token_seconds": 20.026165008544922,
+            "total_seconds": 21.219000000040978,
+            "status": "completed",
+            "error": null,
+            "answer": "你还未完成的设计作业承诺，截止日期是 2026年9月12日（今天是2026年9月6日，还剩约6天）。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_fe3494ab2f70487895bb3297cf128c29"
+              ],
+              "error": null,
+              "calls": 2,
+              "provider_tokens": 3418,
+              "seconds": 29.98985004425049,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "A",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.0,
+          "recall_at_8": 0.0,
+          "forgotten_recall": 0.0,
+          "steps": 1.0,
+          "provider_tokens": 374.875,
+          "budget_units": 374.875,
+          "first_token_seconds": 1.8819432258605957,
+          "total_seconds": 2.095625000016298,
+          "citation_coverage": 0.0,
+          "citation_correctness": null
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 319,
+            "budget_units": 319,
+            "first_token_seconds": 1.4229509830474854,
+            "total_seconds": 1.625,
+            "status": "completed",
+            "error": null,
+            "answer": "I don't have enough information to answer that. No evidence about a synthetic user is present in the provided context.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 312,
+            "budget_units": 312,
+            "first_token_seconds": 1.0276589393615723,
+            "total_seconds": 1.2820000000065193,
+            "status": "completed",
+            "error": null,
+            "answer": "Based on the memory provided, I don't have any information about a synthetic user or their exercise preferences when rain is likely. The memory blocks are empty. I cannot answer this question from the given context.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 308,
+            "budget_units": 308,
+            "first_token_seconds": 1.1690189838409424,
+            "total_seconds": 1.359000000054948,
+            "status": "completed",
+            "error": null,
+            "answer": "I don't have any information about a synthetic user or a workshop, so I cannot say how they felt. Evidence is missing.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 384,
+            "budget_units": 384,
+            "first_token_seconds": 1.6094698905944824,
+            "total_seconds": 1.875,
+            "status": "completed",
+            "error": null,
+            "answer": "There is no evidence available about any synthetic user or an unfinished commitment. The provided memory blocks are empty and the current task is null, so I cannot determine such a commitment.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 338,
+            "budget_units": 338,
+            "first_token_seconds": 1.8831539154052734,
+            "total_seconds": 2.0,
+            "status": "completed",
+            "error": null,
+            "answer": "根据现有信息，无法确定该用户通常住在哪座城市。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 380,
+            "budget_units": 380,
+            "first_token_seconds": 2.110401153564453,
+            "total_seconds": 2.234000000054948,
+            "status": "completed",
+            "error": null,
+            "answer": "没有足够的信息来回答有关用户在下雨时锻炼偏好的问题。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 503,
+            "budget_units": 503,
+            "first_token_seconds": 3.456267833709717,
+            "total_seconds": 3.609000000054948,
+            "status": "completed",
+            "error": null,
+            "answer": "我没有关于上次研讨会的任何信息，因此无法确定。如果您能提供相关背景，我可以帮助分析。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 455,
+            "budget_units": 455,
+            "first_token_seconds": 2.37662410736084,
+            "total_seconds": 2.780999999959022,
+            "status": "completed",
+            "error": null,
+            "answer": "目前没有找到关于未履行作业承诺的到期时间记录。存储的记忆中没有相关数据，因此无法提供具体日期。如果这是指某个特定任务，请提供更多细节以便我协助查询。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "B",
+        "semantic_enabled": false,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.5,
+          "provider_tokens": 3699.75,
+          "budget_units": 3699.75,
+          "first_token_seconds": 4.1331522805350165,
+          "total_seconds": 4.312625000005937,
+          "citation_coverage": 0.5,
+          "citation_correctness": 1.0
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2851,
+            "budget_units": 2851,
+            "first_token_seconds": 2.1328320503234863,
+            "total_seconds": 2.4380000000819564,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user lives in Melbourne, Victoria.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2757,
+            "budget_units": 2757,
+            "first_token_seconds": 1.1418640613555908,
+            "total_seconds": 1.312999999965541,
+            "status": "completed",
+            "error": null,
+            "answer": "Indoor exercise.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 3031,
+            "budget_units": 3031,
+            "first_token_seconds": 3.5493850708007812,
+            "total_seconds": 3.827999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "My memory suggests the synthetic user may have felt tired after the September workshop, but this is uncertain.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2771,
+            "budget_units": 2771,
+            "first_token_seconds": 1.6706187725067139,
+            "total_seconds": 1.9690000000409782,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user still needs to finish the design assignment by 2026-09-12.",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2302,
+            "budget_units": 2302,
+            "first_token_seconds": null,
+            "total_seconds": 3.281000000075437,
+            "status": "failed",
+            "error": "模型协议校验失败：tool",
+            "answer": "",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 4527,
+            "budget_units": 4527,
+            "first_token_seconds": 6.085397958755493,
+            "total_seconds": 6.422000000020489,
+            "status": "completed",
+            "error": null,
+            "answer": "我目前没有找到关于这位用户在容易下雨时偏好哪种锻炼的任何记录。如果您能补充相关信息或告诉我来源场景，我可以帮您进一步查找或记录。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "episodic-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 4330,
+            "budget_units": 4330,
+            "first_token_seconds": 4.790561199188232,
+            "total_seconds": 5.312999999965541,
+            "status": "waiting_for_user",
+            "error": null,
+            "answer": "我目前没有找到关于上次研讨会的相关记忆。请告诉我具体是哪次研讨会，以及您想确认哪方面的感受（例如满意度、结论、安排等），我再帮您查找或处理。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 3,
+            "provider_tokens": 7029,
+            "budget_units": 7029,
+            "first_token_seconds": 9.56140685081482,
+            "total_seconds": 9.936999999918044,
+            "status": "completed",
+            "error": null,
+            "answer": "在日历（2026年1月1日至12月31日）和记忆中均未找到任何未履行的作业承诺。请提供更多信息，例如作业名称、承诺日期或学生姓名，以便进一步核实。",
+            "consolidation": {
+              "status": "not_applicable"
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "group": "C",
+        "semantic_enabled": true,
+        "metrics": {
+          "success": 0.5,
+          "recall_at_8": 0.5,
+          "forgotten_recall": 0.0,
+          "steps": 1.625,
+          "provider_tokens": 4131.625,
+          "budget_units": 4236.25,
+          "first_token_seconds": 4.292493849992752,
+          "total_seconds": 4.588124999994761,
+          "citation_coverage": 0.625,
+          "citation_correctness": 0.8
+        },
+        "cases": [
+          {
+            "case": "residence",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 6274,
+            "budget_units": 6274,
+            "first_token_seconds": 6.481487035751343,
+            "total_seconds": 6.687999999965541,
+            "status": "completed",
+            "error": null,
+            "answer": "I don't know—there is no recorded residence or location in my memory.",
+            "consolidation": {
+              "status": "failed",
+              "memory_ids": [],
+              "error": "外部服务请求失败：HTTPStatusError",
+              "calls": 2,
+              "provider_tokens": 1582,
+              "seconds": 3.911285877227783,
+              "key_fact_preservation": 0
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2786,
+            "budget_units": 2786,
+            "first_token_seconds": 1.3890838623046875,
+            "total_seconds": 1.577999999979511,
+            "status": "completed",
+            "error": null,
+            "answer": "Indoor exercise",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_97602387337c4ac7b80d9e674821ab8a"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1605,
+              "seconds": 3.3879730701446533,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 3012,
+            "budget_units": 3012,
+            "first_token_seconds": 2.7673399448394775,
+            "total_seconds": 3.0,
+            "status": "completed",
+            "error": null,
+            "answer": "The synthetic user may have felt tired after the September workshop, but this is uncertain.",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_4625b2551c1144e180bc47b8aa263214"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1758,
+              "seconds": 4.806399822235107,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 4,
+            "provider_tokens": 8537,
+            "budget_units": 9374,
+            "first_token_seconds": 5.886843919754028,
+            "total_seconds": 6.329000000027008,
+            "status": "completed",
+            "error": null,
+            "answer": "No unfinished commitment was found. The calendar currently has no tasks, and memory only contains an uncertain note that you may have felt tired after the September workshop—nothing indicating an outstanding commitment.",
+            "consolidation": {
+              "status": "failed",
+              "memory_ids": [],
+              "error": "外部服务请求失败：HTTPStatusError",
+              "calls": 2,
+              "provider_tokens": 1482,
+              "seconds": 3.406416177749634,
+              "key_fact_preservation": 0
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 0
+          },
+          {
+            "case": "residence-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2069,
+            "budget_units": 2069,
+            "first_token_seconds": 2.1392970085144043,
+            "total_seconds": 2.25,
+            "status": "completed",
+            "error": null,
+            "answer": "我目前没有关于这位用户常住城市的信息。",
+            "consolidation": {
+              "status": "failed",
+              "memory_ids": [],
+              "error": "外部服务请求失败：HTTPStatusError",
+              "calls": 2,
+              "provider_tokens": 1890,
+              "seconds": 6.834574937820435,
+              "key_fact_preservation": 0
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          },
+          {
+            "case": "preference-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2277,
+            "budget_units": 2277,
+            "first_token_seconds": 1.604099988937378,
+            "total_seconds": 1.8439999999245629,
+            "status": "completed",
+            "error": null,
+            "answer": "这位用户在容易下雨时更喜欢室内锻炼。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_f93e8b9c09ef4b8d96a904e6e8b80b31"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1702,
+              "seconds": 4.619597911834717,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "episodic-zh",
+            "success": 1,
+            "recall_at_8": 1.0,
+            "forgotten_recall": 0,
+            "steps": 1,
+            "provider_tokens": 2488,
+            "budget_units": 2488,
+            "first_token_seconds": 2.9349141120910645,
+            "total_seconds": 3.5160000000614673,
+            "status": "completed",
+            "error": null,
+            "answer": "不确定。记忆中关于研讨会后感受的记录（mem_35c2f9cb95c54c559483e7a39eecb56d）被标记为 uncertain，置信度仅 0.5，且处于禁用状态。其内容为：合成用户可能在 9 月研讨会后感到疲惫，但这只是推测，并未确认。",
+            "consolidation": {
+              "status": "done",
+              "memory_ids": [
+                "mem_35c2f9cb95c54c559483e7a39eecb56d"
+              ],
+              "error": null,
+              "calls": 1,
+              "provider_tokens": 1838,
+              "seconds": 5.782860994338989,
+              "key_fact_preservation": 1
+            },
+            "citation_coverage": 1,
+            "citation_correctness": 1
+          },
+          {
+            "case": "commitment-zh",
+            "success": 0,
+            "recall_at_8": 0.0,
+            "forgotten_recall": 0,
+            "steps": 2,
+            "provider_tokens": 5610,
+            "budget_units": 5610,
+            "first_token_seconds": 11.136884927749634,
+            "total_seconds": 11.5,
+            "status": "completed",
+            "error": null,
+            "answer": "目前日历中没有找到任何未履行的作业承诺，因此没有对应的到期时间。如果您指的是某个具体的作业或其他记录，请告诉我更多细节（例如课程名称或布置日期），我可以帮您查询。",
+            "consolidation": {
+              "status": "failed",
+              "memory_ids": [],
+              "error": "外部服务请求失败：HTTPStatusError",
+              "calls": 2,
+              "provider_tokens": 2148,
+              "seconds": 8.139855861663818,
+              "key_fact_preservation": 0
+            },
+            "citation_coverage": 0,
+            "citation_correctness": null
+          }
+        ]
+      }
+    ]
+  },
+  "workflows": {
+    "mode": "live",
+    "weather": "synthetic, never real personal activity",
+    "models": [
+      {
+        "model": "glm",
+        "candidate_status": "enabled_by_synthetic_user",
+        "metrics": {
+          "baseline": {
+            "success": 0.0,
+            "tool_accuracy": 1.0,
+            "misoperations": null,
+            "steps": 2.0,
+            "provider_tokens": 4410.0,
+            "seconds": 9.890999999945052
+          },
+          "before": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 4.0,
+            "provider_tokens": 11943.333333333334,
+            "seconds": 47.77599999999317
+          },
+          "after": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 4.0,
+            "provider_tokens": 12212.333333333334,
+            "seconds": 32.23933333333116
+          }
+        },
+        "records": [
+          {
+            "phase": "baseline",
+            "goal": "Create a task titled Synthetic report on 2026-09-07.",
+            "run_id": "run_9f86fca0eab54a64837d07c714f414aa",
+            "success": 0,
+            "tool_accuracy": 1.0,
+            "steps": 2,
+            "provider_tokens": 4410,
+            "seconds": 9.890999999945052,
+            "status": "failed",
+            "error": "模型协议校验失败：citation_ids.0",
+            "tools": [
+              {
+                "tool": "create_task",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_3ec68bd0a3d8410ebe303f0cd3cfaff8",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12237,
+            "seconds": 52.57799999997951,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_335d99cbcd0b42c6a23bdd77e4bc1018",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 11102,
+            "seconds": 31.0,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_1bf8aec582a0460291f6a42cc2468f9a",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12491,
+            "seconds": 59.75,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_610477cc924c461080979a1bd85386cf",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12413,
+            "seconds": 41.21799999999348,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_6b92920e75b34e9db5120daa14ea4242",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12137,
+            "seconds": 30.73499999998603,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_987d6e7d4860440ab6675b912929ac9f",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12087,
+            "seconds": 24.76500000001397,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          }
+        ]
+      },
+      {
+        "model": "deepseek",
+        "candidate_status": "enabled_by_synthetic_user",
+        "metrics": {
+          "baseline": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": null,
+            "steps": 3.0,
+            "provider_tokens": 7402.0,
+            "seconds": 10.577999999979511
+          },
+          "before": {
+            "success": 1.0,
+            "tool_accuracy": 1.0,
+            "misoperations": 0.0,
+            "steps": 4.0,
+            "provider_tokens": 12069.0,
+            "seconds": 17.932333333340164
+          },
+          "after": {
+            "success": 0.3333333333333333,
+            "tool_accuracy": 0.7222222222222222,
+            "misoperations": 0.0,
+            "steps": 3.6666666666666665,
+            "provider_tokens": 11657.666666666666,
+            "seconds": 17.91166666666201
+          }
+        },
+        "records": [
+          {
+            "phase": "baseline",
+            "goal": "Create a task titled Synthetic report on 2026-09-07.",
+            "run_id": "run_24fe4b477c644d31ba963993c15118c5",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 3,
+            "provider_tokens": 7402,
+            "seconds": 10.577999999979511,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "create_task",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_d5100329ce9d4d948466e3d350222542",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 11886,
+            "seconds": 17.375,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_d358c53c27d044ec8e747dddb9bf479b",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 11543,
+            "seconds": 13.483999999938533,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "before",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_011b4f3439e747078921455b1c2792c3",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12778,
+            "seconds": 22.938000000081956,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_b4ade218339445ed98996b3dc931e27c",
+            "success": 0,
+            "tool_accuracy": 0.6666666666666666,
+            "steps": 4,
+            "provider_tokens": 13878,
+            "seconds": 28.45299999997951,
+            "status": "failed",
+            "error": "上下文超过剩余 Token 预算",
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "search_memory",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_54c08958dc284fda996963a774de35ba",
+            "success": 0,
+            "tool_accuracy": 0.5,
+            "steps": 3,
+            "provider_tokens": 8573,
+            "seconds": 8.327999999979511,
+            "status": "waiting_for_user",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          },
+          {
+            "phase": "after",
+            "goal": "Check the weather for outdoor running task #2 in Melbourne, Victoria on 2026-09-07 and create a suggestion if thresholds are crossed. Do not change the calendar.",
+            "run_id": "run_e35021b036a94d2a8ac11772c6659a11",
+            "success": 1,
+            "tool_accuracy": 1.0,
+            "steps": 4,
+            "provider_tokens": 12522,
+            "seconds": 16.95400000002701,
+            "status": "completed",
+            "error": null,
+            "tools": [
+              {
+                "tool": "read_calendar",
+                "status": "completed"
+              },
+              {
+                "tool": "get_weather",
+                "status": "completed"
+              },
+              {
+                "tool": "create_adjustment_suggestion",
+                "status": "completed"
+              }
+            ],
+            "misoperations": 0
+          }
+        ]
+      }
+    ]
+  },
+  "scoring_version": "synthetic-v2-audit-penalized"
+}

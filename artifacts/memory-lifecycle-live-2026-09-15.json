@@ -1,0 +1,3298 @@
+{
+  "synthetic_only": true,
+  "mode": "live",
+  "started": 1789473722.009882,
+  "scope": "Agent API + real consolidation + local embedding; manual scheduler drain; no browser test",
+  "cases": [
+    {
+      "model": "glm",
+      "case": "unknown",
+      "input": "我的阅读俱乐部叫什么名字？",
+      "expected": "承认不知道或询问，不编造名字",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.5470000000204891,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "remember",
+      "input": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+      "expected": "接收明确记忆请求",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10999999986961484,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.028525829315185547
+        }
+      ],
+      "index": {
+        "indexed": 0,
+        "status": "ready"
+      },
+      "memories": [],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_740836fb52e04f2a8e7597c107242c7f",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_00fe34410ea64905be40b88f2bdd37cc",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "glm",
+      "case": "cross_session",
+      "input": "我的阅读俱乐部叫什么名字？",
+      "expected": "青苔灯塔；新会话无原始聊天上下文",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "paraphrase",
+      "input": "我加入的那个读书社群叫什么？",
+      "expected": "青苔灯塔；同义改写召回",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10999999986961484,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "correction_and_forget",
+      "status": "blocked",
+      "reason": "目标记忆未形成，无法测试纠正与遗忘"
+    },
+    {
+      "model": "glm",
+      "case": "multi_write",
+      "input": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+      "expected": "完整保留三个独立事实",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.125,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "multi_consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.03077983856201172
+        }
+      ],
+      "index": {
+        "indexed": 0,
+        "status": "ready"
+      },
+      "memories": [],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_740836fb52e04f2a8e7597c107242c7f",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_00fe34410ea64905be40b88f2bdd37cc",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_149bf2e3c08f4a1ca9deb00470f01c03",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_359ec6489da144cd95e9e7c302b1c38b",
+          "body": "我加入的那个读书社群叫什么？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_4d3b9eb9687b467a879874b6ee6e0b0c",
+          "body": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "glm",
+      "case": "multi_read",
+      "input": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+      "expected": "银杏、雾松、围棋三项完整且不串用",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "buried_conflict_write",
+      "input": "请记住：我的常住城市是苏州。",
+      "expected": "识别与旧南京记录的冲突或明确更新，不能静默保留两个当前常住地",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_2f88ca132f6f474c8fb68261b8aec859",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_3b590cd8234e44bdb8f5200b15bb3673"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.565038,
+          "updated": 1789473723.565038,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9639c3020ebc4fba8cc1e73fbfeb8ab5",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_ebdb26ef2c594ff48319edb27b8288cb"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.558195,
+          "updated": 1789473723.558195,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4ea2511c172a40f3b7825e24ca10f228",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_90009a356023470fb93d55944f2491f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.550701,
+          "updated": 1789473723.550701,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_54172c656ff74fd9b2a3d135952bd4a2",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_b17cd53488ef414db12405ce14bf318e"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.543696,
+          "updated": 1789473723.543696,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_bc96765c4dc2468db714c19adab4393e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_472f7296965d46bf8a8edcbac27922a9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.536869,
+          "updated": 1789473723.536869,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46805e27f51246fb830e10acdede26b1",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_a649c26a15c744499a5fd4bdaf4cae0a"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.531031,
+          "updated": 1789473723.531031,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8c2d3726153b4c3d8eaa70dc10800992",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_7fe4cef448bd4140b1480b66ce0e16b8"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.524705,
+          "updated": 1789473723.524705,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4670a4a38b8d4f49833a25d8b138f909",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_7a539e1b60834300920dc6319a52ce11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.519671,
+          "updated": 1789473723.519671,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_47d0bdf9546a494193d58702cb684f27",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d94b5b034ea94af097bf2daf0e768046"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.515672,
+          "updated": 1789473723.515672,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8e2809188b4c435cb5b7f5b239841854",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_f4ecd13adeb548eb8d6608e6def900a5"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.510164,
+          "updated": 1789473723.510164,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_3e1a7dd2c59f4eca88aa9bb6816c750f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_5239180efb7e4660804e2aa0160aeefe"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.502814,
+          "updated": 1789473723.502814,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_84083f6bc0434a4d83fcbd5d3ca4d63e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_d01e848dfe5943a5ac628c703ede11c2"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.495501,
+          "updated": 1789473723.495501,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46e5dc79231a47838b8c97c902a4187d",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_afb1b7f571674cf5b990ad22b1175b65"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.487995,
+          "updated": 1789473723.487995,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "buried_conflict_consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.026064157485961914
+        }
+      ],
+      "index": {
+        "indexed": 13,
+        "status": "ready"
+      },
+      "memories": [
+        {
+          "id": "mem_2f88ca132f6f474c8fb68261b8aec859",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_3b590cd8234e44bdb8f5200b15bb3673"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.565038,
+          "updated": 1789473723.565038,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9639c3020ebc4fba8cc1e73fbfeb8ab5",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_ebdb26ef2c594ff48319edb27b8288cb"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.558195,
+          "updated": 1789473723.558195,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4ea2511c172a40f3b7825e24ca10f228",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_90009a356023470fb93d55944f2491f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.550701,
+          "updated": 1789473723.550701,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_54172c656ff74fd9b2a3d135952bd4a2",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_b17cd53488ef414db12405ce14bf318e"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.543696,
+          "updated": 1789473723.543696,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_bc96765c4dc2468db714c19adab4393e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_472f7296965d46bf8a8edcbac27922a9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.536869,
+          "updated": 1789473723.536869,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46805e27f51246fb830e10acdede26b1",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_a649c26a15c744499a5fd4bdaf4cae0a"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.531031,
+          "updated": 1789473723.531031,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8c2d3726153b4c3d8eaa70dc10800992",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_7fe4cef448bd4140b1480b66ce0e16b8"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.524705,
+          "updated": 1789473723.524705,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4670a4a38b8d4f49833a25d8b138f909",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_7a539e1b60834300920dc6319a52ce11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.519671,
+          "updated": 1789473723.519671,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_47d0bdf9546a494193d58702cb684f27",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d94b5b034ea94af097bf2daf0e768046"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.515672,
+          "updated": 1789473723.515672,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8e2809188b4c435cb5b7f5b239841854",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_f4ecd13adeb548eb8d6608e6def900a5"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.510164,
+          "updated": 1789473723.510164,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_3e1a7dd2c59f4eca88aa9bb6816c750f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_5239180efb7e4660804e2aa0160aeefe"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.502814,
+          "updated": 1789473723.502814,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_84083f6bc0434a4d83fcbd5d3ca4d63e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_d01e848dfe5943a5ac628c703ede11c2"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.495501,
+          "updated": 1789473723.495501,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46e5dc79231a47838b8c97c902a4187d",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_afb1b7f571674cf5b990ad22b1175b65"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.487995,
+          "updated": 1789473723.487995,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_740836fb52e04f2a8e7597c107242c7f",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_00fe34410ea64905be40b88f2bdd37cc",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_149bf2e3c08f4a1ca9deb00470f01c03",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_359ec6489da144cd95e9e7c302b1c38b",
+          "body": "我加入的那个读书社群叫什么？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_4d3b9eb9687b467a879874b6ee6e0b0c",
+          "body": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_2810ca39d65341aeb9edcbcd42f2bba2",
+          "body": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_afb1b7f571674cf5b990ad22b1175b65",
+          "body": "我的常住城市是南京。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_d01e848dfe5943a5ac628c703ede11c2",
+          "body": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_5239180efb7e4660804e2aa0160aeefe",
+          "body": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_f4ecd13adeb548eb8d6608e6def900a5",
+          "body": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_d94b5b034ea94af097bf2daf0e768046",
+          "body": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_7a539e1b60834300920dc6319a52ce11",
+          "body": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_7fe4cef448bd4140b1480b66ce0e16b8",
+          "body": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_a649c26a15c744499a5fd4bdaf4cae0a",
+          "body": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_472f7296965d46bf8a8edcbac27922a9",
+          "body": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_b17cd53488ef414db12405ce14bf318e",
+          "body": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_90009a356023470fb93d55944f2491f9",
+          "body": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_ebdb26ef2c594ff48319edb27b8288cb",
+          "body": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_3b590cd8234e44bdb8f5200b15bb3673",
+          "body": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_f24ea61faab84887adc36b95f35325ed",
+          "body": "请记住：我的常住城市是苏州。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "glm",
+      "case": "buried_conflict_read",
+      "input": "我的常住城市是哪座？如果记录矛盾，请明确指出。",
+      "expected": "采用有依据的新信息或澄清冲突，不错误断言南京",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.125,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": [{\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"我的常住城市是南京。\", \"created\": 1789473723.487995, \"enabled\": 0, \"expires\": null, \"id\": \"mem_46e5dc79231a47838b8c97c902a4187d\", \"kind\": \"profile\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.4915233491009913, \"sensitivity\": \"normal\", \"source_ids\": [\"src_afb1b7f571674cf5b990ad22b1175b65\"], \"updated\": 1789473723.487995, \"version\": 1}]}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_2f88ca132f6f474c8fb68261b8aec859",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_3b590cd8234e44bdb8f5200b15bb3673"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.565038,
+          "updated": 1789473723.565038,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9639c3020ebc4fba8cc1e73fbfeb8ab5",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_ebdb26ef2c594ff48319edb27b8288cb"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.558195,
+          "updated": 1789473723.558195,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4ea2511c172a40f3b7825e24ca10f228",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_90009a356023470fb93d55944f2491f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.550701,
+          "updated": 1789473723.550701,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_54172c656ff74fd9b2a3d135952bd4a2",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_b17cd53488ef414db12405ce14bf318e"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.543696,
+          "updated": 1789473723.543696,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_bc96765c4dc2468db714c19adab4393e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_472f7296965d46bf8a8edcbac27922a9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.536869,
+          "updated": 1789473723.536869,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46805e27f51246fb830e10acdede26b1",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_a649c26a15c744499a5fd4bdaf4cae0a"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.531031,
+          "updated": 1789473723.531031,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8c2d3726153b4c3d8eaa70dc10800992",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_7fe4cef448bd4140b1480b66ce0e16b8"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.524705,
+          "updated": 1789473723.524705,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4670a4a38b8d4f49833a25d8b138f909",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_7a539e1b60834300920dc6319a52ce11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.519671,
+          "updated": 1789473723.519671,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_47d0bdf9546a494193d58702cb684f27",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d94b5b034ea94af097bf2daf0e768046"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.515672,
+          "updated": 1789473723.515672,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8e2809188b4c435cb5b7f5b239841854",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_f4ecd13adeb548eb8d6608e6def900a5"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.510164,
+          "updated": 1789473723.510164,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_3e1a7dd2c59f4eca88aa9bb6816c750f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_5239180efb7e4660804e2aa0160aeefe"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.502814,
+          "updated": 1789473723.502814,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_84083f6bc0434a4d83fcbd5d3ca4d63e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_d01e848dfe5943a5ac628c703ede11c2"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.495501,
+          "updated": 1789473723.495501,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46e5dc79231a47838b8c97c902a4187d",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_afb1b7f571674cf5b990ad22b1175b65"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.487995,
+          "updated": 1789473723.487995,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.155743
+        }
+      ],
+      "tools": []
+    },
+    {
+      "model": "glm",
+      "case": "after_retention",
+      "input": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+      "expected": "清理来源正文后仍保留银杏、雾松、围棋",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "deepseek",
+      "calls": 3,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"glm\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": [{\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第7本画册的标签是纸鹤7。\", \"created\": 1789473723.531031, \"enabled\": 0, \"expires\": null, \"id\": \"mem_46805e27f51246fb830e10acdede26b1\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.3730471104742979, \"sensitivity\": \"normal\", \"source_ids\": [\"src_a649c26a15c744499a5fd4bdaf4cae0a\"], \"updated\": 1789473723.531031, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第5本画册的标签是纸鹤5。\", \"created\": 1789473723.519671, \"enabled\": 0, \"expires\": null, \"id\": \"mem_4670a4a38b8d4f49833a25d8b138f909\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.37091130872072264, \"sensitivity\": \"normal\", \"source_ids\": [\"src_7a539e1b60834300920dc6319a52ce11\"], \"updated\": 1789473723.519671, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第6本画册的标签是纸鹤6。\", \"created\": 1789473723.524705, \"enabled\": 0, \"expires\": null, \"id\": \"mem_8c2d3726153b4c3d8eaa70dc10800992\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.37032508531263897, \"sensitivity\": \"normal\", \"source_ids\": [\"src_7fe4cef448bd4140b1480b66ce0e16b8\"], \"updated\": 1789473723.524705, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第9本画册的标签是纸鹤9。\", \"created\": 1789473723.543696, \"enabled\": 0, \"expires\": null, \"id\": \"mem_54172c656ff74fd9b2a3d135952bd4a2\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.36597859613900297, \"sensitivity\": \"normal\", \"source_ids\": [\"src_b17cd53488ef414db12405ce14bf318e\"], \"updated\": 1789473723.543696, \"version\": 1}]}"
+        },
+        {
+          "type": "thinking.snapshot",
+          "data": "{\"text\": \"相关记忆分数接近，正在进行语义排序。语义重排未通过校验，保留代码排序。主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_2f88ca132f6f474c8fb68261b8aec859",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_3b590cd8234e44bdb8f5200b15bb3673"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.565038,
+          "updated": 1789473723.565038,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9639c3020ebc4fba8cc1e73fbfeb8ab5",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_ebdb26ef2c594ff48319edb27b8288cb"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.558195,
+          "updated": 1789473723.558195,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4ea2511c172a40f3b7825e24ca10f228",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_90009a356023470fb93d55944f2491f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.550701,
+          "updated": 1789473723.550701,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_54172c656ff74fd9b2a3d135952bd4a2",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_b17cd53488ef414db12405ce14bf318e"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.543696,
+          "updated": 1789473723.543696,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.270322
+        },
+        {
+          "id": "mem_bc96765c4dc2468db714c19adab4393e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_472f7296965d46bf8a8edcbac27922a9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.536869,
+          "updated": 1789473723.536869,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46805e27f51246fb830e10acdede26b1",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_a649c26a15c744499a5fd4bdaf4cae0a"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.531031,
+          "updated": 1789473723.531031,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.270322
+        },
+        {
+          "id": "mem_8c2d3726153b4c3d8eaa70dc10800992",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_7fe4cef448bd4140b1480b66ce0e16b8"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.524705,
+          "updated": 1789473723.524705,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.270322
+        },
+        {
+          "id": "mem_4670a4a38b8d4f49833a25d8b138f909",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_7a539e1b60834300920dc6319a52ce11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.519671,
+          "updated": 1789473723.519671,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.270322
+        },
+        {
+          "id": "mem_47d0bdf9546a494193d58702cb684f27",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d94b5b034ea94af097bf2daf0e768046"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.515672,
+          "updated": 1789473723.515672,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8e2809188b4c435cb5b7f5b239841854",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_f4ecd13adeb548eb8d6608e6def900a5"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.510164,
+          "updated": 1789473723.510164,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_3e1a7dd2c59f4eca88aa9bb6816c750f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_5239180efb7e4660804e2aa0160aeefe"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.502814,
+          "updated": 1789473723.502814,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_84083f6bc0434a4d83fcbd5d3ca4d63e",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_d01e848dfe5943a5ac628c703ede11c2"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.495501,
+          "updated": 1789473723.495501,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_46e5dc79231a47838b8c97c902a4187d",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_afb1b7f571674cf5b990ad22b1175b65"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473723.487995,
+          "updated": 1789473723.487995,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473731.155743
+        }
+      ],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "unknown",
+      "input": "我的阅读俱乐部叫什么名字？",
+      "expected": "承认不知道或询问，不编造名字",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.25,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "remember",
+      "input": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+      "expected": "接收明确记忆请求",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10899999993853271,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.01304006576538086
+        }
+      ],
+      "index": {
+        "indexed": 0,
+        "status": "ready"
+      },
+      "memories": [],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_1ff7f6658af646d0b4a94a56b2850d34",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_8ee8b7038c8449218efd72a9788891f5",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "case": "cross_session",
+      "input": "我的阅读俱乐部叫什么名字？",
+      "expected": "青苔灯塔；新会话无原始聊天上下文",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10899999993853271,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "paraphrase",
+      "input": "我加入的那个读书社群叫什么？",
+      "expected": "青苔灯塔；同义改写召回",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.125,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "correction_and_forget",
+      "status": "blocked",
+      "reason": "目标记忆未形成，无法测试纠正与遗忘"
+    },
+    {
+      "model": "deepseek",
+      "case": "multi_write",
+      "input": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+      "expected": "完整保留三个独立事实",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "multi_consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.022189855575561523
+        }
+      ],
+      "index": {
+        "indexed": 0,
+        "status": "ready"
+      },
+      "memories": [],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_1ff7f6658af646d0b4a94a56b2850d34",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_8ee8b7038c8449218efd72a9788891f5",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_f2798014555b4d6f8933069bfd3ed8fa",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_89a6d562b37146a8bb84b17e6b4c6f2d",
+          "body": "我加入的那个读书社群叫什么？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_daaed6c4745a4d5e88229f366947154e",
+          "body": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "case": "multi_read",
+      "input": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+      "expected": "银杏、雾松、围棋三项完整且不串用",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10899999993853271,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "buried_conflict_write",
+      "input": "请记住：我的常住城市是苏州。",
+      "expected": "识别与旧南京记录的冲突或明确更新，不能静默保留两个当前常住地",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.10900000017136335,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": []}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_c6f4f362bdba4cc7ac5b18c997284a60",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_eee61ea903a94262b06d6f1c71b4a4c9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.444256,
+          "updated": 1789473732.444256,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_c3124c0217d04433bc7d3d6a40dc4835",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_1ae182bfbd9843e4ad3af819e8e2b752"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.43975,
+          "updated": 1789473732.43975,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_35bc0feb583b4a60a378f3f55b9b0623",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_6a042b2490004ccba37e0b4c3825c083"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.434751,
+          "updated": 1789473732.434751,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8f4f2514fb2043acb75ba537c4d329fa",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_c6c81bc0cd314bba94860fa96f90a644"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.429247,
+          "updated": 1789473732.429247,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a79b7299a88642caa3a5bd6b5efb27ec",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_d474af6765ef488d9dfc43724e6bdc1d"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.424246,
+          "updated": 1789473732.424246,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_7a49f6119f4d4cdab284251f27ae86a9",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_739096e7280440c98818df008bb63ab6"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.418742,
+          "updated": 1789473732.418742,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f818e6d3a2aa4274a1b826b3d4468b96",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_4b5161608262432bbbb6fadc2f028394"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.412738,
+          "updated": 1789473732.412738,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a0e9c70abdcd48e8a125d57c055659dc",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_40abfbdf744d46aa8154500dc3619d11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.406236,
+          "updated": 1789473732.406236,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4604e1284eba4a5f9081a33216e1dd24",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d4e7433bb3ff45b5bae1b7c5fdacd0e4"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.401055,
+          "updated": 1789473732.401055,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_0c7648b3cc484123b1b79c4ff4b738f4",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_1eaef6fd103b4ddfb286a6a6614c7966"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.396054,
+          "updated": 1789473732.396054,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f5e5714086234e42bde8ef1cfd6fa15f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_ee4202cbaff04468a26ace21ff6c24cd"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.388547,
+          "updated": 1789473732.388547,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_d89a511712de454f9827aeb2a79bdebe",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_b60bda208f6b493b9d726282d9639a47"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.382876,
+          "updated": 1789473732.382876,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9c739e179bb548f1adb85d6c4716776c",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_fdd419cb7f1440f09a46e19d5b6609f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.375877,
+          "updated": 1789473732.375877,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "buried_conflict_consolidation",
+      "status": "observed",
+      "jobs": [
+        {
+          "status": "failed",
+          "memory_ids": [],
+          "error": "外部服务请求失败：ConnectError",
+          "calls": 1,
+          "provider_tokens": null,
+          "seconds": 0.014016151428222656
+        }
+      ],
+      "index": {
+        "indexed": 13,
+        "status": "ready"
+      },
+      "memories": [
+        {
+          "id": "mem_c6f4f362bdba4cc7ac5b18c997284a60",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_eee61ea903a94262b06d6f1c71b4a4c9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.444256,
+          "updated": 1789473732.444256,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_c3124c0217d04433bc7d3d6a40dc4835",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_1ae182bfbd9843e4ad3af819e8e2b752"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.43975,
+          "updated": 1789473732.43975,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_35bc0feb583b4a60a378f3f55b9b0623",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_6a042b2490004ccba37e0b4c3825c083"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.434751,
+          "updated": 1789473732.434751,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8f4f2514fb2043acb75ba537c4d329fa",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_c6c81bc0cd314bba94860fa96f90a644"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.429247,
+          "updated": 1789473732.429247,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a79b7299a88642caa3a5bd6b5efb27ec",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_d474af6765ef488d9dfc43724e6bdc1d"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.424246,
+          "updated": 1789473732.424246,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_7a49f6119f4d4cdab284251f27ae86a9",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_739096e7280440c98818df008bb63ab6"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.418742,
+          "updated": 1789473732.418742,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f818e6d3a2aa4274a1b826b3d4468b96",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_4b5161608262432bbbb6fadc2f028394"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.412738,
+          "updated": 1789473732.412738,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a0e9c70abdcd48e8a125d57c055659dc",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_40abfbdf744d46aa8154500dc3619d11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.406236,
+          "updated": 1789473732.406236,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4604e1284eba4a5f9081a33216e1dd24",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d4e7433bb3ff45b5bae1b7c5fdacd0e4"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.401055,
+          "updated": 1789473732.401055,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_0c7648b3cc484123b1b79c4ff4b738f4",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_1eaef6fd103b4ddfb286a6a6614c7966"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.396054,
+          "updated": 1789473732.396054,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f5e5714086234e42bde8ef1cfd6fa15f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_ee4202cbaff04468a26ace21ff6c24cd"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.388547,
+          "updated": 1789473732.388547,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_d89a511712de454f9827aeb2a79bdebe",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_b60bda208f6b493b9d726282d9639a47"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.382876,
+          "updated": 1789473732.382876,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9c739e179bb548f1adb85d6c4716776c",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_fdd419cb7f1440f09a46e19d5b6609f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.375877,
+          "updated": 1789473732.375877,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "operations": [],
+      "sources": [
+        {
+          "id": "src_1ff7f6658af646d0b4a94a56b2850d34",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_8ee8b7038c8449218efd72a9788891f5",
+          "body": "请记住：我参加的阅读俱乐部叫青苔灯塔。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_f2798014555b4d6f8933069bfd3ed8fa",
+          "body": "我的阅读俱乐部叫什么名字？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_89a6d562b37146a8bb84b17e6b4c6f2d",
+          "body": "我加入的那个读书社群叫什么？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_daaed6c4745a4d5e88229f366947154e",
+          "body": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_d094f377ce5247fb98fdfc138bc6883a",
+          "body": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_fdd419cb7f1440f09a46e19d5b6609f9",
+          "body": "我的常住城市是南京。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_b60bda208f6b493b9d726282d9639a47",
+          "body": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_ee4202cbaff04468a26ace21ff6c24cd",
+          "body": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_1eaef6fd103b4ddfb286a6a6614c7966",
+          "body": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_d4e7433bb3ff45b5bae1b7c5fdacd0e4",
+          "body": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_40abfbdf744d46aa8154500dc3619d11",
+          "body": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_4b5161608262432bbbb6fadc2f028394",
+          "body": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_739096e7280440c98818df008bb63ab6",
+          "body": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_d474af6765ef488d9dfc43724e6bdc1d",
+          "body": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_c6c81bc0cd314bba94860fa96f90a644",
+          "body": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_6a042b2490004ccba37e0b4c3825c083",
+          "body": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_1ae182bfbd9843e4ad3af819e8e2b752",
+          "body": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_eee61ea903a94262b06d6f1c71b4a4c9",
+          "body": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "purge_after": null,
+          "forgotten": 0
+        },
+        {
+          "id": "src_351e61690c3e4b81a1da6372d20a3598",
+          "body": "请记住：我的常住城市是苏州。",
+          "purge_after": null,
+          "forgotten": 0
+        }
+      ]
+    },
+    {
+      "model": "deepseek",
+      "case": "buried_conflict_read",
+      "input": "我的常住城市是哪座？如果记录矛盾，请明确指出。",
+      "expected": "采用有依据的新信息或澄清冲突，不错误断言南京",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 2,
+      "tokens": null,
+      "seconds": 0.5159999998286366,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": [{\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"我的常住城市是南京。\", \"created\": 1789473732.375877, \"enabled\": 0, \"expires\": null, \"id\": \"mem_9c739e179bb548f1adb85d6c4716776c\", \"kind\": \"profile\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.4915236305268653, \"sensitivity\": \"normal\", \"source_ids\": [\"src_fdd419cb7f1440f09a46e19d5b6609f9\"], \"updated\": 1789473732.375877, \"version\": 1}]}"
+        },
+        {
+          "type": "thinking.delta",
+          "data": "{\"delta\": \"主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_c6f4f362bdba4cc7ac5b18c997284a60",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_eee61ea903a94262b06d6f1c71b4a4c9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.444256,
+          "updated": 1789473732.444256,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_c3124c0217d04433bc7d3d6a40dc4835",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_1ae182bfbd9843e4ad3af819e8e2b752"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.43975,
+          "updated": 1789473732.43975,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_35bc0feb583b4a60a378f3f55b9b0623",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_6a042b2490004ccba37e0b4c3825c083"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.434751,
+          "updated": 1789473732.434751,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8f4f2514fb2043acb75ba537c4d329fa",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_c6c81bc0cd314bba94860fa96f90a644"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.429247,
+          "updated": 1789473732.429247,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a79b7299a88642caa3a5bd6b5efb27ec",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_d474af6765ef488d9dfc43724e6bdc1d"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.424246,
+          "updated": 1789473732.424246,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_7a49f6119f4d4cdab284251f27ae86a9",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_739096e7280440c98818df008bb63ab6"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.418742,
+          "updated": 1789473732.418742,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f818e6d3a2aa4274a1b826b3d4468b96",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_4b5161608262432bbbb6fadc2f028394"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.412738,
+          "updated": 1789473732.412738,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_a0e9c70abdcd48e8a125d57c055659dc",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_40abfbdf744d46aa8154500dc3619d11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.406236,
+          "updated": 1789473732.406236,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_4604e1284eba4a5f9081a33216e1dd24",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d4e7433bb3ff45b5bae1b7c5fdacd0e4"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.401055,
+          "updated": 1789473732.401055,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_0c7648b3cc484123b1b79c4ff4b738f4",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_1eaef6fd103b4ddfb286a6a6614c7966"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.396054,
+          "updated": 1789473732.396054,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f5e5714086234e42bde8ef1cfd6fa15f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_ee4202cbaff04468a26ace21ff6c24cd"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.388547,
+          "updated": 1789473732.388547,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_d89a511712de454f9827aeb2a79bdebe",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_b60bda208f6b493b9d726282d9639a47"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.382876,
+          "updated": 1789473732.382876,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9c739e179bb548f1adb85d6c4716776c",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_fdd419cb7f1440f09a46e19d5b6609f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.375877,
+          "updated": 1789473732.375877,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473732.749055
+        }
+      ],
+      "tools": []
+    },
+    {
+      "model": "deepseek",
+      "case": "after_retention",
+      "input": "我的自行车叫什么、读书小组叫什么、最喜欢哪种棋类？",
+      "expected": "清理来源正文后仍保留银杏、雾松、围棋",
+      "status": "failed",
+      "answer": "",
+      "error": "模型服务连续请求失败，请稍后重试",
+      "actual_model": "glm",
+      "calls": 3,
+      "tokens": null,
+      "seconds": 0.2190000000409782,
+      "citations": [],
+      "events": [
+        {
+          "type": "run.started",
+          "data": "{\"model\": \"deepseek\"}"
+        },
+        {
+          "type": "memory.retrieved",
+          "data": "{\"Agent Block\": [], \"Task Block\": [], \"Temporary\": [], \"User Block\": [{\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第7本画册的标签是纸鹤7。\", \"created\": 1789473732.418742, \"enabled\": 0, \"expires\": null, \"id\": \"mem_7a49f6119f4d4cdab284251f27ae86a9\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.37304737626595247, \"sensitivity\": \"normal\", \"source_ids\": [\"src_739096e7280440c98818df008bb63ab6\"], \"updated\": 1789473732.418742, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第5本画册的标签是纸鹤5。\", \"created\": 1789473732.406236, \"enabled\": 0, \"expires\": null, \"id\": \"mem_a0e9c70abdcd48e8a125d57c055659dc\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.37091157446816014, \"sensitivity\": \"normal\", \"source_ids\": [\"src_40abfbdf744d46aa8154500dc3619d11\"], \"updated\": 1789473732.406236, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第6本画册的标签是纸鹤6。\", \"created\": 1789473732.412738, \"enabled\": 0, \"expires\": null, \"id\": \"mem_f818e6d3a2aa4274a1b826b3d4468b96\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.37032535111671977, \"sensitivity\": \"normal\", \"source_ids\": [\"src_4b5161608262432bbbb6fadc2f028394\"], \"updated\": 1789473732.412738, \"version\": 1}, {\"accessed\": null, \"accesses\": 0, \"active\": 1, \"certainty\": \"reported\", \"confidence\": 0.9, \"content\": \"虚构收藏记录：第9本画册的标签是纸鹤9。\", \"created\": 1789473732.429247, \"enabled\": 0, \"expires\": null, \"id\": \"mem_8f4f2514fb2043acb75ba537c4d329fa\", \"kind\": \"episodic\", \"locked\": 0, \"parent_ids\": [], \"score\": 0.3659788618473228, \"sensitivity\": \"normal\", \"source_ids\": [\"src_c6c81bc0cd314bba94860fa96f90a644\"], \"updated\": 1789473732.429247, \"version\": 1}]}"
+        },
+        {
+          "type": "thinking.snapshot",
+          "data": "{\"text\": \"相关记忆分数接近，正在进行语义排序。语义重排未通过校验，保留代码排序。主模型失败，尝试备用模型\"}"
+        },
+        {
+          "type": "run.failed",
+          "data": "{\"answer\": \"\", \"citations\": [], \"message\": \"模型服务连续请求失败，请稍后重试\"}"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_c6f4f362bdba4cc7ac5b18c997284a60",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第12本画册的标签是纸鹤12。",
+          "source_ids": [
+            "src_eee61ea903a94262b06d6f1c71b4a4c9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.444256,
+          "updated": 1789473732.444256,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_c3124c0217d04433bc7d3d6a40dc4835",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第11本画册的标签是纸鹤11。",
+          "source_ids": [
+            "src_1ae182bfbd9843e4ad3af819e8e2b752"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.43975,
+          "updated": 1789473732.43975,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_35bc0feb583b4a60a378f3f55b9b0623",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第10本画册的标签是纸鹤10。",
+          "source_ids": [
+            "src_6a042b2490004ccba37e0b4c3825c083"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.434751,
+          "updated": 1789473732.434751,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_8f4f2514fb2043acb75ba537c4d329fa",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第9本画册的标签是纸鹤9。",
+          "source_ids": [
+            "src_c6c81bc0cd314bba94860fa96f90a644"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.429247,
+          "updated": 1789473732.429247,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473733.268702
+        },
+        {
+          "id": "mem_a79b7299a88642caa3a5bd6b5efb27ec",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第8本画册的标签是纸鹤8。",
+          "source_ids": [
+            "src_d474af6765ef488d9dfc43724e6bdc1d"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.424246,
+          "updated": 1789473732.424246,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_7a49f6119f4d4cdab284251f27ae86a9",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第7本画册的标签是纸鹤7。",
+          "source_ids": [
+            "src_739096e7280440c98818df008bb63ab6"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.418742,
+          "updated": 1789473732.418742,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473733.268702
+        },
+        {
+          "id": "mem_f818e6d3a2aa4274a1b826b3d4468b96",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第6本画册的标签是纸鹤6。",
+          "source_ids": [
+            "src_4b5161608262432bbbb6fadc2f028394"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.412738,
+          "updated": 1789473732.412738,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473733.268702
+        },
+        {
+          "id": "mem_a0e9c70abdcd48e8a125d57c055659dc",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第5本画册的标签是纸鹤5。",
+          "source_ids": [
+            "src_40abfbdf744d46aa8154500dc3619d11"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.406236,
+          "updated": 1789473732.406236,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473733.268702
+        },
+        {
+          "id": "mem_4604e1284eba4a5f9081a33216e1dd24",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第4本画册的标签是纸鹤4。",
+          "source_ids": [
+            "src_d4e7433bb3ff45b5bae1b7c5fdacd0e4"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.401055,
+          "updated": 1789473732.401055,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_0c7648b3cc484123b1b79c4ff4b738f4",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第3本画册的标签是纸鹤3。",
+          "source_ids": [
+            "src_1eaef6fd103b4ddfb286a6a6614c7966"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.396054,
+          "updated": 1789473732.396054,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_f5e5714086234e42bde8ef1cfd6fa15f",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第2本画册的标签是纸鹤2。",
+          "source_ids": [
+            "src_ee4202cbaff04468a26ace21ff6c24cd"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.388547,
+          "updated": 1789473732.388547,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_d89a511712de454f9827aeb2a79bdebe",
+          "kind": "episodic",
+          "content": "虚构收藏记录：第1本画册的标签是纸鹤1。",
+          "source_ids": [
+            "src_b60bda208f6b493b9d726282d9639a47"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.382876,
+          "updated": 1789473732.382876,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        },
+        {
+          "id": "mem_9c739e179bb548f1adb85d6c4716776c",
+          "kind": "profile",
+          "content": "我的常住城市是南京。",
+          "source_ids": [
+            "src_fdd419cb7f1440f09a46e19d5b6609f9"
+          ],
+          "confidence": 0.9,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789473732.375877,
+          "updated": 1789473732.375877,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 1,
+          "accessed": 1789473732.749055
+        }
+      ],
+      "tools": []
+    }
+  ],
+  "checks": [
+    {
+      "case": "forget_preserves_unrelated_fact_from_shared_source",
+      "passed": false,
+      "expected": "忘记自行车名字后，读书小组名字仍可用"
+    },
+    {
+      "case": "temporary_expiry",
+      "passed": true
+    }
+  ],
+  "finished": 1789473733.660188
+}

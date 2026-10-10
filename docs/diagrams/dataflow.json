@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "消息如何成为可追踪的记忆",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      570
+    ]
+  },
+  "stages": [
+    {
+      "label": "来源"
+    },
+    {
+      "label": "决策"
+    },
+    {
+      "label": "质量门"
+    },
+    {
+      "label": "存储"
+    },
+    {
+      "label": "上下文"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "source",
+      "type": "frontend",
+      "label": "用户消息",
+      "sublabel": "ID / 时间 / 哈希",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "operation",
+      "type": "backend",
+      "label": "MemoryOperation",
+      "sublabel": "事件驱动提取",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "verify",
+      "type": "security",
+      "label": "确定性与风险校验",
+      "sublabel": "高风险增加独立校验",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "longterm",
+      "type": "database",
+      "label": "五类长期记忆",
+      "sublabel": "来源 / 版本 / lineage",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "blocks",
+      "type": "backend",
+      "label": "Memory Blocks",
+      "sublabel": "相关片段进入 Run",
+      "stage": 4,
+      "row": 0
+    },
+    {
+      "id": "temporary",
+      "type": "database",
+      "label": "短期位置",
+      "sublabel": "带有效期，不改常住地",
+      "stage": 1,
+      "row": 2
+    },
+    {
+      "id": "retrieval",
+      "type": "backend",
+      "label": "混合检索",
+      "sublabel": "FTS5 / 向量 / 重排",
+      "stage": 3,
+      "row": 2
+    }
+  ],
+  "flows": [
+    {
+      "from": "source",
+      "to": "operation",
+      "label": "事件",
+      "route": "straight"
+    },
+    {
+      "from": "operation",
+      "to": "verify",
+      "label": "IR"
+    },
+    {
+      "from": "verify",
+      "to": "longterm",
+      "label": "通过"
+    },
+    {
+      "from": "retrieval",
+      "to": "blocks",
+      "label": "相关记忆"
+    },
+    {
+      "from": "longterm",
+      "to": "retrieval",
+      "label": "召回",
+      "labelDy": 50
+    },
+    {
+      "from": "source",
+      "to": "temporary",
+      "label": "临时信息"
+    },
+    {
+      "from": "temporary",
+      "to": "retrieval",
+      "label": "TTL 过滤"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "失效控制",
+      "items": [
+        "忘记同时屏蔽来源、派生内容与缓存",
+        "来源清理保留哈希与 lineage"
+      ]
+    }
+  ]
+}

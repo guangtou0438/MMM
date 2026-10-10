@@ -1,0 +1,2165 @@
+{
+  "model": "deepseek",
+  "synthetic_only": true,
+  "clock_utc": "2026-09-15T15:00:11.566197+00:00",
+  "local_date": "2026-09-16",
+  "expected_tomorrow": "2026-09-17",
+  "expected_day_after": "2026-09-18",
+  "cases": [
+    {
+      "name": "create_tomorrow",
+      "api_payload": {
+        "content": "请明天创建一项标题严格为「合成图书馆复习 Z」的任务，只创建这一项。",
+        "request_id": "13d65f21abd6471c8c6f39ee294df090",
+        "session_key": "native-walkthrough",
+        "model": "deepseek",
+        "kind": "complex"
+      },
+      "run": {
+        "id": "run_a63548edd64f439da9223845c9febb53",
+        "status": "completed",
+        "answer": "已在明天（2026-09-17）创建任务「合成图书馆复习 Z」，状态为待办，且按要求仅创建了这一项。",
+        "error": null,
+        "calls": 3,
+        "actual_tokens": 5755
+      },
+      "tool_calls": [
+        {
+          "skill": "calendar",
+          "tool": "create_task",
+          "arguments": "{\"activity_type\": \"task\", \"planned_date\": \"2026-09-17\", \"title\": \"合成图书馆复习 Z\"}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-17\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 1}"
+        }
+      ],
+      "history": [
+        {
+          "role": "user",
+          "tool_call_id": null,
+          "function": null,
+          "content": "请明天创建一项标题严格为「合成图书馆复习 Z」的任务，只创建这一项。"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": "calendar__create_task",
+          "content": "{\"action\": \"tool\", \"arguments\": {\"activity_type\": \"task\", \"planned_date\": \"2026-09-17\", \"title\": \"合成图书馆复习 Z\"}, \"expected_version\": null, \"skill\": \"calendar\", \"tool\": \"create_task\"}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b7e987cef4e2494c92e31334",
+          "function": null,
+          "content": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-17\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 1}"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": null,
+          "content": "{\"action\": \"answer\", \"answer\": \"已在明天（2026-09-17）创建任务「合成图书馆复习 Z」，状态为待办，且按要求仅创建了这一项。\", \"citation_ids\": []}"
+        }
+      ],
+      "tasks_after": [
+        {
+          "id": 1,
+          "title": "合成图书馆复习 Z",
+          "planned_date": "2026-09-17",
+          "deadline_date": null,
+          "version": 1,
+          "status": "open"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "update_to_day_after",
+      "api_payload": {
+        "content": "把刚创建的「合成图书馆复习 Z」任务从明天改到后天。先读取任务当前版本，只修改计划日期，不创建新任务。",
+        "request_id": "b4156aa90f1f46909b9d255a98379bb6",
+        "session_key": "native-walkthrough",
+        "model": "deepseek",
+        "kind": "complex"
+      },
+      "run": {
+        "id": "run_84f68ff59db343ef860c576b34ebe73b",
+        "status": "completed",
+        "answer": "已按要求操作：\n\n- 先读取了任务当前版本：任务「合成图书馆复习 Z」（ID 1，版本 1），原计划日期为 2026-09-17（明天）。\n- 仅修改了计划日期，将其从 2026-09-17 改为 2026-09-18（后天），未创建新任务，其他字段保持不变。\n- 更新后版本为 2，当前计划日期为 2026-09-18，状态仍为待办。",
+        "error": null,
+        "calls": 3,
+        "actual_tokens": 8741
+      },
+      "tool_calls": [
+        {
+          "skill": "calendar",
+          "tool": "read_calendar",
+          "arguments": "{\"end\": \"2026-09-20\", \"start\": \"2026-09-16\"}",
+          "status": "completed",
+          "result": "{\"tasks\": [{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-17\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 1}]}"
+        },
+        {
+          "skill": "calendar",
+          "tool": "update_task",
+          "arguments": "{\"changes\": {\"planned_date\": \"2026-09-18\"}, \"session_id\": 1}",
+          "status": "completed",
+          "result": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-18\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 2}"
+        }
+      ],
+      "history": [
+        {
+          "role": "user",
+          "tool_call_id": null,
+          "function": null,
+          "content": "请明天创建一项标题严格为「合成图书馆复习 Z」的任务，只创建这一项。"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": null,
+          "content": "已在明天（2026-09-17）创建任务「合成图书馆复习 Z」，状态为待办，且按要求仅创建了这一项。"
+        },
+        {
+          "role": "user",
+          "tool_call_id": null,
+          "function": null,
+          "content": "把刚创建的「合成图书馆复习 Z」任务从明天改到后天。先读取任务当前版本，只修改计划日期，不创建新任务。"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": "calendar__read_calendar",
+          "content": "{\"action\": \"tool\", \"arguments\": {\"end\": \"2026-09-20\", \"start\": \"2026-09-16\"}, \"expected_version\": null, \"skill\": \"calendar\", \"tool\": \"read_calendar\"}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_00_Cf6v4Znl4pKdV4yP596P5574",
+          "function": null,
+          "content": "{\"tasks\": [{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-17\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 1}]}"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": "calendar__update_task",
+          "content": "{\"action\": \"tool\", \"arguments\": {\"changes\": {\"planned_date\": \"2026-09-18\"}, \"session_id\": 1}, \"expected_version\": 1, \"skill\": \"calendar\", \"tool\": \"update_task\"}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_00_NO4jsFYQCa5NgiqmzXZj6691",
+          "function": null,
+          "content": "{\"activity_type\": \"task\", \"agenda\": [], \"archived_at\": null, \"created_at\": \"2026-09-15T15:00:11.566197+00:00\", \"deadline_date\": null, \"has_session\": true, \"id\": 1, \"migration_metadata\": {\"activity_type\": \"task\"}, \"planned_date\": \"2026-09-18\", \"session_goal\": \"\", \"status\": \"open\", \"title\": \"合成图书馆复习 Z\", \"topic_id\": null, \"version\": 2}"
+        },
+        {
+          "role": "assistant",
+          "tool_call_id": null,
+          "function": null,
+          "content": "{\"action\": \"answer\", \"answer\": \"已按要求操作：\\n\\n- 先读取了任务当前版本：任务「合成图书馆复习 Z」（ID 1，版本 1），原计划日期为 2026-09-17（明天）。\\n- 仅修改了计划日期，将其从 2026-09-17 改为 2026-09-18（后天），未创建新任务，其他字段保持不变。\\n- 更新后版本为 2，当前计划日期为 2026-09-18，状态仍为待办。\", \"citation_ids\": []}"
+        }
+      ],
+      "tasks_after": [
+        {
+          "id": 1,
+          "title": "合成图书馆复习 Z",
+          "planned_date": "2026-09-18",
+          "deadline_date": null,
+          "version": 2,
+          "status": "open"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "requests": [
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_uGHjag8DAmrYB3WDEmg01744",
+            "type": "function",
+            "function": {
+              "name": "calendar__read_calendar",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "start"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "16"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "end"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "17"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "id": "call_01_cAFR4xFSeCI3uEccgnfp6406",
+            "type": "function",
+            "function": {
+              "name": "memory__search_memory",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "query"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "合成"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "图书馆"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "复习"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": " Z"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 1,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "id": "call_b7e987cef4e2494c92e31334",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "calendar__create_task",
+              "arguments": "{\"activity_type\":\"task\",\"planned_date\":\"2026-09-17\",\"title\":\"合成图书馆复习 Z\"}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "glm",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_b7e987cef4e2494c92e31334"
+      ],
+      "received_calls": [
+        [
+          {
+            "id": "call_fcf778aa9fb54fb38bb96d8d",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": "{\"answer\":\"已在明天（2026-09-17）创建任务「合成图书馆复习 Z」，状态为待办，且按要求仅创建了这一项。\",\"citation_ids\":[]}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_Cf6v4Znl4pKdV4yP596P5574",
+            "type": "function",
+            "function": {
+              "name": "calendar__read_calendar",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "start"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "16"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "end"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "20"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_Cf6v4Znl4pKdV4yP596P5574"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_NO4jsFYQCa5NgiqmzXZj6691",
+            "type": "function",
+            "function": {
+              "name": "calendar__update_task",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "session"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_id"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "changes"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "planned"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_date"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\":"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " \""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "18"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "expected"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_version"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    },
+    {
+      "model": "deepseek",
+      "native_functions": [
+        "complete_answer",
+        "request_clarification",
+        "calendar__read_calendar",
+        "calendar__create_task",
+        "calendar__update_task",
+        "calendar__complete_task",
+        "calendar__archive_task",
+        "calendar__restore_task",
+        "weather_planning__read_calendar",
+        "weather_planning__get_weather",
+        "weather_planning__create_adjustment_suggestion",
+        "memory__search_memory"
+      ],
+      "tool_result_ids": [
+        "call_00_Cf6v4Znl4pKdV4yP596P5574",
+        "call_00_NO4jsFYQCa5NgiqmzXZj6691"
+      ],
+      "received_calls": [
+        [
+          {
+            "index": 0,
+            "id": "call_00_ET_efdiB1Je1oFsgorv63Ti2007",
+            "type": "function",
+            "function": {
+              "name": "complete_answer",
+              "arguments": ""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "{"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "answer"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "已"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "按要求"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "操作"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "：\\n\\n"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "先"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "读取"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "了"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "当前"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "版本"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "："
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "「"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "合成"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "图书馆"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "复习"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " Z"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "」（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "ID"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "版本"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "1"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "），"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "原"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "17"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "明天"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "）。\\n"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "仅"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "修改"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "了"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "将其"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "从"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "17"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "改为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "18"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "（"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "后天"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "），"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "未"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "创建"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "新"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "任务"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "其他"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "字段"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "保持不变"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "。\\n"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "更新"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "后"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "版本"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "2"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "当前"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "计划"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "日期"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": " "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "202"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "6"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "09"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "-"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "18"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "，"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "状态"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "仍"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "为"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "待"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "办"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "。"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ", "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "citation"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "_ids"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "\""
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": ": "
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "[]"
+            }
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "function": {
+              "arguments": "}"
+            }
+          }
+        ]
+      ],
+      "finish": "tool_calls"
+    }
+  ]
+}

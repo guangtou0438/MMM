@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "记忆来源 · 巩固与保留生命周期",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1040,
+      600
+    ]
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "来源正文生命周期"
+    },
+    {
+      "id": "waiting",
+      "label": "质量未通过"
+    }
+  ],
+  "states": [
+    {
+      "id": "raw",
+      "type": "start",
+      "label": "来源消息",
+      "sublabel": "正文与哈希",
+      "lane": "main",
+      "col": 0
+    },
+    {
+      "id": "candidate",
+      "type": "active",
+      "label": "候选操作",
+      "sublabel": "事件触发",
+      "lane": "main",
+      "col": 1
+    },
+    {
+      "id": "verified",
+      "type": "decision",
+      "label": "质量门通过",
+      "sublabel": "来源与版本校验",
+      "lane": "main",
+      "col": 2
+    },
+    {
+      "id": "recovery",
+      "type": "active",
+      "label": "七天恢复期",
+      "sublabel": "可纠正或重新处理",
+      "lane": "main",
+      "col": 3
+    },
+    {
+      "id": "purged",
+      "type": "success",
+      "label": "正文已清理",
+      "sublabel": "哈希与 lineage 保留",
+      "lane": "main",
+      "col": 4
+    },
+    {
+      "id": "blocked",
+      "type": "waiting",
+      "label": "保留原文",
+      "sublabel": "等待纠正或重新校验",
+      "lane": "waiting",
+      "col": 0
+    }
+  ],
+  "transitions": [
+    {
+      "from": "verified",
+      "to": "blocked",
+      "label": "拒绝删除",
+      "labelDy": 45,
+      "labelDx": 55
+    },
+    {
+      "from": "blocked",
+      "to": "verified",
+      "label": "重新校验",
+      "labelDx": -55
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "清理条件",
+      "items": [
+        "导致原文删除的压缩必须经过独立质量门",
+        "用户要求忘记时立即退出可用上下文，物理清理由保留任务执行"
+      ]
+    }
+  ]
+}

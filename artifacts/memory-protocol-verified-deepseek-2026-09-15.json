@@ -1,0 +1,73 @@
+{
+  "synthetic_only": true,
+  "source": "请记住这三件事：我的自行车叫银杏；我的读书小组叫雾松；我最喜欢的棋类是围棋。",
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "status": "done",
+        "memory_ids": [
+          "mem_8769229e913b430386d465185f9282b8"
+        ],
+        "error": null,
+        "calls": 2,
+        "provider_tokens": 1587,
+        "seconds": 4.2749857902526855,
+        "diagnostics": null,
+        "format_normalizations": [],
+        "generation_errors": []
+      },
+      "raw_validation_errors": [],
+      "calls": [
+        {
+          "model": "deepseek",
+          "raw": "{\"operation\": \"ADD\", \"source_ids\": [\"src_a4fe323c74bb44cf9b8e1c154ae4cd46\"], \"kind\": \"profile\", \"content\": \"用户明确要求记住三件事：其自行车名为「银杏」；其读书小组名为「雾松」；其最喜欢的棋类是围棋。\", \"fragments\": [\"自行车名称：银杏\", \"读书小组名称：雾松\", \"最喜欢的棋类：围棋\"], \"certainty\": \"reported\", \"confidence\": 0.95, \"sensitivity\": \"normal\", \"expires\": null}",
+          "tokens": 1150,
+          "sha256": "62ed302d1eda6ef534c4502ca12fc4c24b9c3ca308eb4693fa06896ebada1cea"
+        },
+        {
+          "model": "deepseek",
+          "raw": "{\"approved\":true,\"reason\":\"操作内容与来源证据完全一致，准确记录了自行车名称、读书小组名称和最喜欢的棋类，未添加或遗漏信息，来源链接已标注。\"}",
+          "tokens": 437,
+          "sha256": "67feb74b839983ea9883c7bbe9b29d759e63bbe7fdb3e4b1fea53066a00ecd8d"
+        }
+      ],
+      "memories": [
+        {
+          "id": "mem_8769229e913b430386d465185f9282b8",
+          "kind": "profile",
+          "content": "用户明确要求记住三件事：其自行车名为「银杏」；其读书小组名为「雾松」；其最喜欢的棋类是围棋。",
+          "source_ids": [
+            "src_a4fe323c74bb44cf9b8e1c154ae4cd46"
+          ],
+          "confidence": 0.95,
+          "certainty": "reported",
+          "sensitivity": "normal",
+          "version": 1,
+          "locked": 0,
+          "active": 1,
+          "enabled": 0,
+          "created": 1789475695.589619,
+          "updated": 1789475695.589619,
+          "expires": null,
+          "parent_ids": [],
+          "accesses": 0,
+          "accessed": null
+        }
+      ],
+      "index": {
+        "indexed": 1,
+        "status": "ready"
+      },
+      "recall": {
+        "status": "completed",
+        "answer": "根据你之前让我记住的信息：\n\n- 自行车名称：**银杏**\n- 读书小组名称：**雾松**\n- 最喜欢的棋类：**围棋**",
+        "error": null,
+        "calls": 1,
+        "actual_tokens": 2233,
+        "model": "deepseek",
+        "citations": "[\"mem_8769229e913b430386d465185f9282b8\"]"
+      }
+    }
+  ]
+}

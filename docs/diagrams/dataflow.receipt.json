@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "E:\\ai\\MMM\\docs\\diagrams\\dataflow.json",
+  "output": "E:\\ai\\MMM\\docs\\diagrams\\dataflow.html",
+  "specification": {
+    "sha256": "76e5b13aa65ab743fddbfafd83e500d631dc10f807950582029c1395b1fe20e1",
+    "bytes": 2709
+  },
+  "artifact": {
+    "sha256": "10239ddec6203099d3bbb38bf560ecc56a0cf923a66ba09767ba7d8e42672893",
+    "bytes": 708362
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

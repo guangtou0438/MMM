@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "E:\\ai\\MMM\\artifacts\\archify\\architecture.json",
+  "output": "E:\\ai\\MMM\\artifacts\\archify\\architecture.html",
+  "specification": {
+    "sha256": "00d912777a0142b7227ff663fb95f6ac920e238ac86660f645e85f620cf3e045",
+    "bytes": 3929
+  },
+  "artifact": {
+    "sha256": "dfb97686a2d6c4aece35f4b07e97b3c389795ccdd953cf980a553727d71e5f25",
+    "bytes": 710868
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

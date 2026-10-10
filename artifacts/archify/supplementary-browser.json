@@ -1,0 +1,77 @@
+{
+  "kind": "supplementary-browser",
+  "artifact": {
+    "sha256": "2bd97f562ab0940d982a6dd3888fd0075c02a74c477a28d3c7151a89120c4a81",
+    "bytes": 711315
+  },
+  "measurements": [
+    {
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "theme": "light"
+    },
+    {
+      "width": 1600,
+      "height": 1000,
+      "scrollWidth": 1600,
+      "scrollHeight": 1000,
+      "theme": "light"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "theme": "light"
+    },
+    {
+      "width": 2048,
+      "height": 1320,
+      "scrollWidth": 2048,
+      "scrollHeight": 1320,
+      "theme": "light"
+    }
+  ],
+  "screenshots": [
+    "mmm-1440-light.png",
+    "mmm-1440-dark.png",
+    "mmm-2048-light.png",
+    "mmm-2048-dark.png"
+  ],
+  "buttons": [
+    "\n      \n      深色\n    ",
+    "\n        \n        经典\n        \n      ",
+    "\n      \n      演示\n    ",
+    "\n        导出 \n      ",
+    "浏览器工作台 → FastAPI 接口 · HTTP /api",
+    "FastAPI 接口 → 统一任务写服务 · 手动操作",
+    "统一任务写服务 → 本地 SQLite · 事务写入",
+    "FastAPI 接口 → 对话编排与检索 · 聊天入口",
+    "对话编排与检索 → 配置的模型 API · 请求／回复",
+    "对话编排与检索 → 统一任务写服务 · 执行或待确认",
+    "进程内定时器 → 后台记忆整理 · 触发整理",
+    "后台记忆整理 → 本地 SQLite · 读原文／存记忆",
+    "\n          浏览器工作台 · 日历 · 首页聊天 · 任务会话 · 架构组件\n          \n          \n          \n            \n            \n            \n            \n          \n          浏览器工作台\n        日历 · 首页聊天 · 任务会话\n        ",
+    "\n          FastAPI 接口 · 参数校验 · 入口隔离 · 架构组件\n          \n          \n          \n            \n          \n          FastAPI 接口\n        参数校验 · 入口隔离\n        ",
+    "\n          统一任务写服务 · 权限 · 版本 · 日期 · 幂等 · 架构组件\n          \n          \n          \n            \n          \n          统一任务写服务\n        权限 · 版本 · 日期 · 幂等\n        ",
+    "\n          本地 SQLite · 任务 · 原文 · 记忆 · 回执 · 架构组件\n          \n          \n          \n            \n            \n          \n          本地 SQLite\n        任务 · 原文 · 记忆 · 回执\n        ",
+    "\n          对话编排与检索 · 上下文 → 提案 → 业务校验 · 架构组件\n          \n          \n          \n            \n          \n          对话编排与检索\n        上下文 → 提案 → 业务校验\n        ",
+    "\n          配置的模型 API · JSON 回复 · 操作提案 · 架构组件\n          \n          \n          \n            \n            \n          \n          配置的模型 API\n        JSON 回复 · 操作提案\n        ",
+    "\n          进程内定时器 · 每 30 秒检查积压 · 架构组件\n          \n          \n          \n            \n          \n          进程内定时器\n        每 30 秒检查积压\n        ",
+    "\n          后台记忆整理 · 增量提取 · 日／月／季／年 · 架构组件\n          \n          \n          \n            \n          \n          后台记忆整理\n        增量提取 · 日／月／季／年\n        ",
+    "\n            \n            前端\n          1",
+    "\n            \n            后端\n          5",
+    "\n            \n            数据库\n          1",
+    "\n            \n            外部系统\n          1",
+    "路径",
+    "地图",
+    "透镜",
+    "",
+    "",
+    "",
+    "阅读100%",
+    ""
+  ]
+}

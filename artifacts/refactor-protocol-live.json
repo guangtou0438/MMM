@@ -1,0 +1,10 @@
+{
+  "mode": "live",
+  "synthetic_only": true,
+  "status": "completed",
+  "error": null,
+  "calls": 2,
+  "provider_tokens": 4197,
+  "answer": "The task 'Synthetic report' has been created with a planned date of 2026-09-07 (task ID 1, status: open).",
+  "created": true
+}

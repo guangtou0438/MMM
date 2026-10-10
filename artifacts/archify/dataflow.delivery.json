@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "E:\\ai\\MMM\\artifacts\\archify\\dataflow.json",
+  "output": "E:\\ai\\MMM\\artifacts\\archify\\dataflow.html",
+  "specification": {
+    "sha256": "52361fc066cad9a55d5b70b8416dcac9cd96bc7f8d5e2733f05bb4666139b1f4",
+    "bytes": 4131
+  },
+  "artifact": {
+    "sha256": "5b9f9156b619cde54de6c42855f7e1fdb838515d8bafeb4475440f2fe99535d9",
+    "bytes": 713561
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "architecture": {
+    "diagram_type": "architecture",
+    "output": "E:\\ai\\MMM\\artifacts\\archify\\architecture.html",
+    "specification_sha256": "00d912777a0142b7227ff663fb95f6ac920e238ac86660f645e85f620cf3e045",
+    "artifact_sha256": "dfb97686a2d6c4aece35f4b07e97b3c389795ccdd953cf980a553727d71e5f25",
+    "validation": "9/9 showcase, 0 errors, 0 warnings",
+    "browser_evidence": "passed",
+    "visual_review": "passed",
+    "correction_rounds": 0,
+    "review_scope": "1440×900 light and 2048×1320 dark screenshots; automated containment at four desktop sizes"
+  },
+  "dataflow": {
+    "diagram_type": "dataflow",
+    "output": "E:\\ai\\MMM\\artifacts\\archify\\dataflow.html",
+    "specification_sha256": "52361fc066cad9a55d5b70b8416dcac9cd96bc7f8d5e2733f05bb4666139b1f4",
+    "artifact_sha256": "5b9f9156b619cde54de6c42855f7e1fdb838515d8bafeb4475440f2fe99535d9",
+    "validation": "9/9 showcase, 0 errors, 0 warnings",
+    "browser_evidence": "passed",
+    "visual_review": "passed",
+    "correction_rounds": 0,
+    "review_scope": "1440×900 light and 2048×1320 dark screenshots; automated containment at four desktop sizes"
+  }
+}

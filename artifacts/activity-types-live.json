@@ -1,0 +1,52 @@
+{
+  "reply": "好的！\n\n已创建「跟朋友吃饭」，计划日 2026-09-07。\n已创建「学习 LeetCode」，计划日 2026-09-08。",
+  "message_id": 2,
+  "citations": [
+    {
+      "message_id": 1,
+      "session_id": null,
+      "href": "/?message=1",
+      "label": "来源 #1 · 2026-09-06"
+    }
+  ],
+  "saved_sessions": [
+    {
+      "id": 1,
+      "activity_type": "arrangement",
+      "has_session": false,
+      "title": "跟朋友吃饭",
+      "session_goal": "",
+      "planned_date": "2026-09-07",
+      "deadline_date": null,
+      "agenda": [],
+      "status": "open",
+      "archived_at": null,
+      "version": 1,
+      "created_at": "2026-09-06T00:00:00+00:00",
+      "topic_id": null,
+      "migration_metadata": {
+        "activity_type": "arrangement"
+      }
+    },
+    {
+      "id": 2,
+      "activity_type": "task",
+      "has_session": true,
+      "title": "学习 LeetCode",
+      "session_goal": "",
+      "planned_date": "2026-09-08",
+      "deadline_date": null,
+      "agenda": [],
+      "status": "open",
+      "archived_at": null,
+      "version": 1,
+      "created_at": "2026-09-06T00:00:00+00:00",
+      "topic_id": null,
+      "migration_metadata": {
+        "activity_type": "task"
+      }
+    }
+  ],
+  "suggestion_ids": [],
+  "attempts": []
+}
