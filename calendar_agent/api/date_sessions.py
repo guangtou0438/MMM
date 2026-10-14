@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import select, text
 from ..models import (CalendarSession, AssistantMessage, LifecycleEvent, TaskSuggestion, Topic,
                       MemoryJob, HomeReview, SessionMigration, utc_now)
-from .calendar_session_schemas import (CalendarSessionCreate, SessionAction, SessionUpdate, ChatInput, SuggestionDecision)
+from .calendar_session_schemas import (CalendarSessionCreate, SessionAction, SessionUpdate, ChatInput, SuggestionDecision, TrashEmpty)
 from ..core import date_tasks as service
 from ..memory.personal import blocked_sources, citation
 
@@ -197,6 +197,32 @@ def dismiss_review(payload: dict, request: Request):
         if not row: service.fail(404, '回顾不存在')
         row.dismissed_at = clock(request); db.commit()
         return {'status': 'dismissed'}
+
+
+@router.post('/trash/delete-permanently/confirm')
+def empty_trash(payload: TrashEmpty, request: Request):
+    """Permanently delete the listed trash items; ids no longer in the trash are skipped, never touched."""
+    if request.headers.get('x-ui-action') != 'permanent-delete':
+        service.fail(403, '永久删除必须由明确的 UI 确认控件触发')
+    now = clock(request)
+    ids = sorted(set(payload.session_ids))
+    value = {'session_ids': ids, 'request_id': payload.request_id}
+    key = 'empty-trash:' + payload.request_id
+    with request.app.state.planning_lock, factory(request)() as db:
+        db.execute(text('BEGIN IMMEDIATE'))
+        cached = service.receipt(db, key, value)
+        if cached is not None: return cached
+        deleted, skipped = [], []
+        for session_id in ids:
+            row = db.get(CalendarSession, session_id)
+            if not row or service.is_deleted(row) or row.archived_at is None:
+                skipped.append(session_id); continue
+            service.permanently_delete(db, row, row.version, now)
+            deleted.append(session_id)
+        result = {'status': 'deleted', 'deleted': deleted, 'skipped': skipped}
+        service.save_receipt(db, key, value, result, now)
+        db.commit()
+        return result
 
 
 @router.post('/sessions/{session_id}/delete-permanently/confirm')

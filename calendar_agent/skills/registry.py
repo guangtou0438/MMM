@@ -18,8 +18,10 @@ class Skill:
 
 
 SKILLS = {
-    'calendar': Skill('calendar', ('read_calendar', 'create_task', 'update_task', 'complete_task', 'archive_task', 'restore_task'),
-                      '仅在用户当前请求范围内管理任务。修改前先读取当前版本。', writes=True),
+    'calendar': Skill('calendar', ('read_calendar', 'create_task', 'create_recurring_tasks', 'update_task', 'complete_task', 'archive_task', 'restore_task'),
+                      '仅在用户当前请求范围内管理任务。修改前先读取当前版本。每天、每周等重复的安排或习惯（含没有结束时间的长期习惯）一律用 create_recurring_tasks 一次调用完成，'
+                      '不要用 create_task 只建一天；用户没说结束时间就不填 until_date，之后如实告知排到了哪一天（open_ended 为真时说明可随时让你继续往后排）。'
+                      '一次回复只能调用一个函数。', writes=True),
     'weather_planning': Skill('weather_planning', ('read_calendar', 'get_weather', 'create_adjustment_suggestion'),
                               '优先使用明确指定的地点，其次使用临时地点，最后使用常住地。有歧义时询问用户。只提出因天气而调整日程的建议。',
                               writes=True, network=('api.open-meteo.com', 'geocoding-api.open-meteo.com')),

@@ -8,7 +8,7 @@
     failed: '这次没能完成' + (error ? '：' + error : ''), cancelled: '已停止',
     waiting_for_user: '等你补充一点信息'})[status] || '';
   const KIND = {profile: '画像', preference: '偏好', episodic: '经历', task: '任务', procedural: '做事方式'};
-  const TOOL = {read_calendar: '查看日历', create_task: '新建任务', update_task: '调整任务', complete_task: '完成任务',
+  const TOOL = {read_calendar: '查看日历', create_task: '新建任务', create_recurring_tasks: '新建重复任务', update_task: '调整任务', complete_task: '完成任务',
     archive_task: '移到回收站', restore_task: '从回收站恢复', get_weather: '查询天气',
     create_adjustment_suggestion: '提出调整建议', search_memory: '查找记忆'};
   const traceEntry = (type, data) => {
@@ -168,7 +168,9 @@
   document.addEventListener('agenda-saved',event=>{const id=event.detail.id;if(pendingTaskSync.delete(id))syncTaskDetails(id).catch(report);});
   function turnMessage(role,content) {
     const article=node('article',undefined,'message '+role);
-    article.append(node('span',role==='user'?'你':'MMM','role'),node('div',content,'content'));
+    const body=node('div',role==='user'?content:'','content');
+    if(role!=='user'&&content)MD.setMarkdown(body,content);
+    article.append(node('span',role==='user'?'你':'MMM','role'),body);
     return article;
   }
   function positionTurn(turn,focusPage=false) {
@@ -217,7 +219,7 @@
       const seq=Number(event.lastEventId);if(seq<=cursor||!visible())return;cursor=seq;
       const data=JSON.parse(event.data),text=snapshot?data.text:data.delta;
       if(!text)return;
-      answer.textContent=snapshot?text:answer.textContent+text;
+      snapshot?MD.setMarkdown(answer,text):MD.appendMarkdown(answer,text);
       taskDots.hidden=false;article.append(taskDots);
       $('session-chat-status').textContent='正在回答…';followTurn(turn);
     }
@@ -229,7 +231,7 @@
       const result=await api('/api/agent/runs/'+watchedId);
       if(['queued','running'].includes(result.status)||!visible())return;
       ending=true;source.close();taskRun=result;sessionBusy=false;taskDots.hidden=true;
-      if(result.answer)answer.textContent=result.answer;
+      if(result.answer)MD.setMarkdown(answer,result.answer);
       $('session-chat-form').querySelector('button').disabled=current.status!=='open'||!!current.archived_at;
       $('session-chat-status').textContent=result.error||(result.status==='waiting_for_user'?'等待你的补充':'在此任务内继续对话');
       followTurn(turn);await syncTaskDetails(id);await refresh();
@@ -433,8 +435,8 @@
     for (const type of types) source.addEventListener(type, async event => {
       const seq = Number(event.lastEventId); if (!valid() || seq <= cursor) return; cursor = seq;
       const data = JSON.parse(event.data);
-      if (type === 'answer.delta') {if(answer) answer.textContent += data.delta;homeDots.hidden=true;followAnswer($('agent-answer'));}
-      else if (type === 'answer.snapshot') {if(answer) answer.textContent = data.text;homeDots.hidden=true;followAnswer($('agent-answer'));}
+      if (type === 'answer.delta') {if(answer) MD.appendMarkdown(answer, data.delta);homeDots.hidden=true;followAnswer($('agent-answer'));}
+      else if (type === 'answer.snapshot') {if(answer) MD.setMarkdown(answer, data.text);homeDots.hidden=true;followAnswer($('agent-answer'));}
       else if (type === 'thinking.snapshot') $('agent-thinking').append(node('p', data.text));
       else if (type === 'thinking.delta') $('agent-thinking').append(node('p', data.delta));
       else if (!type.startsWith('run.')) { const entry = traceEntry(type, data); if (entry) $('agent-trace').append(entry); }

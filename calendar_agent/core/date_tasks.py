@@ -96,6 +96,23 @@ def create(db, payload, now, *, confirmed_duplicates=()):
     db.add(LifecycleEvent(session_id=row.id, kind='created', detail={'planned_date': str(row.planned_date)}, created_at=now))
     return row
 
+def create_recurring(db, payload, now):
+    start = max(payload.start_date or today(now), today(now))
+    until = payload.until_date or start + timedelta(days=55)  # open-ended habits: a rolling 8-week window
+    if until < start: fail(422, '重复截止日期不能早于开始日期。')
+    if (until - start).days > 366: fail(422, '重复范围最长一年，请缩短截止日期。')
+    days = sorted(set(payload.weekdays))
+    dates = [start + timedelta(n) for n in range((until - start).days + 1) if (start + timedelta(n)).isoweekday() in days]
+    if not dates: fail(422, '所选范围内没有符合的日期。')
+    if len(dates) > 60: fail(422, f'将生成 {len(dates)} 条，超过 60 条上限，请缩短范围。')
+    goal = (f'时间：{payload.time_text}\n' if payload.time_text else '') + payload.session_goal
+    rows, confirmed = [], []
+    for day in dates:
+        row = create(db, CalendarSessionCreate(request_id='recurring', activity_type=payload.activity_type, title=payload.title,
+                                               session_goal=goal, planned_date=day), now, confirmed_duplicates=confirmed)
+        confirmed.append(row.id); rows.append(row)
+    return rows, until
+
 def update(db, row, payload, now, entry='user'):
     check(row, 'update', payload.version, entry)
     data = payload.model_dump(exclude_unset=True)

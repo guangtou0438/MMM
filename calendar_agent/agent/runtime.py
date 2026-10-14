@@ -15,6 +15,10 @@ from ..providers.protocol import decision_json
 from .errors import public_error
 from ..core.date_tasks import today
 
+# The page renders answer text as Markdown (tables, lists, bold).
+FORMAT_HINT = ('回答文字会按 Markdown 渲染：对比多天或多项安排时用表格（首列为时间或事项，每天或每项一列，没有内容的格子写「—」），'
+               '步骤和清单用列表，重点用粗体；简短问答直接说话，不要为了格式而加标题。')
+
 TERMINAL = {'completed', 'failed', 'cancelled', 'waiting_for_user'}
 
 
@@ -243,7 +247,7 @@ class Runtime:
                 '根据明确的用户请求使用日历工具；缺少必要的日期、地点或目标时先询问，不凭空编造安排。'
                 '区分任务与安排：需要持续推进的工作是任务，吃饭、出游等活动是安排。'
                 '完成操作后简洁说明实际结果；对于无关的闲聊可简短回应，并在适合时引导到「聊天」页面。'
-            )
+            ) + FORMAT_HINT
             if native:
                 system = (role + '使用用户的语言回复。每轮必须调用一个提供的函数。'
                           '需要操作时调用对应工具；结束时调用 complete_answer；缺少必要信息时调用 request_clarification。'
