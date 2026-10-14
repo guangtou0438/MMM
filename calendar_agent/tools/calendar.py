@@ -2,7 +2,7 @@ from datetime import date
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select, text
-from ..api.calendar_session_schemas import CalendarSessionCreate, SessionUpdate
+from ..api.calendar_session_schemas import CalendarSessionCreate, RecurringTaskCreate, SessionUpdate
 from ..core import date_tasks
 from ..models import CalendarSession
 
@@ -25,7 +25,7 @@ class Update(Target):
 
 
 SCHEMAS = {'read_calendar': ReadCalendar, 'create_task': CalendarSessionCreate,
-           'update_task': Update, 'complete_task': Target, 'archive_task': Target, 'restore_task': Target}
+           'create_recurring_tasks': RecurringTaskCreate, 'update_task': Update, 'complete_task': Target, 'archive_task': Target, 'restore_task': Target}
 
 
 def execute(factory, name, arguments, request_id, version, now):
@@ -46,6 +46,11 @@ def execute(factory, name, arguments, request_id, version, now):
         cached = date_tasks.receipt(db, key, value)
         if cached is not None:
             return cached
+        if name == 'create_recurring_tasks':
+            result = {'tasks': [date_tasks.serialize(r) for r in date_tasks.create_recurring(db, payload, now)]}
+            date_tasks.save_receipt(db, key, value, result, now)
+            db.commit()
+            return result
         if name == 'create_task':
             row = date_tasks.create(db, payload, now)
         else:

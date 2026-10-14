@@ -23,7 +23,8 @@ class Executor:
                 from ..memory.tasks import sync
                 # A memory failure must not misreport an already committed calendar write.
                 try:
-                    sync(self.memory, result)
+                    for task in result.get('tasks', [result]):
+                        sync(self.memory, task)
                 except ValueError:
                     result = result | {'memory_status': 'not_stored'}
             return result
