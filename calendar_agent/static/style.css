@@ -860,3 +860,4 @@ dialog p.muted { margin-top: var(--s2) }
 .tc-pebbles i.steps { width: 16px }
 .tc-pebbles i.arr { width: 5px; background: var(--tc-amber) }
 .tc-pebbles i.done { background: color-mix(in srgb, var(--tc-ink) 22%, transparent) }
+#empty-trash { width: 100%; margin: 4px 0 8px }

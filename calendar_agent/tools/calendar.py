@@ -47,7 +47,9 @@ def execute(factory, name, arguments, request_id, version, now):
         if cached is not None:
             return cached
         if name == 'create_recurring_tasks':
-            result = {'tasks': [date_tasks.serialize(r) for r in date_tasks.create_recurring(db, payload, now)]}
+            rows, until = date_tasks.create_recurring(db, payload, now)
+            result = {'tasks': [date_tasks.serialize(r) for r in rows], 'covered_until': str(until),
+                      'open_ended': payload.until_date is None}
             date_tasks.save_receipt(db, key, value, result, now)
             db.commit()
             return result

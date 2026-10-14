@@ -12,10 +12,10 @@
 <meta name="theme-color" content="#f4f6fd">
 <script src="/static/theme.js?v=4"></script>
 <script src="/static/intro.js?v=1"></script>
-<link rel="stylesheet" href="/static/style.css?v=hue-36">
+<link rel="stylesheet" href="/static/style.css?v=hue-37">
 <script src="/static/mist.js?v=hue-1" defer></script>
 <script src="/static/timecal.js?v=hue-13" defer></script>
-<script src="/static/app.js?v=hue-5" defer></script>
+<script src="/static/app.js?v=hue-6" defer></script>
 <script src="/static/md.js?v=4"></script>
 <script src="/static/agent.js?v=hue-19" defer></script>
 </head>
@@ -66,7 +66,7 @@
     </details>
     <details class="menu-disclosure" name="menu-lists">
       <summary class="menu-item"><span>回收站</span><span class="count" id="trash-count">0</span></summary>
-      <div class="menu-sub"><div id="trash-list" class="task-list"></div></div>
+      <div class="menu-sub"><button type="button" id="empty-trash" class="danger" hidden>清空回收站</button><div id="trash-list" class="task-list"></div></div>
     </details>
     <details class="menu-disclosure" name="menu-lists">
       <summary class="menu-item"><span>原有任务与记录</span></summary>

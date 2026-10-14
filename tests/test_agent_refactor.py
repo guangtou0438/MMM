@@ -181,6 +181,12 @@ class AgentTests(unittest.TestCase):
         with self.assertRaises(Exception):
             executor.execute('create_recurring_tasks', args | {'until_date': '2028-01-01'}, 'rec-2', None)
 
+    def test_recurring_daily_habit_without_end_date(self):
+        result = self.app.state.agent.executor.execute('create_recurring_tasks', {'title': '每日阅读', 'weekdays': [1, 2, 3, 4, 5, 6, 7]}, 'habit', None)
+        dates = [t['planned_date'] for t in result['tasks']]
+        self.assertEqual((dates[0], dates[-1], len(dates)), ('2026-09-06', '2026-10-31', 56))
+        self.assertEqual((result['covered_until'], result['open_ended']), ('2026-10-31', True))
+
     def test_tool_write_idempotency_and_version(self):
         executor = self.app.state.agent.executor
         args = {'title': '合成任务', 'planned_date': '2026-09-07'}

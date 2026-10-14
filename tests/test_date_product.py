@@ -48,6 +48,19 @@ class ProductTests(unittest.TestCase):
         data={'request_id':self.uid(),'content':content,**extra}
         if s:data['version']=s['version']
         return self.client.post('/api/session-chat/'+str(s['id']) if s else '/api/home/chat',json=data)
+    def test_empty_trash_deletes_only_listed_archived_items(self):
+        a=self.action(self.create('清空甲'),'archive').json();b=self.action(self.create('清空乙'),'archive').json()
+        live=self.create('保留丙');url='/api/trash/delete-permanently/confirm'
+        payload={'request_id':self.uid(),'session_ids':[a['id'],b['id'],live['id'],99999]}
+        self.assertEqual(self.client.post(url,json=payload,headers={'X-UI-Action':''}).status_code,403)
+        ui={'X-UI-Action':'permanent-delete'}
+        r=self.client.post(url,json=payload,headers=ui);self.assertEqual(r.status_code,200,r.text)
+        self.assertEqual(r.json(),{'status':'deleted','deleted':[a['id'],b['id']],'skipped':sorted([live['id'],99999])})
+        self.assertEqual(self.client.post(url,json=payload,headers=ui).json(),r.json())
+        home=self.client.get('/api/home').json()
+        self.assertEqual(home['trash'],[]);self.assertEqual([s['id'] for s in home['sessions']],[live['id']])
+        self.assertEqual(self.client.get('/api/sessions/'+str(a['id'])).status_code,404)
+
     def test_trash_permanent_delete_guards_and_replay(self):
         s=self.create('待删除任务')
         url=f'/api/sessions/{s["id"]}/delete-permanently/confirm'
